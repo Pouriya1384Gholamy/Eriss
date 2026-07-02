@@ -1,252 +1,213 @@
-import React from "react";
-import {
-  FaInstagram,
-  FaTelegramPlane,
-  FaWhatsapp,
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-  FaEnvelope,
-  FaShieldAlt,
-  FaTruck,
-  FaUndoAlt,
-  FaHeadset,
-} from "react-icons/fa";
+import { FaInstagram, FaTelegram, FaWhatsapp, FaLinkedin } from "react-icons/fa";
+import { HiShieldCheck } from "react-icons/hi";
+import { MdLocalShipping, MdSupportAgent } from "react-icons/md";
+import { BsAwardFill } from "react-icons/bs";
+
+// ─── Sub-components ────────────────────────────────
+
+const TrustBadge = ({ icon: Icon, title, subtitle, color, isLast }) => (
+  <div
+    className={`flex flex-col items-center gap-1.5 px-3 py-5 text-center
+                ${!isLast ? "border-b md:border-b-0 md:border-l border-[#e8ede4]" : ""}`}
+  >
+    <div className={`w-11 h-11 rounded-full flex items-center justify-center ${color.bg}`}>
+      <Icon className={`text-xl ${color.icon}`} />
+    </div>
+    <p className="text-xs font-bold text-[#2d2d2d] leading-5">{title}</p>
+    <p className="text-[10px] text-gray-400 leading-4">{subtitle}</p>
+  </div>
+);
+
+const FooterLinkColumn = ({ title, links }) => (
+  <div className="flex flex-col gap-2.5">
+    <h4 className="text-sm font-black text-[#2d2d2d] mb-1 border-b border-[#c8d8c0] pb-2">
+      {title}
+    </h4>
+    {links.map((link) => (
+      <a
+        key={link.label}
+        href={link.href}
+        className="text-sm text-gray-500 hover:text-[#7a9e6f] hover:-translate-x-1
+                   transition-all duration-200 w-fit"
+      >
+        {link.label}
+      </a>
+    ))}
+  </div>
+);
+
+const SocialBtn = ({ icon: Icon, href, label }) => (
+  <a
+    href={href}
+    aria-label={label}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-10 h-10 rounded-full flex items-center justify-center
+               border-2 border-[#7a9e6f] text-[#7a9e6f]
+               hover:bg-[#7a9e6f] hover:text-white
+               transition-all duration-300"
+  >
+    <Icon className="text-lg" />
+  </a>
+);
+
+// ─── Data ────────────────────────────────
 
 const trustBadges = [
   {
-    id: 1,
-    icon: <FaShieldAlt className="text-2xl lg:text-3xl" />,
-    title: "پرداخت امن",
-    description: "درگاه پرداخت معتبر و ایمن",
+    icon: MdLocalShipping,
+    title: "ارسال سراسری",
+    subtitle: "به تمام نقاط ایران",
+    color: { bg: "bg-[#eef4eb]", icon: "text-[#7a9e6f]" },
   },
   {
-    id: 2,
-    icon: <FaTruck className="text-2xl lg:text-3xl" />,
-    title: "ارسال مطمئن",
-    description: "تحویل سریع و بسته‌بندی امن",
+    icon: HiShieldCheck,
+    title: "ضمانت اصالت",
+    subtitle: "تضمین کیفیت محصولات",
+    color: { bg: "bg-[#eef4eb]", icon: "text-[#5d8c5a]" },
   },
   {
-    id: 3,
-    icon: <FaUndoAlt className="text-2xl lg:text-3xl" />,
-    title: "ضمانت بازگشت",
-    description: "۷ روز فرصت مرجوعی کالا",
+    icon: MdSupportAgent,
+    title: "پشتیبانی ۲۴/۷",
+    subtitle: "همیشه در کنار شما",
+    color: { bg: "bg-[#eef4eb]", icon: "text-[#7a9e6f]" },
   },
   {
-    id: 4,
-    icon: <FaHeadset className="text-2xl lg:text-3xl" />,
-    title: "پشتیبانی حرفه‌ای",
-    description: "پاسخ‌گویی تخصصی قبل و بعد خرید",
+    icon: BsAwardFill,
+    title: "بیش از ۱۰ سال تجربه",
+    subtitle: "در صنعت چوب ایران",
+    color: { bg: "bg-[#eef4eb]", icon: "text-[#5d8c5a]" },
   },
 ];
 
-const quickLinks = [
-  { label: "صفحه اصلی", href: "/" },
-  { label: "محصولات", href: "/shop" },
-  { label: "وبلاگ", href: "/blog" },
-  { label: "تماس با ما", href: "/contact" },
+const footerColumns = [
+  {
+    title: "دسترسی سریع",
+    links: [
+      { label: "صفحه اصلی", href: "/" },
+      { label: "محصولات", href: "/products" },
+      { label: "درباره ما", href: "/about" },
+      { label: "وبلاگ", href: "/blog" },
+      { label: "تماس با ما", href: "/contact" },
+    ],
+  },
+  {
+    title: "محصولات",
+    links: [
+      { label: "پارکت چوبی", href: "/products/parquet" },
+      { label: "ورق روکش", href: "/products/veneer" },
+      { label: "تخته‌سه‌لا", href: "/products/plywood" },
+      { label: "MDF و HDF", href: "/products/mdf" },
+      { label: "چوب سازه‌ای", href: "/products/structural" },
+    ],
+  },
+  {
+    title: "خدمات",
+    links: [
+      { label: "مشاوره رایگان", href: "/services/consultation" },
+      { label: "برش و پردازش", href: "/services/cutting" },
+      { label: "حمل و نصب", href: "/services/installation" },
+      { label: "گارانتی محصولات", href: "/services/warranty" },
+    ],
+  },
 ];
 
-const serviceLinks = [
-  { label: "سفارش اختصاصی", href: "/custom" },
-  { label: "خدمات کارگاهی", href: "/workshop" },
-  { label: "برش و حک لیزر", href: "/laser" },
-  { label: "خرید عمده", href: "/bulk" },
+const socialLinks = [
+  { icon: FaInstagram, href: "https://instagram.com", label: "اینستاگرام" },
+  { icon: FaTelegram,  href: "https://t.me",          label: "تلگرام"     },
+  { icon: FaWhatsapp, href: "https://wa.me",           label: "واتساپ"     },
+  { icon: FaLinkedin, href: "https://linkedin.com",    label: "لینکدین"    },
 ];
 
-function Footer() {
+// ─── Main Footer ────────────────────────────────
+
+export default function Footer() {
   return (
-    <footer
-      dir="rtl"
-      className="mt-16 bg-[var(--brand-charcoal)] text-[var(--brand-ivory)] border-t border-[var(--brand-taupe)]/20"
-    >
-      {/* Trust Badges */}
-      <section className="border-b border-white/5 bg-black/20">
-        <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-6 lg:px-8">
-          {/* 
-            موبایل: 2 ستون
-            دسکتاپ: 4 ستون
-          */}
-          <div className="grid grid-cols-2 lg:grid-cols-4">
-            {trustBadges.map((badge, index) => {
-              const isLeftColumn = index % 2 === 0;
-              const isTopRow = index < 2;
+    <footer className="w-full bg-[#f5f0e8] font-vazir" dir="rtl">
 
-              return (
-                <div
-                  key={badge.id}
-                  className={`
-                    flex flex-col items-center justify-center gap-3 px-3 py-5 text-center
-                    sm:flex-row sm:justify-start sm:text-right sm:gap-4
-                    border-[var(--brand-taupe)]/20
-                    ${isLeftColumn ? "border-l" : ""}
-                    ${!isTopRow ? "border-b-0" : "border-b"}
-                    lg:border-b-0
-                    lg:border-l
-                    last:border-l-0
-                  `}
-                >
-                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white/5 text-[var(--brand-gold)] shadow-inner transition-all duration-300 group-hover:bg-[var(--brand-gold)] group-hover:text-[var(--brand-charcoal)]">
-                    {badge.icon}
-                  </div>
-
-                  <div className="space-y-1">
-                    <h4 className="text-[13px] font-bold leading-tight text-white sm:text-sm lg:text-base">
-                      {badge.title}
-                    </h4>
-                    <p className="text-[10px] leading-relaxed text-[var(--brand-taupe)]/80 sm:text-xs lg:text-sm">
-                      {badge.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Main Footer */}
-      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-        {/* Brand */}
-        <div className="space-y-6">
-          <div>
-            <h2 className="text-2xl font-black tracking-tight text-white">
-              اریس <span className="text-[var(--brand-gold)]">وود</span>
-            </h2>
-            <p className="mt-3 text-sm leading-8 text-[var(--brand-taupe)]/90 text-justify">
-              برند تخصصی تولید محصولات چوبی دست‌ساز با طراحی مینیمال،
-              متریال اصیل و کیفیت ساخت بالا. ترکیب هنر، دقت و اصالت برای
-              خانه‌های گرم و ماندگار.
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-all duration-300 hover:border-[var(--brand-gold)] hover:bg-[var(--brand-gold)] hover:text-[var(--brand-charcoal)]"
-            >
-              <FaInstagram />
-            </a>
-            <a
-              href="#"
-              aria-label="Telegram"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-all duration-300 hover:border-[var(--brand-gold)] hover:bg-[var(--brand-gold)] hover:text-[var(--brand-charcoal)]"
-            >
-              <FaTelegramPlane />
-            </a>
-            <a
-              href="#"
-              aria-label="Whatsapp"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-all duration-300 hover:border-[var(--brand-gold)] hover:bg-[var(--brand-gold)] hover:text-[var(--brand-charcoal)]"
-            >
-              <FaWhatsapp />
-            </a>
-          </div>
-        </div>
-
-        {/* Quick Links */}
-        <div className="space-y-6">
-          <h3 className="border-r-4 border-[var(--brand-gold)] pr-3 text-lg font-bold text-white">
-            دسترسی سریع
-          </h3>
-          <ul className="space-y-4">
-            {quickLinks.map((item) => (
-              <li key={item.label}>
-                <a
-                  href={item.href}
-                  className="flex items-center gap-2 text-sm text-[var(--brand-taupe)] transition-colors hover:text-[var(--brand-gold)]"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-gold)]/40" />
-                  {item.label}
-                </a>
-              </li>
+      {/* ── Trust Badges ── */}
+      <div className="w-full px-4 pt-6 flex justify-center">
+        <div
+          className="w-full max-w-4xl bg-white rounded-[20px] shadow-md
+                     border border-[#c8d8c0] mx-auto"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {trustBadges.map((badge, i) => (
+              <TrustBadge
+                key={badge.title}
+                {...badge}
+                isLast={i === trustBadges.length - 1}
+              />
             ))}
-          </ul>
-        </div>
-
-        {/* Services */}
-        <div className="space-y-6">
-          <h3 className="border-r-4 border-[var(--brand-gold)] pr-3 text-lg font-bold text-white">
-            خدمات ما
-          </h3>
-          <ul className="space-y-4">
-            {serviceLinks.map((item) => (
-              <li key={item.label}>
-                <a
-                  href={item.href}
-                  className="flex items-center gap-2 text-sm text-[var(--brand-taupe)] transition-colors hover:text-[var(--brand-gold)]"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-gold)]/40" />
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Contact */}
-        <div className="space-y-6">
-          <h3 className="border-r-4 border-[var(--brand-gold)] pr-3 text-lg font-bold text-white">
-            ارتباط با ما
-          </h3>
-
-          <div className="space-y-4 text-sm text-[var(--brand-taupe)]">
-            <div className="flex items-start gap-3">
-              <FaMapMarkerAlt className="mt-1 text-[var(--brand-gold)]" />
-              <p className="leading-7">
-                تهران، شهرک صنعتی خاوران، بازار چوب ایران، اریس وود
-              </p>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <FaPhoneAlt className="text-[var(--brand-gold)]" />
-              <a
-                href="tel:09300000000"
-                className="transition-colors hover:text-white"
-              >
-                ۰۹۳۰ ۰۰۰ ۰۰۰۰
-              </a>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <FaEnvelope className="text-[var(--brand-gold)]" />
-              <a
-                href="mailto:info@eriswood.com"
-                className="transition-colors hover:text-white"
-              >
-                info@eriswood.com
-              </a>
-            </div>
           </div>
         </div>
       </div>
 
-      {/* Trust Logos */}
-      <section className="border-t border-white/5 bg-black/30 py-8">
-        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-center gap-6 px-4 sm:px-6 lg:px-8">
-          {["enamad", "samandehi", "payment"].map((img) => (
-            <div key={img} className="group relative">
-              <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[var(--brand-gold)] to-transparent opacity-20 blur transition duration-500 group-hover:opacity-40" />
-              <div className="relative flex h-24 w-24 items-center justify-center rounded-xl bg-white p-2 shadow-xl">
-                <img
-                  src={`/images/${img}.png`}
-                  alt={img}
-                  className="max-h-full object-contain grayscale transition-all duration-300 hover:grayscale-0"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ── Main Content ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-10 pb-6">
 
-      {/* Copyright */}
-      <div className="border-t border-white/5 bg-black/40 py-6">
-        <p className="text-center text-[10px] uppercase tracking-widest text-[var(--brand-taupe)]/60 md:text-xs">
-          © 2026 ERIS WOOD STUDIO — Handcrafted with Passion
+        {/* Brand + Links */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+
+          <div className="md:col-span-1 space-y-4">
+            <div>
+              <h2 className="text-xl font-black text-[#2d2d2d] mb-2">اریس وود</h2>
+              <p className="text-sm text-gray-500 leading-7">
+                بیش از یک دهه تجربه در تأمین و عرضه انواع چوب طبیعی و مصنوعی
+                با بالاترین استانداردهای کیفی برای مشتریان سراسر ایران.
+              </p>
+            </div>
+            <div className="flex items-center gap-3 flex-wrap">
+              {socialLinks.map((s) => (
+                <SocialBtn key={s.label} {...s} />
+              ))}
+            </div>
+          </div>
+
+          <div className="md:col-span-3 grid grid-cols-2 sm:grid-cols-3 gap-6">
+            {footerColumns.map((col) => (
+              <FooterLinkColumn key={col.title} {...col} />
+            ))}
+          </div>
+        </div>
+
+        {/* ── Bottom Row ── */}
+        <div
+          className="flex flex-col sm:flex-row items-center justify-between
+                     gap-6 border-t border-[#c8d8c0] pt-6"
+        >
+          <div className="flex items-center gap-3">
+            {["نماد اعتماد", "ساماندهی"].map((text) => (
+              <div
+                key={text}
+                className="w-16 h-20 rounded-xl bg-white border border-[#c8d8c0]
+                           flex items-center justify-center text-[10px] text-gray-400
+                           shadow-sm text-center px-1"
+              >
+                {text}
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center text-sm text-gray-500 leading-7">
+            <p>
+              تهران، خیابان ولیعصر، پلاک ۱۲۳ &nbsp;|&nbsp; تلفن:{" "}
+              <span className="text-[#7a9e6f] font-bold">۰۲۱-۸۸۱۲۳۴۵۶</span>
+            </p>
+            <p>
+              ایمیل:{" "}
+              <a href="mailto:info@ariswood.ir" className="text-[#7a9e6f] hover:underline">
+                info@ariswood.ir
+              </a>
+            </p>
+          </div>
+        </div>
+
+        {/* ── Copyright ── */}
+        <p className="text-center text-xs text-gray-400 mt-6">
+          © ۱۴۰۵ اریس وود — تمامی حقوق محفوظ است.
         </p>
       </div>
     </footer>
   );
 }
-
-export default Footer;

@@ -14,30 +14,22 @@
   
   --animate-morph: border-transform 6s linear infinite alternate forwards;
 
-/* رنگ‌های اصلی برند بر اساس عکس */
-   --brand-charcoal: #2B2B2B; /* زغالی */
-  --brand-ivory: #F3EBDD;    /* عاجی گرم */
-  --brand-taupe: #A08F7A;    /* تاپ (خاکی/بژ تیره) */
-  --brand-gold: #B08D57;     /* طلایی مات */
+  --color-background: #FDFCFA;
 
-  /* نگاشت متغیرهای عمومی به پالت جدید */
-  --color-primary: var(--brand-charcoal);   /* دکمه در حالت هاور (زغالی) */
-  --color-secondary: var(--brand-taupe);   /* دکمه در حالت عادی (تاپ/خاکی) */
-  --color-accent: var(--brand-gold);       /* رنگ طلایی برای ستاره‌ها و جزئیات خاص */
-  --color-p-text: #FFFFFF;       /* رنگ طلایی برای جلب توجه */
-  
-  /* رنگ‌های لایه‌بندی و بخش‌های مختلف */
-  --color-first: #FDFCFA;                  /* مایل به سفید برای داخل کارت‌ها */
-  --color-sixeth: #E6DED1;                 /* یک درجه تیره‌تر از ivory برای مرزبندی */
+  --color-primary: #9EAD8C;
+  --color-secondary: #8A9A7B;
+  --color-third: #D9D9D9;
+  --color-fourth: #FBEAEA;
+  --color-fiveth: #FBF9F9;
+  --color-sixeth: #F4F1EA;
+  --color-first: #FDFCFA;
 
-  /* مدیریت متون (Typography) */
-  --color-text: var(--brand-charcoal);     /* متن‌ها نباید مشکی مطلق باشند، زغالی عالیه */
-  --color-text-muted: #6B5E4C;             /* رنگ متن کم‌اهمیت‌تر (نزدیک به خانواده Taupe) */
-  --color-p-text: #FFFFFF;                 /* برای متن روی دکمه‌های تیره */
-  --color-text-import: var(--brand-gold);  /* برای هایلایت‌های مهم مثل قیمت */
+  --color-text: #000000;
+  --color-text-muted: #5E5151;
+  --color-p-text: #FFFDFD;
+  --color-text-import: #9EAD8C;
 
-  /* حاشیه‌ها */
-  --color-border: var(--brand-taupe);
+  --color-border: #9EAD8C;
 
   --font-main: "Vazir", sans-serif;
 

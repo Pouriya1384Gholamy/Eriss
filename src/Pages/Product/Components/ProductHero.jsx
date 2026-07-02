@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import Slider from "../../../Components/ui/Slider"
 import { products } from '../../../data/products'
 import { GiWoodBeam } from "react-icons/gi";
-import { FaStar, FaTelegram, FaWhatsapp, FaInstagram, FaShoppingBag, FaTimes } from "react-icons/fa"; 
+import { FaStar, FaTelegram, FaWhatsapp, FaInstagram, FaShoppingBag, FaTimes, FaTrash } from "react-icons/fa"; 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { MdOutlinePriceChange } from "react-icons/md";
 import { HiOutlineTrash } from "react-icons/hi";
@@ -18,27 +18,20 @@ function ProductHero() {
   const [isBulk, setIsBulk] = useState(false)
   const [isCartOpen, setIsCartOpen] = useState(false)
 
-  // مدیریت سبد خرید پایدار (Persistent Cart)
+  // 🔥 مدیریت سبد خرید پایدار (Persistent Cart)
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem('eriss_cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
 
-  // حل مشکل شروع مجدد از ۱ هنگام تعویض محصول
-  useEffect(() => {
-    setCount(1);
-    setIsBulk(false);
-  }, [id]);
-
-  // ذخیره خودکار تغییرات سبد خرید در LocalStorage و اطلاع‌رسانی به هدر
+  // 🔥 ذخیره خودکار تغییرات سبد خرید در LocalStorage
   useEffect(() => {
     localStorage.setItem('eriss_cart', JSON.stringify(cartItems));
-    window.dispatchEvent(new Event("eriss_cart_updated"));
   }, [cartItems]);
 
   if (!product) return (
     <div className="flex justify-center items-center min-h-[400px]">
-      <p className="text-xl text-[var(--brand-charcoal)]/60 font-bold">محصول پیدا نشد</p>
+      <p className="text-xl text-gray-500">محصول پیدا نشد</p>
     </div>
   )
 
@@ -68,7 +61,7 @@ function ProductHero() {
     return price
   }
 
-  // افزودن به سبد خرید
+  // 🛠️ افزودن به سبد خرید
   const addToCart = () => {
     const finalPrice = getPrice();
     setCartItems(prevItems => {
@@ -83,12 +76,12 @@ function ProductHero() {
     setIsCartOpen(true);
   };
 
-  // حذف محصول از سبد خرید
+  // 🛠️ حذف محصول از سبد خرید
   const removeFromCart = (productId) => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
   };
 
-  // تغییر تعداد یک محصول مستقیماً از داخل سبد خرید
+  // 🛠️ تغییر تعداد یک محصول مستقیماً از داخل سبد خرید
   const updateCartItemQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) return;
     setCartItems(prevItems =>
@@ -102,87 +95,55 @@ function ProductHero() {
   const totalCartPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   return (
-    <section className='max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-6 sm:py-10 relative' dir="rtl">
+    <section className='max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 sm:py-6 relative' dir="rtl">
       
       {/* 🛒 ══════════════ SIDE CART MENU ══════════════ */}
-      {/* لایه تاریک پشت منو با رنگ برند */}
+      {/* لایه تاریک پشت منو */}
       <div 
-        className={`fixed inset-0 z-[100] bg-[var(--brand-charcoal)]/60 transition-opacity duration-300 ${isCartOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 z-[100] bg-black/40 transition-opacity duration-300 ${isCartOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setIsCartOpen(false)}
       />
 
       {/* بدنه منوی سبد خرید */}
       <div className={`fixed top-0 left-0 h-full w-[320px] sm:w-[380px] bg-white z-[101] shadow-2xl transform transition-transform duration-500 ease-out flex flex-col ${isCartOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-        
-        {/* هدر سبد خرید - ترکیب زغالی و طلایی برند */}
-        <div className="p-5 border-b border-[var(--brand-taupe)]/20 flex items-center justify-between bg-[var(--brand-charcoal)] text-white">
+        {/* هدر */}
+        <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
           <div className="flex items-center gap-2">
-            <FaShoppingBag className="text-[var(--brand-gold)]" size={18} />
-            <h2 className="text-base sm:text-lg font-black tracking-wide">سبد خرید ({cartItems.length})</h2>
+            <FaShoppingBag className="text-primary" />
+            <h2 className="text-lg font-black text-stone-800">سبد خرید ({cartItems.length})</h2>
           </div>
-          <button 
-            onClick={() => setIsCartOpen(false)} 
-            className="p-2 hover:bg-white/10 hover:text-[var(--brand-gold)] rounded-full transition-all flex items-center gap-1.5 text-xs font-bold text-gray-300"
-          >
+          <button onClick={() => setIsCartOpen(false)} className="p-2 hover:bg-red-50 hover:text-red-500 rounded-full transition-colors flex items-center gap-1 text-xs font-bold text-stone-400">
             بستن <FaTimes />
           </button>
         </div>
 
-        {/* محتوای سبد خرید */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-[var(--brand-ivory)]/25">
+        {/* محتوای سبد */}
+        <div className="flex-1 overflow-y-auto p-5 space-y-4">
           {cartItems.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-64 text-center">
-              <FaShoppingBag size={40} className="text-[var(--brand-taupe)]/40 mb-3" />
-              <p className="text-sm font-bold text-[var(--brand-charcoal)]/50">سبد خرید شما خالی است</p>
-            </div>
+            <p className="text-center text-stone-400 mt-10">سبد خرید شما خالی است</p>
           ) : (
             cartItems.map((item) => (
-              <div 
-                key={item.id} 
-                className="flex gap-3 p-3.5 rounded-2xl border border-[var(--brand-taupe)]/20 bg-white shadow-sm relative group hover:border-[var(--brand-gold)]/40 transition-colors"
-              >
-                {/* دکمه حذف محصول با رنگ برند */}
+              <div key={item.id} className="flex gap-4 p-4 rounded-2xl border border-stone-100 bg-white shadow-sm relative group">
                 <button 
                   onClick={() => removeFromCart(item.id)}
-                  className='absolute top-2 left-3 text-[var(--brand-taupe)] hover:text-red-500 transition-colors'
-                  title="حذف از سبد"
+                  className='absolute top-2 left-3.5 text-stone-300 hover:text-red-500 transition-colors'
                 >
-                  <HiOutlineTrash size={17} />
+                  <HiOutlineTrash size={18} />
                 </button>
-
-                {/* تصویر محصول */}
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl bg-[var(--brand-ivory)] overflow-hidden flex-shrink-0 border border-[var(--brand-taupe)]/10">
+                <div className="w-20 h-20 rounded-xl bg-stone-100 overflow-hidden flex-shrink-0">
                   <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                 </div>
-
-                {/* جزئیات محصول در سبد */}
-                <div className="flex-1 min-w-0 flex flex-col justify-between">
-                  <h3 className="text-xs sm:text-sm font-bold text-[var(--brand-charcoal)] truncate pr-4">{item.title}</h3>
-                  
-                  <div className="flex items-center justify-between mt-2.5">
-                    {/* شمارنده تعداد داخل سبد */}
-                    <div className="flex items-center gap-2.5 bg-[var(--brand-ivory)] px-2 py-0.5 rounded-lg border border-[var(--brand-taupe)]/20">
-                      <button 
-                        onClick={() => updateCartItemQuantity(item.id, item.quantity + 1)} 
-                        className="text-[var(--brand-charcoal)] hover:text-[var(--brand-gold)] font-bold text-sm"
-                      >
-                        +
-                      </button>
-                      <span className="text-xs font-black text-[var(--brand-charcoal)]">{item.quantity}</span>
-                      <button 
-                        onClick={() => updateCartItemQuantity(item.id, item.quantity - 1)} 
-                        className="text-[var(--brand-charcoal)] hover:text-[var(--brand-gold)] font-bold text-sm"
-                      >
-                        −
-                      </button>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-sm font-bold text-stone-800 truncate pr-4">{item.title}</h3>
+                  <div className="flex items-center justify-between mt-3">
+                    <div className="flex items-center gap-3 bg-stone-50 px-2 py-1 rounded-lg">
+                      <button onClick={() => updateCartItemQuantity(item.id, item.quantity + 1)} className="text-stone-400 hover:text-stone-750">+</button>
+                      <span className="text-xs font-black">{item.quantity}</span>
+                      <button onClick={() => updateCartItemQuantity(item.id, item.quantity - 1)} className="text-stone-400 hover:text-stone-755">−</button>
                     </div>
-
-                    {/* قیمت نهایی آیتم */}
                     <div className="text-left">
-                      <span className="text-xs sm:text-sm font-black text-[var(--brand-gold)]">
-                        {(item.price * item.quantity).toLocaleString('fa-IR')}
-                      </span>
-                      <span className="text-[10px] text-[var(--brand-taupe)] mr-0.5">تومان</span>
+                      <span className="text-sm font-black text-primary">{(item.price * item.quantity).toLocaleString('fa-IR')}</span>
+                      <span className="text-[10px] text-stone-400 mr-1">تومان</span>
                     </div>
                   </div>
                 </div>
@@ -192,164 +153,118 @@ function ProductHero() {
         </div>
 
         {/* فوتر سبد خرید */}
-        <div className="p-6 border-t border-[var(--brand-taupe)]/20 bg-[var(--brand-ivory)]/60">
-          <div className="flex items-center justify-between mb-5">
-            <span className="text-xs sm:text-sm font-bold text-[var(--brand-charcoal)]/80">جمع کل سبد:</span>
+        <div className="p-6 border-t border-gray-100 bg-gray-50/30">
+          <div className="flex items-center justify-between mb-6">
+            <span className="text-sm font-bold text-stone-500">مجموع:</span>
             <div className="text-left">
-              <span className="text-xl sm:text-2xl font-black text-[var(--brand-gold)]">
-                {totalCartPrice.toLocaleString('fa-IR')}
-              </span>
-              <span className="text-xs text-[var(--brand-taupe)] mr-1">تومان</span>
+              <span className="text-2xl font-black text-primary">{totalCartPrice.toLocaleString('fa-IR')}</span>
+              <span className="text-xs text-stone-400 mr-1">تومان</span>
             </div>
           </div>
-          <button 
-            disabled={cartItems.length === 0} 
-            className="w-full py-3.5 bg-[var(--brand-gold)] text-[var(--brand-charcoal)] hover:bg-[var(--brand-charcoal)] hover:text-white rounded-xl font-bold text-sm shadow-md transition-all duration-300 disabled:bg-gray-200 disabled:text-gray-400 disabled:cursor-not-allowed"
-          >
+          <button disabled={cartItems.length === 0} className="w-full py-4 bg-[#9EAD8C] text-white rounded-2xl font-bold text-sm shadow-lg hover:bg-[#8A9B78] transition-all disabled:bg-stone-300">
             تکمیل سفارش و تسویه حساب
           </button>
         </div>
       </div>
 
-      {/* ══════════════ MAIN CONTENT ══════════════ */}
-      <div className='flex flex-col lg:flex-row gap-6'>
+      {/* ══════════════ MAIN CONTENT (کد اصلی شما بدون تغییر) ══════════════ */}
+      <div className='flex flex-col lg:flex-row gap-4 lg:gap-6'>
         
         {/* اسلایدر */}
         <article className='w-full lg:w-[42%] xl:w-[40%]'>
-          <div className="sticky top-4 bg-white rounded-3xl border border-[var(--brand-taupe)]/20 shadow-md overflow-hidden">
+          <div className="sticky top-4 bg-white rounded-2xl shadow-lg overflow-hidden">
             <Slider />
           </div>
         </article>
 
         {/* اطلاعات محصول */}
         <article className='w-full lg:w-[58%] xl:w-[60%]'>
-          <div className='bg-white rounded-3xl border border-[var(--brand-taupe)]/20 shadow-md overflow-hidden'>
+          <div className='bg-white rounded-2xl shadow-lg overflow-hidden'>
             
-            <div className='p-5 sm:p-6 lg:p-7'>
+            <div className='p-4 sm:p-5 lg:p-6'>
               <div className='flex justify-between items-start gap-3'>
-                <h1 className='text-lg sm:text-xl font-bold text-[var(--brand-charcoal)] flex-1 leading-relaxed'>{product.title}</h1>
-                <GiWoodBeam className="flex-shrink-0 mt-1 text-[var(--brand-gold)]" size={26} />
+                <h1 className='text-base sm:text-lg md:text-xl font-bold text-gray-800 flex-1 leading-relaxed'>{product.title}</h1>
+                <GiWoodBeam className="flex-shrink-0 mt-1" color="#9EAD8C" size={24} />
               </div>
 
-              <div className='border-b border-[var(--brand-taupe)]/25 my-4'></div>
+              <div className='border-b border-gray-200 my-3'></div>
 
-              <div className='flex flex-wrap items-center gap-3'>
+              <div className='flex flex-wrap items-center gap-2 sm:gap-3'>
                 <div className="flex items-center gap-1">
                   {Array.from({ length: 5 }).map((_, index) => (
-                    <FaStar key={index} size={14} className={index < product.rating ? "text-[var(--brand-gold)]" : "text-[var(--brand-taupe)]/30"} />
+                    <FaStar key={index} size={15} className={index < product.rating ? "text-yellow-400" : "text-gray-200"} />
                   ))}
-                  <span className="text-xs text-[var(--brand-taupe)] mr-1">({product.rating || 0})</span>
+                  <span className="text-xs text-gray-500 mr-1">({product.rating || 0})</span>
                 </div>
-                <span className={`text-xs font-semibold px-3 py-1 rounded-full ${product.stockStatus === 'موجود' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                <span className={`text-xs font-medium px-3 py-1 rounded-full ${product.stockStatus === 'موجود' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                   {product.stockStatus || 'موجود'}
                 </span>
               </div>
 
-              <div className='mt-5'>
-                <span className='text-xs text-[var(--brand-taupe)] font-bold'>توضیحات کوتاه</span>
-                <p className='text-sm text-[var(--brand-charcoal)]/80 leading-relaxed mt-1.5 line-clamp-3'>{product.description}</p>
+              <div className='mt-4'>
+                <span className='text-xs text-gray-400 font-medium'>توضیحات کوتاه</span>
+                <p className='text-sm text-gray-700 leading-relaxed mt-1 line-clamp-3'>{product.description}</p>
               </div>
 
-              <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 mt-5 pt-5 border-t border-[var(--brand-taupe)]/20'>
-                <div className="flex items-center gap-2">
-                  <span className='text-xs text-[var(--brand-taupe)]'>شناسه محصول :</span>
-                  <span className='text-sm text-[var(--brand-charcoal)] font-semibold'>{product.shareCode}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className='text-xs text-[var(--brand-taupe)]'>آخرین بروزرسانی :</span>
-                  <span className='text-sm text-[var(--brand-charcoal)] font-semibold'>{product.publishDate}</span>
-                </div>
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-2 mt-4 pt-4 border-t border-gray-100'>
+                <div className="flex items-center gap-2"><span className='text-xs text-gray-400'>شناسه محصول :</span><span className='text-sm text-primary font-semibold'>{product.shareCode}</span></div>
+                <div className="flex items-center gap-2"><span className='text-xs text-gray-400'>آخرین بروزرسانی :</span><span className='text-sm text-primary font-semibold'>{product.publishDate}</span></div>
               </div>
 
-              <div className="flex items-center gap-3 mt-5 pt-5 border-t border-[var(--brand-taupe)]/20">
-                <span className='text-xs text-[var(--brand-taupe)] font-bold'>اشتراک گذاری :</span>
+              <div className="flex items-center gap-3 mt-4 pt-4 border-t border-gray-100">
+                <span className='text-xs text-gray-400 font-medium'>اشتراک گذاری :</span>
                 <div className="flex gap-2">
-                  <button onClick={() => shareProduct('telegram')} className="p-1.5 bg-[var(--brand-ivory)] hover:bg-[var(--brand-gold)]/20 rounded-full transition-all duration-300 hover:scale-110"><FaTelegram className="text-[#26A5E4] text-base" /></button>
-                  <button onClick={() => shareProduct('whatsapp')} className="p-1.5 bg-[var(--brand-ivory)] hover:bg-[var(--brand-gold)]/20 rounded-full transition-all duration-300 hover:scale-110"><FaWhatsapp className="text-[#25D366] text-base" /></button>
-                  <button onClick={() => shareProduct('instagram')} className="p-1.5 bg-[var(--brand-ivory)] hover:bg-[var(--brand-gold)]/20 rounded-full transition-all duration-300 hover:scale-110"><FaInstagram className="text-[#E4405F] text-base" /></button>
+                  <button onClick={() => shareProduct('telegram')} className="p-1.5 bg-green-50 hover:bg-green-100 rounded-full transition-all duration-300 hover:scale-110"><FaTelegram className="text-[#26A5E4] text-lg" /></button>
+                  <button onClick={() => shareProduct('whatsapp')} className="p-1.5 bg-green-50 hover:bg-green-100 rounded-full transition-all duration-300 hover:scale-110"><FaWhatsapp className="text-[#25D366] text-lg" /></button>
+                  <button onClick={() => shareProduct('instagram')} className="p-1.5 bg-pink-50 hover:bg-pink-100 rounded-full transition-all duration-300 hover:scale-110"><FaInstagram className="text-[#E4405F] text-lg" /></button>
                 </div>
               </div>
             </div>
 
-            {/* بخش قیمت و اکشن خرید با پس‌زمینه عاجی برند */}
-            <div className='bg-[var(--brand-ivory)]/40 p-5 sm:p-6 lg:p-7 border-t border-[var(--brand-taupe)]/20'>
+            <div className='bg-gradient-to-br from-gray-50 to-white p-4 sm:p-5 lg:p-6 border-t border-gray-200'>
               
               <div className='flex items-center gap-2 mb-4'>
-                <FaShoppingBag className='text-[var(--brand-gold)] text-lg' />
-                <p className='text-sm text-[var(--brand-charcoal)] font-bold'>خرید اینترنتی از فروشگاه اریس وود</p>
+                <FaShoppingBag className='text-primary text-lg' />
+                <p className='text-sm text-primary font-medium'>خرید اینترنتی از فروشگاه اریس وود</p>
               </div>
-              <div className='border-b border-[var(--brand-taupe)]/20 mb-5'></div>
+              <div className='border-b border-gray-200 mb-4'></div>
 
-              <div className='grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-5'>
-                <div className="flex items-center gap-2"><span className='text-xs text-[var(--brand-taupe)]'>ابعاد :</span><span className='text-sm font-semibold text-[var(--brand-charcoal)]'>{formatDimensions(product.dimensions)}</span></div>
-                <div className="flex items-center gap-2"><span className='text-xs text-[var(--brand-taupe)]'>زمان آماده‌سازی :</span><span className='text-sm font-semibold text-[var(--brand-charcoal)]'>{product.prepTime || '---'}</span></div>
-                <div className="flex items-center gap-2"><span className='text-xs text-[var(--brand-taupe)]'>گارانتی :</span><span className='text-sm font-semibold text-[var(--brand-charcoal)]'>{product.guarantee || '---'}</span></div>
-                <div className="flex items-center gap-2">
-                  <span className='text-xs text-[var(--brand-taupe)]'>رنگ‌ها :</span>
+              <div className='grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4'>
+                <div className="flex items-center gap-2"><span className='text-xs text-gray-400'>ابعاد :</span><span className='text-sm font-medium text-gray-700'>{formatDimensions(product.dimensions)}</span></div>
+                <div className="flex items-center gap-2"><span className='text-xs text-gray-400'>زمان آماده‌سازی :</span><span className='text-sm font-medium text-gray-700'>{product.prepTime || '---'}</span></div>
+                <div className="flex items-center gap-2"><span className='text-xs text-gray-400'>گارانتی :</span><span className='text-sm font-medium text-gray-700'>{product.guarantee || '---'}</span></div>
+                <div className="flex items-center gap-2"><span className='text-xs text-gray-400'>رنگ‌ها :</span>
                   <div className="flex gap-1.5">
                     {Array.isArray(product.colors) && product.colors.map((color, index) => (
-                      <button 
-                        key={index} 
-                        onClick={() => setSelectedColor(index)} 
-                        className={`w-5.5 h-5.5 rounded-full border-2 transition-transform ${selectedColor === index ? 'border-[var(--brand-gold)] scale-110' : 'border-[var(--brand-taupe)]/40'}`} 
-                        style={{ backgroundColor: color }} 
-                      />
+                      <button key={index} onClick={() => setSelectedColor(index)} className={`w-6 h-6 rounded-full border-2 ${selectedColor === index ? 'border-primary' : 'border-gray-300'}`} style={{ backgroundColor: color }} />
                     ))}
                   </div>
                 </div>
               </div>
 
-              {/* کادر شیک قیمت با بوردر طلایی خیلی ظریف */}
-              <div className='flex items-center justify-between bg-white p-3.5 rounded-2xl shadow-sm border border-[var(--brand-gold)]/20 mb-5'>
-                <div className="flex items-center gap-2">
-                  <MdOutlinePriceChange className="text-[var(--brand-gold)] text-xl" />
-                  <span className='text-xs text-[var(--brand-taupe)] font-bold'>قیمت نهایی :</span>
-                </div>
-                <div className="text-left">
-                  <span className='text-xl font-black text-[var(--brand-charcoal)]'>{getPrice().toLocaleString('fa-IR')}</span>
-                  <span className='text-xs text-[var(--brand-taupe)] mr-1'>تومان</span>
-                </div>
+              <div className='flex items-center justify-between bg-white p-3 rounded-xl shadow-sm border border-gray-100 mb-4'>
+                <div className="flex items-center gap-2"><MdOutlinePriceChange className="text-primary text-xl" /><span className='text-xs text-gray-400'>قیمت :</span></div>
+                <div className="text-left"><span className='text-xl font-bold text-primary'>{getPrice().toLocaleString()}</span><span className='text-sm text-gray-400 mr-1'>تومان</span></div>
               </div>
 
-              {/* چک‌باکس خرید عمده */}
-              <div className='flex items-center gap-3 mb-5 p-3.5 bg-white rounded-xl border border-[var(--brand-taupe)]/20'>
-                <input 
-                  type="checkbox" 
-                  id="bulkPurchase" 
-                  className="w-4 h-4 text-[var(--brand-gold)] border-[var(--brand-taupe)] rounded focus:ring-[var(--brand-gold)]" 
-                  checked={isBulk} 
-                  onChange={() => setIsBulk(!isBulk)} 
-                />
-                <label htmlFor="bulkPurchase" className='text-xs sm:text-sm text-[var(--brand-charcoal)] cursor-pointer select-none font-bold'>
-                  خرید به صورت عمده (همراه با تخفیف ویژه)
-                </label>
+              <div className='flex items-center gap-3 mb-4 p-2 bg-blue-50/50 rounded-lg border border-blue-100'>
+                <input type="checkbox" id="bulkPurchase" className="sr-only peer" checked={isBulk} onChange={() => setIsBulk(!isBulk)} />
+                <label htmlFor="bulkPurchase" className='text-sm text-gray-700 cursor-pointer select-none font-medium'>خرید به صورت عمده</label>
               </div>
 
-              {/* کنترل تعداد و دکمه اصلی خرید */}
-              <div className='flex flex-col sm:flex-row items-center gap-4'>
-                <div className='flex items-center border-2 border-[var(--brand-taupe)]/30 rounded-xl overflow-hidden bg-white shadow-sm flex-shrink-0'>
-                  <button 
-                    className='w-10 h-10 bg-gray-50 hover:bg-[var(--brand-ivory)] text-[var(--brand-charcoal)] transition-colors flex items-center justify-center' 
-                    onClick={decreaseCount} 
-                    disabled={count <= 1}
-                  >
-                    <AiOutlineMinus size={16} />
-                  </button>
-                  <span className='w-12 text-center font-black text-[var(--brand-charcoal)] text-base'>{count}</span>
-                  <button 
-                    className='w-10 h-10 bg-gray-50 hover:bg-[var(--brand-ivory)] text-[var(--brand-charcoal)] transition-colors flex items-center justify-center' 
-                    onClick={increaseCount} 
-                    disabled={count >= (product.stock || 10)}
-                  >
-                    <AiOutlinePlus size={16} />
-                  </button>
+              <div className='flex flex-col sm:flex-row items-center gap-3'>
+                <div className='flex items-center border-2 border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm flex-shrink-0'>
+                  <button className='w-10 h-10 bg-gray-50 hover:bg-gray-100 text-gray-600 transition-all duration-200 flex items-center justify-center' onClick={decreaseCount} disabled={count <= 1}><AiOutlineMinus size={18} /></button>
+                  <span className='w-14 text-center font-bold text-gray-800 text-lg'>{count}</span>
+                  <button className='w-10 h-10 bg-gray-50 hover:bg-gray-100 text-gray-600 transition-all duration-200 flex items-center justify-center' onClick={increaseCount} disabled={count >= (product.stock || 10)}><AiOutlinePlus size={18} /></button>
                 </div>
                 
+                {/* دکمه خرید که سبد خرید را باز می‌کند و محصول را اضافه می‌کند */}
                 <button 
                   onClick={addToCart}
-                  className='flex-1 w-full py-3.5 bg-[var(--brand-charcoal)] text-white rounded-xl hover:bg-[var(--brand-gold)] hover:text-[var(--brand-charcoal)] transition-all duration-300 hover:scale-[1.02] text-sm font-bold shadow-md flex items-center justify-center gap-2'
+                  className='flex-1 w-[95%] py-3.5 sm:min-w-[180px] bg-primary text-white rounded-xl hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] text-sm font-medium shadow-md hover:shadow-lg flex items-center justify-center gap-2'
                 >
-                  <FaShoppingBag size={16} />
+                  <FaShoppingBag size={18} />
                   افزودن به سبد خرید
                 </button>
               </div>

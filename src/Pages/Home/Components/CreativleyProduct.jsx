@@ -13,18 +13,15 @@ const tabs = [
 
 const CreativleyProduct = () => {
   const [activeTab, setActiveTab] = useState("best");
+
   const filteredProducts = products.filter((p) => p.type === activeTab);
 
   return (
     <div className="max-w-[1280px] w-[95%] m-auto mt-10">
-      
-      {/* سربرگ */}
-      <section
-        className="h-[120px] sm:h-[180px] rounded-t-xl py-2 text-center"
-        style={{ backgroundColor: "var(--color-primary)" }}
-      >
-        <h2 className="text-sm md:text-lg font-bold mb-4" style={{ color: "var(--color-p-text)" }}>
-          <span style={{ color: "var(--color-accent)" }}>محصولات خلاقانه</span> اریس وود
+
+      <section className="bg-primary h-[120px] sm:h-[180px] rounded-tl-[25px] rounded-tr-[25px] py-2">
+        <h2 className="text-sm md:text-lg font-bold text-center mb-4">
+          <span className="text-third">محصولات خلاقانه</span> اریس وود
         </h2>
 
         <div className="flex justify-center items-center text-[12px] sm:text-[15px] font-light gap-6">
@@ -32,12 +29,11 @@ const CreativleyProduct = () => {
             <p
               key={tab.value}
               onClick={() => setActiveTab(tab.value)}
-              className="cursor-pointer pb-1 transition"
-              style={{
-                color: activeTab === tab.value ? "var(--color-accent)" : "rgba(255,255,255,0.6)",
-                borderBottom: activeTab === tab.value ? "2px solid var(--color-accent)" : "none",
-                fontWeight: activeTab === tab.value ? "bold" : "normal"
-              }}
+              className={`cursor-pointer pb-1 transition ${
+                activeTab === tab.value
+                  ? "border-b-2 border-black text-black font-bold"
+                  : "text-white/60"
+              }`}
             >
               {tab.label}
             </p>
@@ -45,9 +41,9 @@ const CreativleyProduct = () => {
         </div>
       </section>
 
-      {/* محصولات */}
       <div className="-mt-10 sm:-mt-20">
         <Swiper
+          className="w-[98%]"
           spaceBetween={20}
           slidesPerView={5}
           breakpoints={{
@@ -73,6 +69,7 @@ const CreativleyProduct = () => {
           ))}
         </Swiper>
       </div>
+
     </div>
   );
 };
