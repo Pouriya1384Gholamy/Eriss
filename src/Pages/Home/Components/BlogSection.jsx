@@ -14,40 +14,50 @@ const blogs = [
   { id: 10, day: "25", month: "خرداد", title: "اصول نگهداری مبل چرم و چوب", image: null },
 ];
 
+// -------------------------
+// Blog Card
+// -------------------------
 const BlogCard = ({ blog }) => (
-  <div className="relative rounded-2xl overflow-hidden w-full aspect-[4/3] cursor-pointer group"
-    style={{ backgroundColor: "var(--color-sixeth)" }}
+  <div
+    className="relative rounded-2xl overflow-hidden w-full aspect-[4/3] cursor-pointer group shadow-md transition-all"
+    style={{ backgroundColor: "var(--brand-ivory)" }}
   >
     {blog.image ? (
       <img
         src={blog.image}
         alt={blog.title}
-        className="w-full h-full object-cover group-hover:scale-105 transition"
+        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
     ) : (
       <div
         className="w-full h-full flex items-center justify-center"
         style={{
-          background: "linear-gradient(135deg, var(--color-sixeth), var(--color-first))",
-          color: "var(--color-text-muted)"
+          background: "linear-gradient(135deg, var(--brand-ivory), var(--brand-taupe))",
+          color: "var(--brand-charcoal)"
         }}
       >
-        <span className="text-sm">تصویر</span>
+        <span className="text-sm opacity-60">بدون تصویر</span>
       </div>
     )}
 
     {/* تاریخ */}
     <div
       className="absolute top-3 left-3 text-center px-2.5 py-1.5 rounded-xl text-xs font-bold shadow-md"
-      style={{ backgroundColor: "var(--color-primary)", color: "var(--color-p-text)" }}
+      style={{
+        backgroundColor: "var(--brand-gold)",
+        color: "var(--brand-charcoal)"
+      }}
     >
       <div className="text-base font-extrabold">{blog.day}</div>
       <div>{blog.month}</div>
     </div>
 
     {/* عنوان */}
-    <div className="absolute bottom-0 inset-x-0 px-4 py-3"
-      style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)" }}
+    <div
+      className="absolute bottom-0 inset-x-0 px-4 py-3"
+      style={{
+        background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)"
+      }}
     >
       <p className="text-white text-sm font-semibold line-clamp-2 text-right">
         {blog.title}
@@ -56,36 +66,60 @@ const BlogCard = ({ blog }) => (
   </div>
 );
 
+// -------------------------
+// Blog Section
+// -------------------------
 const BlogSection = () => {
   return (
-    <section className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 my-10 font-vazir" dir="rtl">
-      
+    <section
+      className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 my-10 font-vazir"
+      dir="rtl"
+    >
+      {/* Header */}
       <div className="flex items-center justify-between mb-6 gap-3">
-        <h2 className="text-lg sm:text-xl lg:text-2xl font-bold"
-          style={{ color: "var(--color-text)" }}
+        <h2
+          className="text-lg sm:text-xl lg:text-2xl font-bold"
+          style={{ color: "var(--brand-charcoal)" }}
         >
-          آخرین <span style={{ color: "var(--color-accent)" }}>مقالات</span>
+          آخرین{" "}
+          <span style={{ color: "var(--brand-gold)" }}>مقالات</span>
         </h2>
 
-        <div className="flex-1 border-t-2 border-dashed"
-          style={{ borderColor: "var(--color-sixeth)" }}
+        <div
+          className="flex-1 border-t-2 border-dashed"
+          style={{ borderColor: "var(--brand-taupe)" }}
         />
 
         <button
-          className="flex items-center gap-1.5 text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-lg transition"
+          className="flex items-center gap-1.5 text-xs sm:text-sm px-3 sm:px-4 py-2 rounded-lg transition-all"
           style={{
-            backgroundColor: "var(--color-primary)",
-            color: "var(--color-p-text)"
+            backgroundColor: "var(--brand-gold)",
+            color: "var(--brand-charcoal)"
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--color-accent)")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--color-primary)")}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--brand-charcoal)")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = "var(--brand-gold)")
+          }
         >
           <span>←</span>
           <span>مشاهده وبلاگ</span>
         </button>
       </div>
 
-      <Swiper spaceBetween={16} slidesPerView={3} className="pb-10">
+      {/* Swiper */}
+      <Swiper
+        spaceBetween={16}
+        slidesPerView={3}
+        className="pb-10"
+        breakpoints={{
+          0: { slidesPerView: 1.2 },
+          480: { slidesPerView: 1.5 },
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        }}
+      >
         {blogs.map((blog) => (
           <SwiperSlide key={blog.id}>
             <BlogCard blog={blog} />
