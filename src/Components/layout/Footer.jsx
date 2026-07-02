@@ -9,213 +9,242 @@ import {
   FaShieldAlt,
   FaTruck,
   FaUndoAlt,
-  FaHeadset
+  FaHeadset,
 } from "react-icons/fa";
 
-// ==============================
-// 1) Trust Badges (بالای فوتر)
-// ==============================
 const trustBadges = [
   {
     id: 1,
-    icon: <FaShieldAlt size={28} />,
+    icon: <FaShieldAlt className="text-2xl lg:text-3xl" />,
     title: "پرداخت امن",
-    description: "درگاه پرداخت امن و معتبر"
+    description: "درگاه پرداخت معتبر و ایمن",
   },
   {
     id: 2,
-    icon: <FaTruck size={28} />,
+    icon: <FaTruck className="text-2xl lg:text-3xl" />,
     title: "ارسال مطمئن",
-    description: "تحویل سریع + بسته‌بندی مطمئن"
+    description: "تحویل سریع و بسته‌بندی امن",
   },
   {
     id: 3,
-    icon: <FaUndoAlt size={28} />,
-    title: "۷ روز ضمانت بازگشت",
-    description: "امکان مرجوعی بدون دردسر"
+    icon: <FaUndoAlt className="text-2xl lg:text-3xl" />,
+    title: "ضمانت بازگشت",
+    description: "۷ روز فرصت مرجوعی کالا",
   },
   {
     id: 4,
-    icon: <FaHeadset size={28} />,
+    icon: <FaHeadset className="text-2xl lg:text-3xl" />,
     title: "پشتیبانی حرفه‌ای",
-    description: "مشاوره قبل و بعد از خرید"
-  }
+    description: "پاسخ‌گویی تخصصی قبل و بعد خرید",
+  },
 ];
 
 const quickLinks = [
   { label: "صفحه اصلی", href: "/" },
   { label: "محصولات", href: "/shop" },
   { label: "وبلاگ", href: "/blog" },
-  { label: "تماس با ما", href: "/contact" }
+  { label: "تماس با ما", href: "/contact" },
 ];
 
 const serviceLinks = [
   { label: "سفارش اختصاصی", href: "/custom" },
   { label: "خدمات کارگاهی", href: "/workshop" },
   { label: "برش و حک لیزر", href: "/laser" },
-  { label: "خرید عمده", href: "/bulk" }
+  { label: "خرید عمده", href: "/bulk" },
 ];
 
 function Footer() {
   return (
     <footer
       dir="rtl"
-      className="mt-16 bg-[var(--color-primary)] text-[var(--color-p-text)] border-t border-[var(--color-border)]"
+      className="mt-16 bg-[var(--brand-charcoal)] text-[var(--brand-ivory)] border-t border-[var(--brand-taupe)]/20"
     >
+      {/* Trust Badges */}
+      <section className="border-b border-white/5 bg-black/20">
+        <div className="mx-auto max-w-[1280px] px-4 py-8 sm:px-6 lg:px-8">
+          {/* 
+            موبایل: 2 ستون
+            دسکتاپ: 4 ستون
+          */}
+          <div className="grid grid-cols-2 lg:grid-cols-4">
+            {trustBadges.map((badge, index) => {
+              const isLeftColumn = index % 2 === 0;
+              const isTopRow = index < 2;
 
-      {/* ==============================
-          1) Trust Badges Section
-      ===============================*/}
-      <section className="bg-[rgba(0,0,0,0.15)] border-b border-[rgba(255,255,255,0.1)] py-8">
-        <div className="max-w-[1280px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 sm:px-6 lg:px-8">
+              return (
+                <div
+                  key={badge.id}
+                  className={`
+                    flex flex-col items-center justify-center gap-3 px-3 py-5 text-center
+                    sm:flex-row sm:justify-start sm:text-right sm:gap-4
+                    border-[var(--brand-taupe)]/20
+                    ${isLeftColumn ? "border-l" : ""}
+                    ${!isTopRow ? "border-b-0" : "border-b"}
+                    lg:border-b-0
+                    lg:border-l
+                    last:border-l-0
+                  `}
+                >
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-white/5 text-[var(--brand-gold)] shadow-inner transition-all duration-300 group-hover:bg-[var(--brand-gold)] group-hover:text-[var(--brand-charcoal)]">
+                    {badge.icon}
+                  </div>
 
-          {trustBadges.map(badge => (
-            <div
-              key={badge.id}
-              className="flex items-center gap-4 p-4 rounded-xl hover:bg-[rgba(255,255,255,0.05)] transition"
-            >
-              <div className="h-12 w-12 flex items-center justify-center rounded-lg bg-[rgba(255,255,255,0.06)] text-[var(--color-accent)]">
-                {badge.icon}
-              </div>
-
-              <div className="space-y-1">
-                <h4 className="text-sm font-bold">{badge.title}</h4>
-                <p className="text-xs text-[rgba(255,255,255,0.7)]">{badge.description}</p>
-              </div>
-            </div>
-          ))}
-
+                  <div className="space-y-1">
+                    <h4 className="text-[13px] font-bold leading-tight text-white sm:text-sm lg:text-base">
+                      {badge.title}
+                    </h4>
+                    <p className="text-[10px] leading-relaxed text-[var(--brand-taupe)]/80 sm:text-xs lg:text-sm">
+                      {badge.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* ==============================
-           2) Main Footer Content
-      ===============================*/}
-      <div className="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 px-4 py-12 sm:px-6 lg:px-8">
+      {/* Main Footer */}
+      <div className="mx-auto grid max-w-[1280px] grid-cols-1 gap-12 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+        {/* Brand */}
+        <div className="space-y-6">
+          <div>
+            <h2 className="text-2xl font-black tracking-tight text-white">
+              اریس <span className="text-[var(--brand-gold)]">وود</span>
+            </h2>
+            <p className="mt-3 text-sm leading-8 text-[var(--brand-taupe)]/90 text-justify">
+              برند تخصصی تولید محصولات چوبی دست‌ساز با طراحی مینیمال،
+              متریال اصیل و کیفیت ساخت بالا. ترکیب هنر، دقت و اصالت برای
+              خانه‌های گرم و ماندگار.
+            </p>
+          </div>
 
-        {/* برند + توضیحات + شبکه اجتماعی */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-extrabold">
-            اریس <span className="text-[var(--color-accent)]">وود</span>
-          </h2>
-          <p className="text-sm leading-7 text-[rgba(255,255,255,0.75)]">
-            برند تخصصی تولید محصولات چوبی دست‌ساز با طراحی مینیمال، متریال اصیل
-            و ساخت باکیفیت.  
-            همراه خانه‌های گرم ایرانی.
-          </p>
-
-          <div className="flex items-center gap-3 pt-2">
-            <a className="footer-social">
-              <FaInstagram size={18} />
+          <div className="flex items-center gap-3">
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-all duration-300 hover:border-[var(--brand-gold)] hover:bg-[var(--brand-gold)] hover:text-[var(--brand-charcoal)]"
+            >
+              <FaInstagram />
             </a>
-            <a className="footer-social">
-              <FaTelegramPlane size={18} />
+            <a
+              href="#"
+              aria-label="Telegram"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-all duration-300 hover:border-[var(--brand-gold)] hover:bg-[var(--brand-gold)] hover:text-[var(--brand-charcoal)]"
+            >
+              <FaTelegramPlane />
             </a>
-            <a className="footer-social">
-              <FaWhatsapp size={18} />
+            <a
+              href="#"
+              aria-label="Whatsapp"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white transition-all duration-300 hover:border-[var(--brand-gold)] hover:bg-[var(--brand-gold)] hover:text-[var(--brand-charcoal)]"
+            >
+              <FaWhatsapp />
             </a>
           </div>
         </div>
 
-        {/* دسترسی سریع */}
-        <div>
-          <h3 className="footer-title">دسترسی سریع</h3>
-          <ul className="space-y-3">
-            {quickLinks.map(item => (
+        {/* Quick Links */}
+        <div className="space-y-6">
+          <h3 className="border-r-4 border-[var(--brand-gold)] pr-3 text-lg font-bold text-white">
+            دسترسی سریع
+          </h3>
+          <ul className="space-y-4">
+            {quickLinks.map((item) => (
               <li key={item.label}>
-                <a href={item.href} className="footer-link">{item.label}</a>
+                <a
+                  href={item.href}
+                  className="flex items-center gap-2 text-sm text-[var(--brand-taupe)] transition-colors hover:text-[var(--brand-gold)]"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-gold)]/40" />
+                  {item.label}
+                </a>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* خدمات سایت */}
-        <div>
-          <h3 className="footer-title">خدمات اریس وود</h3>
-          <ul className="space-y-3">
-            {serviceLinks.map(item => (
+        {/* Services */}
+        <div className="space-y-6">
+          <h3 className="border-r-4 border-[var(--brand-gold)] pr-3 text-lg font-bold text-white">
+            خدمات ما
+          </h3>
+          <ul className="space-y-4">
+            {serviceLinks.map((item) => (
               <li key={item.label}>
-                <a href={item.href} className="footer-link">{item.label}</a>
+                <a
+                  href={item.href}
+                  className="flex items-center gap-2 text-sm text-[var(--brand-taupe)] transition-colors hover:text-[var(--brand-gold)]"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-[var(--brand-gold)]/40" />
+                  {item.label}
+                </a>
               </li>
             ))}
           </ul>
         </div>
 
-        {/* اطلاعات تماس */}
-        <div>
-          <h3 className="footer-title">اطلاعات تماس</h3>
+        {/* Contact */}
+        <div className="space-y-6">
+          <h3 className="border-r-4 border-[var(--brand-gold)] pr-3 text-lg font-bold text-white">
+            ارتباط با ما
+          </h3>
 
-          <div className="space-y-4">
-            <div className="footer-contact">
-              <FaMapMarkerAlt size={16} />
-              <p className="contact-text">تهران، بازار چوب، فروشگاه اریس وود</p>
+          <div className="space-y-4 text-sm text-[var(--brand-taupe)]">
+            <div className="flex items-start gap-3">
+              <FaMapMarkerAlt className="mt-1 text-[var(--brand-gold)]" />
+              <p className="leading-7">
+                تهران، شهرک صنعتی خاوران، بازار چوب ایران، اریس وود
+              </p>
             </div>
 
-            <div className="footer-contact">
-              <FaPhoneAlt size={14} />
-              <a href="tel:09300000000" className="contact-text">0930 000 0000</a>
+            <div className="flex items-center gap-3">
+              <FaPhoneAlt className="text-[var(--brand-gold)]" />
+              <a
+                href="tel:09300000000"
+                className="transition-colors hover:text-white"
+              >
+                ۰۹۳۰ ۰۰۰ ۰۰۰۰
+              </a>
             </div>
 
-            <div className="footer-contact">
-              <FaEnvelope size={14} />
-              <a href="mailto:info@eriswood.com" className="contact-text">
+            <div className="flex items-center gap-3">
+              <FaEnvelope className="text-[var(--brand-gold)]" />
+              <a
+                href="mailto:info@eriswood.com"
+                className="transition-colors hover:text-white"
+              >
                 info@eriswood.com
               </a>
             </div>
           </div>
         </div>
-
       </div>
 
-      {/* ==============================
-           3) E-Namad, Samandehi, Payment
-      ===============================*/}
-      <section className="bg-[rgba(0,0,0,0.12)] border-t border-[rgba(255,255,255,0.08)] py-6">
-        <div className="max-w-[1280px] mx-auto flex flex-col items-center justify-center gap-6 px-4 sm:px-6 lg:px-8">
-
-          <div className="flex items-center gap-6">
-
-            {/* نماد اعتماد الکترونیکی */}
-            <a href="#" className="h-24 w-20 overflow-hidden rounded-lg bg-white flex items-center justify-center">
-              <img
-                src="/images/enamad.png"
-                alt="نماد اعتماد الکترونیکی"
-                className="object-contain h-full w-full"
-              />
-            </a>
-
-            {/* ساماندهی */}
-            <a href="#" className="h-24 w-20 overflow-hidden rounded-lg bg-white flex items-center justify-center">
-              <img
-                src="/images/samandehi.png"
-                alt="نشان ساماندهی"
-                className="object-contain h-full w-full"
-              />
-            </a>
-
-            {/* لوگوی پرداخت */}
-            <a href="#" className="h-24 w-20 overflow-hidden rounded-lg bg-white flex items-center justify-center">
-              <img
-                src="/images/payment.png"
-                alt="درگاه پرداخت"
-                className="object-contain h-full w-full"
-              />
-            </a>
-
-          </div>
-
+      {/* Trust Logos */}
+      <section className="border-t border-white/5 bg-black/30 py-8">
+        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-center gap-6 px-4 sm:px-6 lg:px-8">
+          {["enamad", "samandehi", "payment"].map((img) => (
+            <div key={img} className="group relative">
+              <div className="absolute -inset-1 rounded-xl bg-gradient-to-r from-[var(--brand-gold)] to-transparent opacity-20 blur transition duration-500 group-hover:opacity-40" />
+              <div className="relative flex h-24 w-24 items-center justify-center rounded-xl bg-white p-2 shadow-xl">
+                <img
+                  src={`/images/${img}.png`}
+                  alt={img}
+                  className="max-h-full object-contain grayscale transition-all duration-300 hover:grayscale-0"
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ==============================
-           4) CopyRight
-      ===============================*/}
-      <div className="border-t border-[rgba(255,255,255,0.1)] bg-[rgba(0,0,0,0.07)]">
-        <div className="max-w-[1280px] mx-auto py-4 text-center text-xs text-[rgba(255,255,255,0.65)]">
-          © 2026 اریس وود — کلیه حقوق محفوظ است.
-        </div>
+      {/* Copyright */}
+      <div className="border-t border-white/5 bg-black/40 py-6">
+        <p className="text-center text-[10px] uppercase tracking-widest text-[var(--brand-taupe)]/60 md:text-xs">
+          © 2026 ERIS WOOD STUDIO — Handcrafted with Passion
+        </p>
       </div>
-
     </footer>
   );
 }
