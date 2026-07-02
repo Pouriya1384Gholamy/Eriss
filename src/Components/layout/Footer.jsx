@@ -151,7 +151,7 @@ export default function Footer() {
 
           <div className="md:col-span-1 space-y-4">
             <div>
-              <h2 className="text-xl font-black text-[#2d2d2d] mb-2">آریس وود</h2>
+              <h2 className="text-xl font-black text-[#2d2d2d] mb-2">اریس وود</h2>
               <p className="text-sm text-gray-500 leading-7">
                 بیش از یک دهه تجربه در تأمین و عرضه انواع چوب طبیعی و مصنوعی
                 با بالاترین استانداردهای کیفی برای مشتریان سراسر ایران.
