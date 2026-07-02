@@ -209,7 +209,7 @@ function ProductHero() {
                 {/* دکمه خرید که سبد خرید را باز می‌کند */}
                 <button 
                   onClick={() => setIsCartOpen(true)}
-                  className='flex-1 w-[85%] h-[50px] sm:min-w-[180px] bg-primary text-white rounded-xl hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] text-sm font-medium shadow-md hover:shadow-lg flex items-center justify-center gap-2'
+                  className='flex-1 w-[95%] py-3.5 sm:min-w-[180px] bg-primary text-white rounded-xl hover:bg-primary/90 transition-all duration-300 hover:scale-[1.02] text-sm font-medium shadow-md hover:shadow-lg flex items-center justify-center gap-2'
                 >
                   <FaShoppingBag size={18} />
                   افزودن به سبد خرید
