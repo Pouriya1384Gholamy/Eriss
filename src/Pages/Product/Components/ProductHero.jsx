@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams , useNavigate } from 'react-router-dom'
 import Slider from "../../../Components/ui/Slider"
 import { products } from '../../../data/products'
 import { GiWoodBeam } from "react-icons/gi";
@@ -11,6 +11,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 function ProductHero() {
   const { id } = useParams()
   const product = products.find((p) => p.id === Number(id))
+  const navigate = useNavigate() 
   
   // Stateهای اصلی محصول
   const [count, setCount] = useState(1)
@@ -161,7 +162,14 @@ function ProductHero() {
               <span className="text-xs text-stone-400 mr-1">تومان</span>
             </div>
           </div>
-          <button disabled={cartItems.length === 0} className="w-full py-4 bg-[#9EAD8C] text-white rounded-2xl font-bold text-sm shadow-lg hover:bg-[#8A9B78] transition-all disabled:bg-stone-300">
+          <button 
+            disabled={cartItems.length === 0} 
+            onClick={() => {
+              setIsCartOpen(false); // بستن سایدبار کشویی
+              navigate('/cart');    // هدایت کاربر به صفحه سبد خرید اصلی
+            }}
+            className="w-full py-4 bg-[#9EAD8C] text-white rounded-2xl font-bold text-sm shadow-lg hover:bg-[#8A9B78] transition-all disabled:bg-stone-300"
+          >
             تکمیل سفارش و تسویه حساب
           </button>
         </div>
