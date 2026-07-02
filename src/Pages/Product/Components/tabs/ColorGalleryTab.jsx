@@ -7,7 +7,7 @@ const ColorGalleryTab = ({ colors }) => {
 
   if (!colors || colors.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500">
+      <div className="text-center py-12 text-[var(--brand-taupe)]">
         اطلاعات رنگ‌بندی برای این محصول موجود نیست
       </div>
     );
@@ -15,7 +15,7 @@ const ColorGalleryTab = ({ colors }) => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-900">گالری رنگ‌ها</h2>
+      <h2 className="text-2xl font-bold text-[var(--brand-charcoal)]">گالری رنگ‌ها</h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
         {colors.map((color, index) => (
@@ -29,10 +29,10 @@ const ColorGalleryTab = ({ colors }) => {
               style={{ backgroundColor: color }}
             />
             <div className="bg-white px-3 py-2 text-center">
-              <p className="text-sm font-semibold text-gray-800">
+              <p className="text-sm font-semibold text-[var(--brand-charcoal)]">
                 {colorNames[color] ?? color}
               </p>
-              <p className="text-xs text-gray-400 mt-0.5">{color}</p>
+              <p className="text-xs text-[var(--brand-taupe)] mt-0.5">{color}</p>
             </div>
           </div>
         ))}
@@ -40,13 +40,13 @@ const ColorGalleryTab = ({ colors }) => {
 
       {selectedColor && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-[var(--brand-charcoal)]/75 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedColor(null)}
         >
           <div className="relative max-w-md w-full" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setSelectedColor(null)}
-              className="absolute -top-12 left-0 text-white hover:text-gray-300 transition-colors"
+              className="absolute -top-12 left-0 text-white hover:text-[var(--brand-gold)] transition-colors"
             >
               <IoClose className="w-8 h-8" />
             </button>
@@ -55,10 +55,10 @@ const ColorGalleryTab = ({ colors }) => {
               style={{ backgroundColor: selectedColor }}
             />
             <div className="bg-white rounded-b-lg px-4 py-3 text-center">
-              <p className="text-lg font-bold text-gray-800">
+              <p className="text-lg font-bold text-[var(--brand-charcoal)]">
                 {colorNames[selectedColor] ?? selectedColor}
               </p>
-              <p className="text-sm text-gray-400">{selectedColor}</p>
+              <p className="text-sm text-[var(--brand-taupe)]">{selectedColor}</p>
             </div>
           </div>
         </div>

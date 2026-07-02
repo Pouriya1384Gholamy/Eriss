@@ -23,15 +23,15 @@ const HowToBuyTab = () => {
             return (
               <div
                 key={faq.id}
-                className="shadow-2xl rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+                className="shadow-2xl rounded-2xl shadow-sm border border-[var(--brand-taupe)]/20 overflow-hidden"
               >
                 <button
-                  className="w-full flex justify-between items-center px-3 sm:px-4 py-2.5 sm:py-3 text-[10px] sm:text-xs md:text-[13px] font-bold text-gray-700 cursor-pointer gap-2"
+                  className="w-full flex justify-between items-center px-3 sm:px-4 py-2.5 sm:py-3 text-[10px] sm:text-xs md:text-[13px] font-bold text-[var(--brand-charcoal)] cursor-pointer gap-2"
                   onClick={() => setOpenId(isOpen ? null : faq.id)}
                 >
                   <span className="text-right flex-1">{faq.question}</span>
                   <span
-                    className={`text-primary text-base sm:text-xl font-light flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+                    className={`text-[var(--brand-gold)] text-base sm:text-xl font-light flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
                   >
                     +
                   </span>
@@ -39,7 +39,7 @@ const HowToBuyTab = () => {
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
                 >
-                  <p className="px-3 sm:px-4 pb-3 text-[10px] sm:text-xs text-gray-500 leading-5 sm:leading-6">
+                  <p className="px-3 sm:px-4 pb-3 text-[10px] sm:text-xs text-[var(--brand-taupe)] leading-5 sm:leading-6">
                     {faq.answer}
                   </p>
                 </div>

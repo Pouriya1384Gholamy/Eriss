@@ -9,20 +9,24 @@ const NewProduct = () => {
 
   return (
     <div className="max-w-[1280px] w-[95%] m-auto mt-10">
-      {/* green section */}
-      <section className="bg-primary h-[120px] sm:h-[180px] rounded-tl-[25px] rounded-tr-[25px] py-2 sm:py-6 flex justify-center items-start">
-        <div className="flex justify-center items-center flex-col gap-3 sm:gap-4 w-[80%] sm:w-[55%] md:w-[40%] h-[75px] sm:h-[90px] bg-white rounded-[8px] py-4 sm:py-6 px-4">
-          <p className="font-bold text-sm sm:text-base md:text-lg text-center sm:mt-2">
+      
+      {/* هدر بخش - ذغالی برند */}
+      <section className="bg-[var(--color-primary)] h-[130px] sm:h-[180px] rounded-tl-[25px] rounded-tr-[25px] py-4 flex justify-center items-start border-b border-[var(--color-border)]">
+        
+        {/* باکس کارت سفید/شیری مرکزی */}
+        <div className="flex justify-center items-center flex-col gap-3 w-[85%] sm:w-[55%] md:w-[40%] h-[85px] sm:h-[100px] bg-[var(--color-first)] border border-[var(--color-border)] rounded-xl py-3 px-4 shadow-md">
+          <p className="font-bold text-xs sm:text-sm md:text-base text-[var(--color-text)] text-center">
             جدید‌ترین محصولات اریس وود
           </p>
-          <button className="bg-secondary rounded-[5px] text-white px-6 py-2 sm:mb-3 text-sm sm:text-base hover:bg-amber-800 transition-colors">
+          <button className="bg-[var(--color-accent)] hover:bg-[var(--color-primary)] text-white px-5 py-1.5 rounded-lg text-xs font-bold transition-all duration-300">
             هر روز سر بزن
           </button>
         </div>
+
       </section>
 
-      {/* slider wrapper */}
-      <div className="-mt-8 sm:-mt-15">
+      {/* اسلایدر با افکت همپوشانی بالا */}
+      <div className="-mt-5 sm:-mt-12">
         <Swiper
           className="w-[98%]"
           spaceBetween={20}

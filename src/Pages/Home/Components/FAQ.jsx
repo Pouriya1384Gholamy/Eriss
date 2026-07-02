@@ -14,37 +14,40 @@ const FAQ = () => {
   const [openId, setOpenId] = useState(null);
 
   return (
-    <div className="relative max-w-[1100px] w-[95%] mx-auto p-4 bg-white border-1 rounded-2xl border-primary mt-12">
+    <div className="relative max-w-[1100px] w-[95%] mx-auto p-6 bg-[var(--color-first)] border border-[var(--color-border)] rounded-2xl mt-12">
 
+      {/* بج بالای کامپوننت */}
       <div className="absolute -top-5 left-1/2 -translate-x-1/2">
-        <span className="bg-primary text-white text-sm px-5 py-1.5 rounded-full">
+        <span className="bg-[var(--color-primary)] text-[var(--color-p-text)] text-sm px-6 py-2 rounded-full font-bold">
           سوالات متداول
         </span>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-6">
-        <div className="flex flex-col gap-3 flex-1 mr-2">
+      <div className="flex flex-col md:flex-row gap-6 mt-4">
+        {/* لیست سوالات */}
+        <div className="flex flex-col gap-3 flex-1">
           {faqs.map((faq) => {
             const isOpen = openId === faq.id;
             return (
               <div
                 key={faq.id}
-                className="bg-sixeth rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+                className="bg-[var(--color-sixeth)] rounded-2xl border border-[var(--color-border)] overflow-hidden transition-all duration-200"
               >
                 <button
-                  className="w-full flex justify-between items-center px-4 py-3 text-[10px] md:text-[13px] font-bold text-gray-700 cursor-pointer"
+                  className="w-full flex justify-between items-center px-4 py-4 text-xs md:text-sm font-bold text-[var(--color-text)] cursor-pointer"
                   onClick={() => setOpenId(isOpen ? null : faq.id)}
                 >
-                  <span>{faq.question}</span>
+                  <span className="text-right">{faq.question}</span>
                   <span
-                    className={`text-primary text-xl font-light ml-2 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+                    className={`text-[var(--color-primary)] text-xl font-light ml-2 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
                   >
                     +
                   </span>
-                </button><div
+                </button>
+                <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"}`}
                 >
-                  <p className="px-4 pb-3 text-xs text-gray-500 leading-6">
+                  <p className="px-4 pb-4 text-xs text-[var(--color-text-muted)] leading-6 border-t border-[rgba(0,0,0,0.05)] pt-2">
                     {faq.answer}
                   </p>
                 </div>
@@ -53,23 +56,26 @@ const FAQ = () => {
           })}
         </div>
 
-        <div className="w-full sm:w-[300px] sm:h-[280px] md:w-[350px] md:h-[280px] flex flex-col justify-center items-center gap-4 shrink-0 rounded-[10px] bg-fiveth m-auto ml-2">
+        {/* باکس ارسال سوال */}
+        <div className="w-full md:w-[320px] lg:w-[350px] flex flex-col justify-center items-center gap-4 shrink-0 rounded-2xl bg-[var(--color-sixeth)] p-5 border border-[var(--color-border)]">
           <div className="text-center">
-            <h3 className="text-base font-bold text-gray-800 mb-2">هنوز سوال دارید؟</h3>
-            <p className="text-xs text-gray-500 leading-6">
+            <h3 className="text-base font-bold text-[var(--color-text)] mb-2">هنوز سوال دارید؟</h3>
+            <p className="text-xs text-[var(--color-text-muted)] leading-6">
               لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ.
             </p>
           </div>
-          <div className="bg-primary w-[70%] rounded-[5px] p-4 flex-1">
+          
+          <div className="bg-[var(--color-first)] w-full rounded-xl p-3 border border-[var(--color-border)] flex-1">
             <textarea
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
-              placeholder="سوالتان را اینجا برای ما بگذارید"
-              rows={5}
-              className="w-full h-full text-[12px] bg-transparent resize-none text-sm text-third placeholder-third outline-none"
+              placeholder="سوالتان را اینجا برای ما بگذارید..."
+              rows={4}
+              className="w-full h-full text-xs bg-transparent resize-none text-[var(--color-text)] placeholder-[var(--color-text-muted)] outline-none"
             />
           </div>
-          <button className="w-28 h-9 mb-2 bg-primary text-white rounded text-sm font-bold hover:opacity-90 transition-opacity">
+
+          <button className="w-full h-10 bg-[var(--color-accent)] hover:bg-[var(--color-primary)] text-white rounded-xl text-xs font-bold transition-all duration-300">
             ثبت سوال
           </button>
         </div>

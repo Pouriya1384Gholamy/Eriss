@@ -1,120 +1,126 @@
-import React from "react";
-import { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { LuShoppingBag } from "react-icons/lu";
 
 function Header() {
+  const [cartCount, setCartCount] = useState(0);
+  const [isBadgeLoading, setIsBadgeLoading] = useState(false);
 
-  const[isMenueOpen , SetisMenueOpen] = useState(false)
+  const loadCartCount = () => {
+    const savedCart = localStorage.getItem("eriss_cart");
+    const cartItems = savedCart ? JSON.parse(savedCart) : [];
+    const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    setCartCount(totalCount);
+  };
+
+  useEffect(() => {
+    loadCartCount();
+    window.addEventListener("storage", loadCartCount);
+    const handleCustomUpdate = () => {
+      setIsBadgeLoading(true);
+      loadCartCount();
+      setTimeout(() => setIsBadgeLoading(false), 450);
+    };
+    window.addEventListener("eriss_cart_updated", handleCustomUpdate);
+    return () => {
+      window.removeEventListener("storage", loadCartCount);
+      window.removeEventListener("eriss_cart_updated", handleCustomUpdate);
+    };
+  }, []);
 
   return (
     <>
-      <div className="w-full h-2 bg-primary"></div>
-
-      <header className="flex justify-between items-center bg-white shadow-md h-12 px-3 lg:h-[70px]">
-
-        {/* LEFT */}
+      {/* نوار بالای هدر با رنگ طلایی مات برند */}
+      <div className="w-full h-2" style={{ backgroundColor: "var(--brand-gold)" }}></div>
+      
+      <header className="flex justify-between items-center bg-white shadow-sm h-12 px-3 lg:h-[70px]">
+        {/* Left Section */}
         <div className="flex items-center gap-3 mr-2 order-1 lg:order-2">
-
-          {/* hamburger */}
-          <button onClick={()=> SetisMenueOpen(true)}
-          className="lg:hidden p-1 rounded hover:bg-gray-100 transition">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
-              fill="none"stroke="currentColor"strokeWidth="2"strokeLinecap="round"strokeLinejoin="round"viewBox="0 0 24 24"
-            >
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="18" x2="21" y2="18" />
+          <button 
+            className="lg:hidden p-1 rounded transition"
+            style={{ color: "var(--brand-charcoal)" }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "var(--brand-ivory)"}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
             </svg>
           </button>
-
-          {/* search icon */}
-          <button className="lg:hidden">
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4"
-                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          
+          <div className="hidden lg:block relative w-[500px]">
+            {/* دکمه جستجو با رنگ زغالی اصلی */}
+            <div 
+              className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-7 rounded-[7px] shadow-xl text-white"
+              style={{ backgroundColor: "var(--brand-charcoal)" }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
               </svg>
-          </button>
-
-          {/* search desktop */}
-        <div className="hidden lg:block relative w-[500px]">
-
-          {/* search icon */}
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-7 rounded-[7px] bg-primary search shadow-xl text-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4"
-              fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
+            </div>
+            
+            <input 
+              type="text" 
+              placeholder="جستجوی محصول ..." 
+              className="font-light w-full h-[42px] border rounded-lg pl-12 pr-4 text-sm outline-none transition"
+              style={{ 
+                borderColor: "rgba(160, 143, 122, 0.3)", // var(--brand-taupe) با اوپاسیتی ۳۰٪
+                backgroundColor: "rgba(243, 235, 221, 0.2)", // var(--brand-ivory) با اوپاسیتی ۲۰٪
+                color: "var(--color-text)",
+                "--tw-placeholder-color": "var(--brand-taupe)"
+              }}
+              onFocus={(e) => e.target.style.borderColor = "var(--brand-gold)"}
+              onBlur={(e) => e.target.style.borderColor = "rgba(160, 143, 122, 0.3)"}
+            />
           </div>
-
-          {/* input */}
-          <input
-            type="text"
-            placeholder="جستوجو محصول مورد نظر ..."
-            className="font-light w-full h-[42px] border border-secondary/40 rounded-lg pl-12 pr-4 text-sm bg-gray-50 outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/30 placeholder:text-[#615353]
-            "
-          />
-
         </div>
 
-        </div>
-
-        {/* LOGO */}
-        <p className="order-2 lg:order-1 text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] font-semibold">
+        {/* Logo */}
+        <p 
+          className="order-2 lg:order-1 text-[20px] lg:text-[24px] font-black"
+          style={{ color: "var(--brand-charcoal)" }}
+        >
           ErissWood
         </p>
 
-        {/* RIGHT */}
+        {/* Right Section */}
         <div className="flex items-center sm:gap-4 ml-2 order-3">
-
-          {/* user */}
-          <button className="p-1 hover:bg-gray-100 rounded transition">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
-              fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"
-            >
-              <path d="M20 21a8 8 0 0 0-16 0" />
-              <circle cx="12" cy="7" r="4" />
+          <button 
+            className="p-1 rounded transition"
+            style={{ color: "var(--brand-charcoal)" }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "var(--brand-ivory)"}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path d="M20 21a8 8 0 0 0-16 0"/>
+              <circle cx="12" cy="7" r="4"/>
             </svg>
           </button>
-
-
-          {/* favorite */}
-          <button className="p-1 hover:bg-gray-100 rounded transition">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 hidden sm:block"
-              viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            >
-              <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
-            </svg>
+          
+          <button 
+            className="relative p-1 rounded transition"
+            style={{ color: "var(--brand-charcoal)" }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = "var(--brand-ivory)"}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = "transparent"}
+          >
+            <LuShoppingBag className="w-5 h-5" />
+            {isBadgeLoading && (
+              <span 
+                className="absolute -top-1 -right-1 w-4 h-4 rounded-full animate-ping"
+                style={{ backgroundColor: "rgba(176, 141, 87, 0.5)" }} // افکت ترنسپرنت طلایی
+              ></span>
+            )}
+            {!isBadgeLoading && cartCount > 0 && (
+              <span 
+                className="absolute -top-1 -right-1 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: "var(--brand-gold)" }}
+              >
+                {cartCount}
+              </span>
+            )}
           </button>
-
-          {/* cart */}
-          <button className="p-1 hover:bg-gray-100 rounded transition">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
-               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"
-            >
-              <circle cx="9" cy="21" r="1" />
-              <circle cx="20" cy="21" r="1" />
-              <path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6" />
-            </svg>
-          </button>
-
         </div>
-
       </header>
     </>
   );
