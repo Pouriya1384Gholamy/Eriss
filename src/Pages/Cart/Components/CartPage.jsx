@@ -21,18 +21,20 @@ function CartPage() {
     localStorage.setItem('eriss_cart', JSON.stringify(updatedItems));
   };
 
-  // افزایش تعداد
-  const increaseQuantity = (id) => {
+  // افزایش تعداد (کنترل یکتایی بر اساس شناسه و رنگ انتخابی)
+  const increaseQuantity = (id, color) => {
     const updated = cartItems.map(item =>
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      (item.id === id && item.selectedColor === color) 
+        ? { ...item, quantity: item.quantity + 1 } 
+        : item
     );
     updateLocalStorage(updated);
   };
 
-  // کاهش تعداد
-  const decreaseQuantity = (id) => {
+  // کاهش تعداد (کنترل یکتایی بر اساس شناسه و رنگ انتخابی)
+  const decreaseQuantity = (id, color) => {
     const updated = cartItems.map(item => {
-      if (item.id === id) {
+      if (item.id === id && item.selectedColor === color) {
         const newQty = item.quantity - 1;
         return newQty > 0 ? { ...item, quantity: newQty } : item;
       }
@@ -41,9 +43,11 @@ function CartPage() {
     updateLocalStorage(updated);
   };
 
-  // حذف آیتم
-  const removeItem = (id) => {
-    const filtered = cartItems.filter(item => item.id !== id);
+  // حذف آیتم بر اساس شناسه و رنگ اختصاصی
+  const removeItem = (id, color) => {
+    const filtered = cartItems.filter(
+      item => !(item.id === id && item.selectedColor === color)
+    );
     updateLocalStorage(filtered);
   };
 
@@ -67,8 +71,8 @@ function CartPage() {
         <div
           className="flex items-center justify-between mb-10 pb-6 border-b"
           style={{ borderColor: 'var(--color-border)' }}
-        >
-          <h1 className="text-2xl sm:text-3xl font-black flex items-center gap-3">
+          >
+          <h1 className="text-sm font-black flex items-center gap-3">
             <FaShoppingBag style={{ color: 'var(--color-text-import)' }} />
             سبد خرید اریس‌وود
           </h1>
@@ -118,18 +122,15 @@ function CartPage() {
 
             {/* لیست آیتم‌ها */}
             <div className="lg:col-span-2 space-y-4">
-              {cartItems.map((item) => (
+              {cartItems.map((item, index) => (
                 <div
-                  key={item.id}
-                  className="flex flex-col sm:flex-row gap-4 p-5 rounded-2xl border shadow-sm transition-all"
-                  style={{
-                    backgroundColor: 'var(--color-first)',
-                    borderColor: 'var(--color-border)'
-                  }}
+                  key={`${item.id}-${item.selectedColor || index}`}
+                  className="flex flex-row gap-4 border-b pb-4"
+                  style={{ borderColor: 'var(--color-border)' }}
                 >
                   {/* عکس محصول */}
                   <div
-                    className="w-full sm:w-28 h-28 rounded-xl overflow-hidden flex-shrink-0"
+                    className="w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden flex-shrink-0"
                     style={{ backgroundColor: 'var(--color-sixeth)' }}
                   >
                     <img
@@ -141,81 +142,96 @@ function CartPage() {
 
                   {/* اطلاعات و کنترل‌ها */}
                   <div className="flex-1 flex flex-col justify-between">
-                    <div className="flex justify-between items-start gap-2">
-                      <h3
-                        className="text-base font-bold line-clamp-1"
-                        style={{ color: 'var(--color-text)' }}
-                      >
-                        {item.title}
-                      </h3>
-
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="transition-colors"
-                        style={{ color: 'var(--color-text-muted)' }}
-                        onMouseEnter={(e) => (e.currentTarget.style.color = '#dc2626')}
-                        onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text-muted)')}
-                      >
-                        <FaTrash size={16} />
-                      </button>
-                    </div>
-
-                    <div className="flex flex-wrap items-center justify-between gap-4 mt-4">
-                      {/* دکمه‌های کنترل تعداد */}
-                      <div
-                        className="flex items-center gap-3 px-3 py-1.5 rounded-xl border"
-                        style={{
-                          backgroundColor: 'var(--color-sixeth)',
-                          borderColor: 'var(--color-border)'
-                        }}
-                      >
+                    <div className="flex flex-col justify-between items-start gap-1">
+                      
+                      <div className="flex justify-between items-start w-full">
+                        <h3
+                          className="text-[13px] sm:text-[15px] font-bold"
+                          style={{ color: 'var(--color-text)' }}
+                        >
+                          {item.title}
+                        </h3>
+                        
                         <button
-                          onClick={() => increaseQuantity(item.id)}
-                          className="transition-colors"
-                          style={{ color: 'var(--color-text)' }}
-                          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-primary)')}
-                          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text)')}
+                          onClick={() => removeItem(item.id, item.selectedColor)}
+                          className="transition-colors text-stone-400 hover:text-red-600 mr-2"
                         >
-                          <AiOutlinePlus size={16} />
-                        </button>
-
-                        <span
-                          className="text-sm font-black w-6 text-center"
-                          style={{ color: 'var(--color-text)' }}
-                        >
-                          {item.quantity}
-                        </span>
-
-                        <button
-                          onClick={() => decreaseQuantity(item.id)}
-                          className="transition-colors"
-                          style={{ color: 'var(--color-text)' }}
-                          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-primary)')}
-                          onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-text)')}
-                        >
-                          <AiOutlineMinus size={16} />
+                          <FaTrash size={15} />
                         </button>
                       </div>
 
+                      <p className='text-xs text-text'>کد محصول: {item.shareCode}</p>
+
+                      {/* نمایش دایره رنگی انتخاب شده */}
+                      {item.selectedColor && (
+                        <div className="flex items-center gap-1.5 mt-1">
+                          <span className='text-xs text-text'>رنگ:</span>
+                          {item.selectedColor ? (
+                            <span 
+                              className="w-4 h-4 rounded-full border border-stone-200 block" 
+                              style={{ backgroundColor: item.selectedColor }} 
+                            />
+                          ) : (
+                            <span className="text-xs text-stone-300">رنگ پیش‌فرض</span>
+                          )}
+                        </div>
+                      )}
+
+                      <div className='w-full flex justify-between flex-row text-sm text-text'>
+                        <p>قیمت : </p>
+                        <p>{item.price.toLocaleString()} تومان</p>
+                      </div>
+
+                      <hr className="block md:hidden w-full border-t border-dashed border-1 border-third" />
+
+                    </div>
+
+                    <div className="flex flex-wrap items-center justify-between gap-4 mt-3">
+
+                
+                      {/* دکمه‌های کنترل تعداد */}
+                        <div className="w-full flex items-center justify-between gap-4">
+                          <p className="text-sm font-medium text-text whitespace-nowrap">
+                            تعداد:
+                          </p>
+
+                          <div className="flex items-center rounded-xl border border-primary/40 bg-white shadow-sm overflow-hidden">
+                            <button
+                              type="button"
+                              onClick={() => increaseQuantity(item.id, item.selectedColor)}
+                              className="w-9 h-9 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-200"
+                              aria-label="افزایش تعداد"
+                            >
+                              <AiOutlinePlus size={16} />
+                            </button>
+
+                            <span className="min-w-10 h-9 px-3 flex items-center justify-center text-sm font-bold text-text border-x border-primary/20">
+                              {item.quantity}
+                            </span>
+
+                            <button
+                              type="button"
+                              onClick={() => decreaseQuantity(item.id, item.selectedColor)}
+                              className="w-9 h-9 flex items-center justify-center text-primary hover:bg-red-50 hover:text-red-500 transition-all duration-200"
+                              aria-label="کاهش تعداد"
+                            >
+                              <AiOutlineMinus size={16} />
+                            </button>
+                          </div>
+                        </div>
+
+                      <hr className="block md:hidden w-full border-t border-dashed border-1 border-third" />
+
                       {/* نمایش قیمت ضربدر تعداد */}
-                      <div className="text-left">
+                      <div className="w-full flex justify-between items-center">
                         <span
-                          className="text-xs block mb-1"
-                          style={{ color: 'var(--color-text-muted)' }}
-                        >
+                          className="text-sm block mb-0.5 text-text">
                           قیمت کل:
                         </span>
                         <span
-                          className="text-lg font-black"
-                          style={{ color: 'var(--color-text-import)' }}
+                          className="text-secondary sm:text-lg font-black"
                         >
-                          {(item.price * item.quantity).toLocaleString('fa-IR')}
-                        </span>
-                        <span
-                          className="text-xs mr-1"
-                          style={{ color: 'var(--color-text-muted)' }}
-                        >
-                          تومان
+                          {(item.price * item.quantity).toLocaleString('fa-IR')} تومان
                         </span>
                       </div>
                     </div>

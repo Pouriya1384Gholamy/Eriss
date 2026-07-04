@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { LuShoppingBag } from "react-icons/lu";
+import {useNavigate , useParams} from 'react-router-dom'
 
 
 function Header() {
+
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const [isMenueOpen, SetisMenueOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
@@ -108,7 +112,10 @@ function Header() {
           <button className="relative p-1 hover:bg-gray-100 rounded transition">
 
             {/* react-icons سبد خرید */}
-            <LuShoppingBag className="w-5 h-5" />
+            <LuShoppingBag className="w-5 h-5" 
+            onClick={() => {
+              navigate("/cart");
+            }} />
 
             {/* badge */}
             {cartCount > 0 && (

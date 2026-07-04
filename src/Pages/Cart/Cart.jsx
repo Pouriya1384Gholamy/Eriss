@@ -7,12 +7,12 @@ import Footer from '../../Components/layout/Footer'
 
 function Cart() {
   return (
-    <>
+    <div className='bg-background'>
     <Header />
     <UnderHeader />
     <CartPage />
     <Footer />
-    </>
+    </div>
   )
 }
 
