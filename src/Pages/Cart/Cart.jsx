@@ -2,6 +2,7 @@ import React from 'react'
 import Header from '../../Components/layout/Header'
 import UnderHeader from '../../Components/layout/UnderHeader'
 import CartPage from './Components/CartPage'
+import Pagination from './Components/Pagination '
 import Footer from '../../Components/layout/Footer'
 
 
