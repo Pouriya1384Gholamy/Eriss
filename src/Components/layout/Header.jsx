@@ -334,14 +334,14 @@ function Header() {
                 setSearchResults([]);
                 setSearchQuery("");
                 setIsLoading(false);
-              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'categories' ? 'border-primary text-primary bg-primary/5' : 'border-transparent text-gray-400'}`}>
+              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'categories' ? 'border-primary text-primary bg-text-muted' : 'border-transparent text-gray-400'}`}>
                 دسته‌بندی
               </button>
               <button onClick={() => {
                 setActiveTab('search');
                 setIsSearching(true);
                 setShowProducts(false);
-              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'search' ? 'border-primary text-primary bg-primary/5' : 'border-transparent text-gray-400'}`}>
+              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'search' ? 'border-primary text-primary bg-text-muted' : 'border-transparent text-gray-400'}`}>
                 جستجو
               </button>
               <button onClick={() => {
@@ -353,7 +353,7 @@ function Header() {
                 setSearchResults([]);
                 setSearchQuery("");
                 setIsLoading(false);
-              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'menu' ? 'border-primary text-primary bg-primary/5' : 'border-transparent text-gray-400'}`}>
+              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'menu' ? 'border-primary text-primary bg-text-muted' : 'border-transparent text-gray-400'}`}>
                 منو
               </button>
             </div>
@@ -394,7 +394,7 @@ function Header() {
                                 navigate(`/product/${product.id}`);
                                 closeMenu();
                               }}
-                              className="flex items-center gap-3 rounded-xl bg-gray-50 p-2 cursor-pointer hover:bg-gray-100 transition"
+                              className="flex items-center gap-3 rounded-xl bg-text-muted p-2 cursor-pointer hover:bg-gray-100 transition"
                             >
                               <img 
                                 src={product.image} 
@@ -419,7 +419,7 @@ function Header() {
                   ) : (
                     // نمایش دسته‌بندی‌ها
                     dynamicMenu.map((cat, i) => (
-                      <div key={i} className="border-b border-gray-50 last:border-0">
+                      <div key={i} className="border-b border-secondary/20 last:border-0">
                         <div 
                           onClick={() => handleCategoryClick(cat.name)}
                           className={`flex justify-between items-center p-3 rounded-xl cursor-pointer transition ${openCategory === cat.name ? 'bg-primary/5 text-primary' : 'text-gray-700'}`}

@@ -23,7 +23,7 @@ function HeroSection() {
           کاربردی می باشد.
         </p>
 
-        <button className='rounded-[10px] bg-primary text-third text-[13px] w-[108px] h-[30px] mt-3
+        <button className='rounded-[10px] bg-primary text-text1 text-[13px] w-[108px] h-[35px] mt-3
         sm:w-[137px] sm:h-[34px] md:text-[16px] md:w-[184px] md:h-[38px] md:text-[18px] '>
           لورم ایپسوم
         </button>

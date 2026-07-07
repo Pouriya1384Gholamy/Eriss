@@ -2,11 +2,10 @@ import React, { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-import { products, typeLabels } from "../../../data/products";
+import { products } from "../../../data/products";
 import ProductCard from "../../../Components/ui/ProductCard";
 
 function SimilarProduct({ currentProduct }) {
-
   const similarProducts = useMemo(() => {
     if (!currentProduct) return [];
 
@@ -16,49 +15,48 @@ function SimilarProduct({ currentProduct }) {
           item.type === currentProduct.type &&
           item.id !== currentProduct.id
       )
-      .slice(0, 12); // حداکثر 12 تا نمایش بده
+      .slice(0, 12);
   }, [currentProduct]);
 
   if (!currentProduct || similarProducts.length === 0) return null;
 
   return (
-    <section className="px-4 mb-30">
-      <p className="text-2xl font-bold mb-8">
-        محصولات{" "}
-        <span className="text-primary">
-          مرتبط
-        </span>
-      </p>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> {/* py-6 -> py-4 */}
+      <div className="bg-primary rounded-xl shadow-sm p-4 sm:p-6"> {/* پنل باکس مثل ProductDetails */}
+        <div className="flex items-center justify-between mb-3"> {/* mb-4 -> mb-3 */}
+          <p className="text-base sm:text-lg lg:text-xl font-bold text-gray-800"> {/* text-lg -> text-base */}
+            محصولات <span className="text-text1">مرتبط</span>
+          </p>
+          <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
+            {similarProducts.length} محصول
+          </span>
+        </div>
 
-      <div className="">
         <Swiper
-          className="w-[98%]"
-          spaceBetween={20}
-          slidesPerView={5}
+          className="w-full"
+          spaceBetween={12}
+          slidesPerView={1.2}
           breakpoints={{
-            181: { spaceBetween: 10, slidesPerView: 1.1 },
-            268: { spaceBetween: 10, slidesPerView: 1.4 },
-            330: { spaceBetween: 10, slidesPerView: 1.7 },
-            396: { spaceBetween: 10, slidesPerView: 2 },
-            462: { spaceBetween: 10, slidesPerView: 2.3 },
-            484: { spaceBetween: 10, slidesPerView: 2.5 },
-            586: { slidesPerView: 3 },
-            640: { slidesPerView: 3 },
-            768: { slidesPerView: 3.3 },
-            948: { slidesPerView: 4.2 },
-            1024: { slidesPerView: 4.4 },
-            1226: { slidesPerView: 5.3 },
-            1280: { slidesPerView: 5.5 },
+            320: { spaceBetween: 10, slidesPerView: 1.3 },
+            380: { spaceBetween: 10, slidesPerView: 1.5 },
+            460: { spaceBetween: 12, slidesPerView: 2 },
+            640: { spaceBetween: 14, slidesPerView: 2.4 },
+            768: { spaceBetween: 16, slidesPerView: 3 },
+            900: { spaceBetween: 16, slidesPerView: 3.4 },
+            1024: { spaceBetween: 18, slidesPerView: 4 },
+            1280: { spaceBetween: 20, slidesPerView: 4.8 },
           }}
         >
           {similarProducts.map((product) => (
             <SwiperSlide key={product.id}>
-              <ProductCard {...product} />
+              <div className="h-full py-1">
+                <ProductCard {...product} />
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-    </section>
+    </div>
   );
 }
 

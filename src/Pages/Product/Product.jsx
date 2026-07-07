@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react' // <-- useState رو اضافه کنید
 import { useParams } from 'react-router-dom'
 import { products } from '../../data/products'
 
@@ -13,6 +13,9 @@ import Footer from '../../Components/layout/Footer'
 function Product() {
 
   const { id } = useParams()
+  
+  // ====== state برای تب فعال ======
+  const [activeTab, setActiveTab] = useState('description')
 
   const currentProduct = products.find(
     (item) => item.id === Number(id)
@@ -28,7 +31,14 @@ function Product() {
       <UnderHeader />
       <Details product={currentProduct} />
       <ProductHero product={currentProduct} />
-      <ProductDetails product={currentProduct} />
+      
+      {/* ====== پاس دادن activeTab و setActiveTab به ProductDetails ====== */}
+      <ProductDetails 
+        product={currentProduct} 
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
+      
       <SimilarProduct currentProduct={currentProduct} />
       <Footer />
     </div>
