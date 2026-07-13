@@ -150,7 +150,7 @@ function UnderHeader() {
           <li className="">فروشگاه</li>
           <li>خرید سازمانی</li>
           <li>درباره ما</li>
-          <li>تماس با ما</li>
+          <li>سوالات متداول</li>
           <li>وبلاگ</li>
           <li>تخفیفات</li>
         </ul>
