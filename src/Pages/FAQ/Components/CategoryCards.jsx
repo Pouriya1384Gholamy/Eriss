@@ -1,10 +1,9 @@
 import React from 'react';
 import { 
   Filter, ShieldCheck, CreditCard, User, Rocket 
-} from 'lucide-react'; // ← آیکون‌ها رو مستقیم import کنید
+} from 'lucide-react';
 
 const CategoryCards = ({ categories, activeCategory, setActiveCategory, getCategoryCount }) => {
-  // Map آیکون‌ها
   const iconMap = {
     Filter: Filter,
     ShieldCheck: ShieldCheck,
@@ -19,13 +18,13 @@ const CategoryCards = ({ categories, activeCategory, setActiveCategory, getCateg
   };
 
   return (
-    <section className="max-w-6xl mx-auto -mt-8 px-4 relative z-20">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+    <section className="max-w-7xl mx-auto -mt-8 px-4 relative z-20">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-2xl mx-auto">
         {categories.map((item) => (
           <div 
             key={item.id}
             onClick={() => setActiveCategory(item.id)}
-            className={`group relative bg-white rounded-2xl p-5 transition-all duration-300 cursor-pointer ${
+            className={`group relative bg-white rounded-2xl p-4 sm:p-5 transition-all duration-300 cursor-pointer ${
               activeCategory === item.id 
                 ? 'shadow-2xl -translate-y-2 ring-2 ring-[#9EAD8C] ring-offset-2' 
                 : 'shadow-lg hover:shadow-xl hover:-translate-y-1'
@@ -34,11 +33,11 @@ const CategoryCards = ({ categories, activeCategory, setActiveCategory, getCateg
             <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white to-gray-50/50 opacity-0 group-hover:opacity-100 transition-opacity" />
             
             <div className="relative flex flex-col items-center text-center">
-              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-lg`}>
+              <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-2 sm:mb-3 group-hover:scale-110 transition-transform shadow-lg`}>
                 <div className="text-white">{getIcon(item.icon)}</div>
               </div>
-              <span className="text-sm font-bold text-gray-700 leading-5">{item.title}</span>
-              <span className={`text-xs font-semibold mt-2 px-3 py-1 rounded-full ${
+              <span className="text-xs sm:text-sm font-bold text-gray-700 leading-5">{item.title}</span>
+              <span className={`text-xs font-semibold mt-1 sm:mt-2 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full ${
                 activeCategory === item.id 
                   ? 'bg-[#9EAD8C] text-white' 
                   : 'bg-gray-100 text-gray-500'

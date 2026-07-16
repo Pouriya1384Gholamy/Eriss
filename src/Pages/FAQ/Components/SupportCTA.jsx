@@ -3,8 +3,8 @@ import { Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 
 const SupportCTA = () => {
   return (
-    <section className="max-w-5xl mx-auto mt-20 px-4">
-      <div className="relative overflow-hidden bg-gradient-to-br from-white to-[#F8F5F0] rounded-3xl p-12 border border-[#9EAD8C]/20 shadow-2xl">
+    <section className=" max-w-5xl mx-auto mt-20 px-4">
+      <div className="border-dashed border-2 border-third relative overflow-hidden bg-gradient-to-br from-white to-[#F8F5F0] rounded-3xl p-12 border border-[#9EAD8C]/20 shadow-2xl">
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#9EAD8C]/10 to-transparent rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-[#8A9A7B]/10 to-transparent rounded-full translate-y-1/2 -translate-x-1/2" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#9EAD8C]/5 rounded-full blur-3xl" />
@@ -31,7 +31,7 @@ const SupportCTA = () => {
             </button>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-8 mt-10 pt-8 border-t border-gray-200/50">
+          <div className="flex flex-wrap justify-right sm:justify-center gap-8 mt-10 pt-8 border-t border-gray-200/50">
             <div className="flex items-center gap-3 text-sm text-gray-500">
               <div className="w-10 h-10 bg-[#9EAD8C]/10 rounded-full flex items-center justify-center">
                 <Phone size={18} className="text-[#9EAD8C]" />

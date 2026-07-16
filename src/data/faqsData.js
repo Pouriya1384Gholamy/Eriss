@@ -50,7 +50,6 @@ export const faqsData = [
 ];
 
 export const categoriesData = [
-  { id: "all", title: "همه سوالات", icon: "Filter", color: "from-gray-400 to-gray-600", bg: "bg-gray-50" },
   { id: "security", title: "حریم خصوصی", icon: "ShieldCheck", color: "from-emerald-500 to-teal-600", bg: "bg-emerald-50" },
   { id: "payment", title: "پرداخت و فاکتور", icon: "CreditCard", color: "from-blue-500 to-indigo-600", bg: "bg-blue-50" },
   { id: "main", title: "سوالات اصلی", icon: "User", color: "from-purple-500 to-pink-600", bg: "bg-purple-50" },

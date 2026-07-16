@@ -8,8 +8,8 @@ const HeroSection = ({ searchQuery, setSearchQuery }) => {
         <div className="absolute top-0 left-0 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/2 translate-y-1/2" />
         <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-white rounded-full -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute top-20 right-20 w-48 h-48 bg-white rounded-full" />
-        <div className="absolute bottom-20 left-20 w-56 h-56 bg-white rounded-full" />
+        <div className="absolute hidden sm:block top-20 right-20 w-48 h-48 bg-white rounded-full" />
+        <div className="absolute hidden sm:block bottom-20 left-20 w-56 h-56 bg-white rounded-full" />
       </div>
       <div className="max-w-4xl mx-auto text-center relative z-10">
         <span className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full text-white text-sm mb-6">
