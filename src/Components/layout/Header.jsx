@@ -560,9 +560,22 @@ function Header() {
               ) : (
                 // منوی اصلی
                 <ul className="space-y-1 p-3">
-                  {["فروشگاه", "درباره ما", "تماس با ما", "وبلاگ"].map((m, i) => (
-                    <li key={i} className="p-3 text-[13px] font-medium text-gray-600 hover:bg-gray-50 rounded-xl cursor-pointer">
-                      {m}
+                  {[
+                    { name: "فروشگاه", path: "/" },
+                    { name: "درباره ما", path: "/about" },
+                    { name: "تماس با ما", path: "/contact" },
+                    { name: "وبلاگ", path: "/blog" },
+                    { name: "سوالات متداول", path: "/faq" }
+                  ].map((item, i) => (
+                    <li 
+                      key={i} 
+                      onClick={() => {
+                        navigate(item.path);
+                        closeMenu(); // بستن منو بعد از کلیک
+                      }}
+                      className="p-3 text-[13px] font-medium text-gray-600 hover:bg-gray-50 rounded-xl cursor-pointer"
+                    >
+                      {item.name}
                     </li>
                   ))}
                 </ul>
