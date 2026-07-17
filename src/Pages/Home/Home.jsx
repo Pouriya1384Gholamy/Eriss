@@ -6,6 +6,7 @@ import CategoryItem from './Components/CategoryItem'
 import FeaturedProducts from './Components/FeaturedProducts'
 import Banner from './Components/Banner'
 import NewProduct from './Components/NewProduct'
+import Xbar from './Components/Xbar'
 import Discount from './Components/Discount'
 import CreativleyProduct from './Components/CreativleyProduct'
 import FAQ from './Components/FAQ'
@@ -22,6 +23,7 @@ function Home() {
         <FeaturedProducts />
         <Banner />
         <NewProduct />
+        <Xbar />
         <Discount />
         <CreativleyProduct />
         <FAQ />
