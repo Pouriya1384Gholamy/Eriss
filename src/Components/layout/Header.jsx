@@ -169,9 +169,11 @@ function Header() {
 
   return (
     <>
+      {/* خط بالای هدر - با padding-top برای جبران فضای هدر fix شده */}
       <div className="w-full h-2 bg-primary"></div>
 
-      <header className="flex justify-between items-center bg-white shadow-md h-12 px-3 lg:h-[70px]">
+      {/* هدر با پوزیشن فیکس */}
+      <header className="sticky top-0 z-[100] flex justify-between items-center bg-white/85 shadow-md h-12 px-3 lg:h-[70px]">
         {/* LEFT */}
         <div className="flex items-center gap-3 mr-2 order-1 lg:order-2">
           {/* hamburger */}

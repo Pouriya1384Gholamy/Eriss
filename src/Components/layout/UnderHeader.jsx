@@ -150,7 +150,12 @@ function UnderHeader() {
           <li className="">فروشگاه</li>
           <li>خرید سازمانی</li>
           <li>درباره ما</li>
-          <li>سوالات متداول</li>
+          <li 
+            onClick={() => navigate('/faq', { replace: true })}
+            className="cursor-pointer hover:text-primary transition"
+          >
+            سوالات متداول
+          </li>
           <li>وبلاگ</li>
           <li>تخفیفات</li>
         </ul>
