@@ -72,7 +72,7 @@ const BrandMarquee = () => {
             reverse ? "animate-marquee-reverse" : "animate-marquee"
           }`}
         >
-          {[...items, ...items, ...items].map((_, index) => (
+          {[...items, ...items, ...items, ...items].map((_, index) => (
             <MarqueeItem
               key={`${light ? "light" : "dark"}-${index}`}
               light={light}
@@ -99,10 +99,10 @@ const BrandMarquee = () => {
             100% { transform: translateX(0); }
           }
           .animate-marquee {
-            animation: marquee 20s linear infinite;
+            animation: marquee 12s linear infinite;
           }
           .animate-marquee-reverse {
-            animation: marquee-reverse 18s linear infinite;
+            animation: marquee-reverse 10s linear infinite;
           }
           .animate-marquee:hover,
           .animate-marquee-reverse:hover {
