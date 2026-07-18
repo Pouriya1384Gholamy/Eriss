@@ -1,7 +1,8 @@
 import React from "react";
 
 const BrandMarquee = () => {
-  const items = Array.from({ length: 15 });
+  // ۲۰ آیتم برای اینکه عرضش قطعاً از بزرگترین مانیتورها هم بیشتر بشه
+  const items = Array.from({ length: 20 });
 
   const XLogo = ({ light = false }) => (
     <div
@@ -60,23 +61,28 @@ const BrandMarquee = () => {
 
   const MarqueeRow = ({ light = false, reverse = false }) => (
     <div
-      className={`absolute inset-x-0 top-1/2 -translate-y-1/2 overflow-hidden py-2 sm:py-2.5 ${
+      dir="ltr" // بسیار مهم برای جلوگیری از باگ‌های راست‌چین (RTL)
+      className={`absolute inset-x-0 top-1/2 -translate-y-1/2 flex overflow-hidden py-2 sm:py-2.5 ${
         light
-          ? "bg-white/95 border-y border-[#9EAD8C]/10"
+          ? "bg-white/80 border-y border-[#9EAD8C]/10"
           : "bg-[#8A9A7B] border-y border-white/10"
       } ${light ? "rotate-[2.5deg] z-20" : "rotate-[-2.5deg] z-10"}`}
     >
-      <div className="overflow-hidden">
-        <div
-          className={`flex whitespace-nowrap will-change-transform ${
-            reverse ? "animate-marquee-reverse" : "animate-marquee"
-          }`}
-        >
-          {[...items, ...items, ...items, ...items].map((_, index) => (
-            <MarqueeItem
-              key={`${light ? "light" : "dark"}-${index}`}
-              light={light}
-            />
+      <div
+        className={`flex w-max shrink-0 will-change-transform ${
+          reverse ? "animate-marquee-reverse" : "animate-marquee"
+        }`}
+      >
+        {/* بلوک اول */}
+        <div className="flex shrink-0">
+          {items.map((_, index) => (
+            <MarqueeItem key={`set1-${index}`} light={light} />
+          ))}
+        </div>
+        {/* بلوک دوم (دقیقاً کپی بلوک اول برای لوپ بی‌نهایت) */}
+        <div className="flex shrink-0">
+          {items.map((_, index) => (
+            <MarqueeItem key={`set2-${index}`} light={light} />
           ))}
         </div>
       </div>
@@ -90,6 +96,7 @@ const BrandMarquee = () => {
         <MarqueeRow light reverse />
 
         <style>{`
+          /* انیمیشن‌ها دقیقاً روی 50 درصد تنظیم شدن چون دو بلوک یکسان داریم */
           @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -99,10 +106,11 @@ const BrandMarquee = () => {
             100% { transform: translateX(0); }
           }
           .animate-marquee {
-            animation: marquee 12s linear infinite;
+            /* زمان انیمیشن رو می‌تونی بسته به سلیقت کم و زیاد کنی */
+            animation: marquee 100s linear infinite; 
           }
           .animate-marquee-reverse {
-            animation: marquee-reverse 10s linear infinite;
+            animation: marquee-reverse 100s linear infinite;
           }
           .animate-marquee:hover,
           .animate-marquee-reverse:hover {

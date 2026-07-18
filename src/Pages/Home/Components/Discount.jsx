@@ -27,16 +27,18 @@ export default function Discount() {
   }, [])
 
   const units = [
-    { value: pad(time.days), label: 'روز' },
-    { value: pad(time.hours), label: 'ساعت' },
-    { value: pad(time.minutes), label: 'دقیقه' },
     { value: pad(time.seconds), label: 'ثانیه' },
+    { value: pad(time.minutes), label: 'دقیقه' },
+    { value: pad(time.hours), label: 'ساعت' },
+    { value: pad(time.days), label: 'روز' },
   ]
 
   const isExpired = time.days + time.hours + time.minutes + time.seconds === 0
 
   return (
     <section className="mx-auto mt-8 flex max-w-[1006px] flex-col overflow-hidden rounded-2xl bg-white shadow-sm sm:flex-row-reverse">
+
+
       {/* ---- بخش عکس ---- */}
       <div className="w-full sm:w-1/2 bg-fiveth flex items-center justify-center overflow-hidden">
         <img
