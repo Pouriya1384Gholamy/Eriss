@@ -563,7 +563,7 @@ function Header() {
                   {[
                     { name: "فروشگاه", path: "/" },
                     { name: "درباره ما", path: "/about" },
-                    { name: "تماس با ما", path: "/contact" },
+                    { name: "تماس با ما", path: "/Contact" },
                     { name: "وبلاگ", path: "/blog" },
                     { name: "سوالات متداول", path: "/faq" }
                   ].map((item, i) => (

@@ -88,7 +88,8 @@ const footerColumns = [
       { label: "محصولات", href: "/products" },
       { label: "درباره ما", href: "/about" },
       { label: "وبلاگ", href: "/blog" },
-      { label: "تماس با ما", href: "/contact" },
+      { label: "تماس با ما", href: "/Contact" },
+      { label: "سوالات متداول", href: "/Faq" },
     ],
   },
   {

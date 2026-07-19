@@ -147,7 +147,8 @@ function UnderHeader() {
         </div>
 
         <ul className="flex justify-between items-center text-[12px] xl:text-[15px] gap-5 text-[#363434]">
-          <li className="">فروشگاه</li>
+          <li onClick={() => navigate('/', { replace: true })}
+            className="cursor-pointer hover:text-primary transition">فروشگاه</li>
           <li>خرید سازمانی</li>
           <li>درباره ما</li>
           <li 
