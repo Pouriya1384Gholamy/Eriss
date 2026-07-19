@@ -10,6 +10,7 @@ import Xbar from './Components/Xbar'
 import Discount from './Components/Discount'
 import CreativleyProduct from './Components/CreativleyProduct'
 import FAQ from './Components/FAQ'
+import Banner2 from './Components/Banner2'
 import BlogSection from './Components/BlogSection'
 import Footer from '../../Components/layout/Footer'
 
@@ -27,6 +28,7 @@ function Home() {
         <Discount />
         <CreativleyProduct />
         <FAQ />
+        <Banner2 />
         <BlogSection />
         <Footer />
     </>
