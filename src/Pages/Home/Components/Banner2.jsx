@@ -5,9 +5,10 @@ function Banner2() {
   return (
     <section className="mt-8 w-full bg-transparent py-4 md:py-6 lg:py-8">
       <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-        <div className="relative w-full max-w-[1072px] mx-auto group">
+        {/* ارتفاع را به این div بدهید نه به container */}
+        <div className="relative w-full max-w-[1072px] mx-auto group md:h-[300px] lg:h-[380px] xl:h-[420px]">
           {/* نسبت تصویر با ارتفاع کمتر در دسکتاپ */}
-          <div className="relative w-full pt-[39.88%] sm:pt-[40.13%] lg:pt-[32%]">
+          <div className="relative w-full pt-[39.88%] sm:pt-[40.13%] lg:pt-[32%] md:pt-0 md:h-full">
             <img
               src={img}
               alt="بنر تبلیغاتی"
