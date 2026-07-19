@@ -299,36 +299,52 @@ const Can = () => {
               </div>
             </div>
 
-            {/* Trust Badge */}
-            <div className="rounded-3xl bg-gradient-to-br from-[#7a8b6e] to-[#a4b496] p-6 text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:p-7">
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-3xl">🏆</span>
-                <h3 className="text-lg font-bold">چرا اریس وود؟</h3>
-              </div>
-              <p className="text-sm leading-relaxed text-white/90">
-                ما روی کیفیت ساخت، پاسخ‌گویی سریع و تجربه خرید ساده تمرکز داریم تا
-                ارتباط شما با برند، حرفه‌ای و قابل اعتماد باشد.
-              </p>
-              <div className="mt-5 flex gap-2">
-                <div className="flex-1 h-1.5 bg-white/20 rounded-full overflow-hidden">
-                  <div className="h-full w-4/5 bg-white/60 rounded-full"></div>
+            {/* ====== TRUST BADGE ====== */}
+                <div className="rounded-3xl bg-gradient-to-br from-[#7a8b6e] to-[#a4b496] p-5 text-white shadow-xl transition-all duration-300 hover:shadow-2xl sm:p-6">
+                <div className="flex items-center gap-3 mb-3">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm text-lg">
+                    🏆
+                    </div>
+                    <div>
+                    <h3 className="text-base font-bold">چرا اریس وود؟</h3>
+                    </div>
                 </div>
-                <div className="flex-1 h-1.5 bg-white/20 rounded-full overflow-hidden">
-                  <div className="h-full w-3/4 bg-white/60 rounded-full"></div>
+
+                <p className="text-xs leading-relaxed text-white/90 mb-3">
+                    ما روی کیفیت ساخت، پاسخ‌گویی سریع و تجربه خرید ساده تمرکز داریم تا
+                    ارتباط شما با برند، حرفه‌ای و قابل اعتماد باشد.
+                </p>
+
+                <div className="flex gap-2">
+                    <div className="flex-1">
+                    <div className="flex justify-between text-[10px] text-white/70 mb-0.5">
+                        <span>کیفیت</span>
+                        <span>۹۸٪</span>
+                    </div>
+                    <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
+                        <div className="h-full w-[98%] bg-white/80 rounded-full"></div>
+                    </div>
+                    </div>
+                    <div className="flex-1">
+                    <div className="flex justify-between text-[10px] text-white/70 mb-0.5">
+                        <span>رضایت</span>
+                        <span>۹۵٪</span>
+                    </div>
+                    <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
+                        <div className="h-full w-[95%] bg-white/80 rounded-full"></div>
+                    </div>
+                    </div>
+                    <div className="flex-1">
+                    <div className="flex justify-between text-[10px] text-white/70 mb-0.5">
+                        <span>سرعت</span>
+                        <span>۹۲٪</span>
+                    </div>
+                    <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
+                        <div className="h-full w-[92%] bg-white/80 rounded-full"></div>
+                    </div>
+                    </div>
                 </div>
-                <div className="flex-1 h-1.5 bg-white/20 rounded-full overflow-hidden">
-                  <div className="h-full w-9/10 bg-white/60 rounded-full"></div>
                 </div>
-              </div>
-              <div className="mt-4 flex gap-2">
-                <span className="px-3 py-1 bg-white/20 rounded-full text-xs backdrop-blur-sm">
-                  🔒 امنیت بالا
-                </span>
-                <span className="px-3 py-1 bg-white/20 rounded-full text-xs backdrop-blur-sm">
-                  📞 پشتیبانی ۲۴/۷
-                </span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
