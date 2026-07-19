@@ -3,7 +3,7 @@ import img from "../../../assets/img/image.png";
 
 function Banner2() {
   return (
-    <section className="w-full bg-transparent py-4 md:py-6 lg:py-8">
+    <section className="mt-8 w-full bg-transparent py-4 md:py-6 lg:py-8">
       <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <div className="relative w-full max-w-[1072px] mx-auto group">
           {/* نسبت تصویر با ارتفاع کمتر در دسکتاپ */}

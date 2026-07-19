@@ -93,12 +93,15 @@ const BlogSection = () => {
           .swiper-pagination-bullet {
             background: #7a9e6f !important;
             opacity: 0.5 !important;
-          }
-          .swiper-pagination-bullet-active {
-            background: #7a9e6f !important;
-            opacity: 1 !important;
-            width: 20px !important;
-            border-radius: 10px !important;
+            }
+            .swiper-pagination-bullet-active {
+              background: #7a9e6f !important;
+              opacity: 1 !important;
+              width: 20px !important;
+              border-radius: 10px !important;
+            .swiper-pagination {
+              bottom: -50px !important;  /* این عدد رو منفی‌تر کنید تا پایین‌تر بره */
+            }
           }
         `}</style>
       </section>
