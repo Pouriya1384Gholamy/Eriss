@@ -1,21 +1,21 @@
 import React from 'react';
-import img from "../../../assets/img/Banner1.png";
+import img from "../../../assets/img/Banner1.jpg";
 
 function Banner() {
   return (
-    <section className="flex flex-col sm:flex-row gap-4 px-4 py-6">
-      <div className="w-full md:w-1/2 h-[160px] sm:h-[234px] md:h-[295px] rounded-xl overflow-hidden flex items-center justify-center">
+    <section className="flex flex-col sm:flex-row gap-4 px-4 py-6 w-[95%] max-w-5xl mx-auto">
+      <div className="w-full sm:w-1/2 rounded-xl overflow-hidden">
         <img 
           src={img} 
-          alt="Banner Of Eriss Wood"
-          className="w-full h-full object-scale-down"
+          alt="Banner Of Eriss Wood 1"
+          className="w-full h-auto"
         />
       </div>
-      <div className="w-full md:w-1/2 h-[160px] sm:h-[234px] md:h-[295px] rounded-xl overflow-hidden flex items-center justify-center">
+      <div className="w-full sm:w-1/2 rounded-xl overflow-hidden">
         <img 
           src={img} 
-          alt="Banner Of Eriss Wood"
-          className="w-full h-full object-scale-down"
+          alt="Banner Of Eriss Wood 2"
+          className="w-full h-auto"
         />
       </div>
     </section>
