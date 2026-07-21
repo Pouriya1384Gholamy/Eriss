@@ -8,7 +8,7 @@ const NewProduct = () => {
   const newProducts = products.filter((product) => product.type === "new");
 
   return (
-    <div className="max-w-[1280px] w-[95%] m-auto mt-10">
+    <div className="max-w-[1280px] w-[95%] m-auto ">
       {/* green section */}
       <section className="bg-primary h-[120px] sm:h-[180px] rounded-tl-[25px] rounded-tr-[25px] py-2 sm:py-6 flex justify-center items-start">
         <div className="flex justify-center items-center flex-col gap-3 sm:gap-4 w-[80%] sm:w-[55%] md:w-[40%] h-[75px] sm:h-[90px] bg-white rounded-[8px] py-4 sm:py-6 px-4">

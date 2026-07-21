@@ -46,7 +46,7 @@ const Pagination = () => {
   }, [currentPage, visiblePages, isMobile]);
 
   return (
-    <div className="w-full mb-20 px-4" dir="ltr">
+    <div className="w-full my-10 px-4" dir="ltr">
       <div className="mx-auto w-full max-w-[580px] rounded-2xl bg-secondary p-1 shadow-xl ring-1 ring-white/5">
         <div className="relative flex items-center justify-between rounded-xl bg-primary p-2">
           

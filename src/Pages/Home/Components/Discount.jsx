@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from 'react'
 import { HiOutlineClock } from 'react-icons/hi'
 import img from '../../../assets/img/Discount.jpg'
+import { useNavigate } from "react-router-dom";
 
 const TARGET = new Date(
   Date.now() + 4 * 24 * 60 * 60 * 1000 + 4 * 3600 * 1000 + 4 * 60 * 1000 + 4 * 1000
@@ -20,6 +21,11 @@ function getTimeLeft() {
 
 export default function Discount() {
   const [time, setTime] = useState(getTimeLeft)
+  const navigate = useNavigate();
+
+  const handleViewAll = () => {
+    navigate("/Discount"); // به صفحهتخفیفات ویژ] برو
+  };
 
   useEffect(() => {
     const id = setInterval(() => setTime(getTimeLeft()), 1000)
@@ -83,6 +89,7 @@ export default function Discount() {
         )}
 
         <button
+          onClick={handleViewAll}
           aria-label="مشاهده محصولات تخفیف‌دار"
           className="mt-3 rounded-lg bg-secondary px-10 py-2.5 text-sm font-medium text-white shadow-sm transition-all hover:bg-green-600 active:scale-95 disabled:opacity-50"
           disabled={isExpired}
