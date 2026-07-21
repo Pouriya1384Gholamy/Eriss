@@ -323,7 +323,7 @@ const Dis = () => {
                 <Filter className="w-5 h-5 text-[#8b9b7e]" />
                 فیلترها
               </h2>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center lg:hidden gap-2">
                 {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
                   <button 
                     onClick={clearAllFilters}
