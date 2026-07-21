@@ -3,10 +3,10 @@ import { products, calculateDiscountPrice } from '../../../data/products';
 import { 
   ChevronLeft, ChevronRight, X, Filter, Search, Star, 
   TrendingDown, ShoppingBag, Heart, Eye, SlidersHorizontal,
-  ChevronDown, ChevronUp
+  ChevronDown, ChevronUp, Loader2
 } from 'lucide-react';
 
-const DiscountPage = () => {
+const Dis = () => {
   // === State Management ===
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,6 +18,8 @@ const DiscountPage = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [wishlist, setWishlist] = useState([]);
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);
+  const [isFilterApplying, setIsFilterApplying] = useState(false);
   const itemsPerPage = 12;
 
   // ===== فقط محصولات تخفیف‌دار =====
@@ -139,27 +141,27 @@ const DiscountPage = () => {
 
   // === Handlers ===
   const handleCategoryChange = useCallback((category) => {
-    setLoading(true);
+    setIsFilterApplying(true);
     setTimeout(() => {
       setSelectedCategories(prev => 
         prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
       );
       setCurrentPage(1);
-      setLoading(false);
-    }, 400);
+      setIsFilterApplying(false);
+    }, 500);
   }, []);
 
   const applyPriceFilter = useCallback(() => {
-    setLoading(true);
+    setIsFilterApplying(true);
     setTimeout(() => {
       setPriceRange(tempPrice);
       setCurrentPage(1);
-      setLoading(false);
-    }, 400);
+      setIsFilterApplying(false);
+    }, 500);
   }, [tempPrice]);
 
   const clearAllFilters = useCallback(() => {
-    setLoading(true);
+    setIsFilterApplying(true);
     setTimeout(() => {
       setSelectedCategories([]);
       setPriceRange(getProductPriceRange);
@@ -167,9 +169,19 @@ const DiscountPage = () => {
       setSearchQuery('');
       setSortBy('default');
       setCurrentPage(1);
-      setLoading(false);
-    }, 400);
+      setIsFilterApplying(false);
+    }, 500);
   }, [getProductPriceRange]);
+
+  // ===== جستجو با لودینگ =====
+  const handleSearch = useCallback((query) => {
+    setIsSearchLoading(true);
+    setSearchQuery(query);
+    setCurrentPage(1);
+    setTimeout(() => {
+      setIsSearchLoading(false);
+    }, 400);
+  }, []);
 
   const toggleWishlist = useCallback((productId) => {
     setWishlist(prev => 
@@ -179,30 +191,36 @@ const DiscountPage = () => {
     );
   }, []);
 
-  // ===== جلوگیری از اسکرول صفحه پشت =====
+  // ===== جلوگیری از اسکرول صفحه پشت و مخفی کردن هدر =====
   useEffect(() => {
+    const header = document.querySelector('header');
+    
     if (isFilterOpen) {
+      if (header) {
+        header.style.display = 'none';
+      }
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
     } else {
+      if (header) {
+        header.style.display = 'flex';
+      }
       document.body.style.overflow = 'unset';
       document.body.style.position = 'unset';
       document.body.style.width = 'unset';
     }
+    
     return () => {
+      const headerCleanup = document.querySelector('header');
+      if (headerCleanup) {
+        headerCleanup.style.display = 'flex';
+      }
       document.body.style.overflow = 'unset';
       document.body.style.position = 'unset';
       document.body.style.width = 'unset';
     };
   }, [isFilterOpen]);
-
-  // ===== محاسبه درصد برای اسلایدر =====
-  const getPercentage = useCallback((value) => {
-    const range = getProductPriceRange.max - getProductPriceRange.min;
-    if (range === 0) return 0;
-    return ((value - getProductPriceRange.min) / range) * 100;
-  }, [getProductPriceRange]);
 
   const renderStars = (rating) => {
     return Array(5).fill(0).map((_, i) => (
@@ -213,7 +231,6 @@ const DiscountPage = () => {
     ));
   };
 
-  // ===== تابع بستن فیلتر =====
   const closeFilter = useCallback(() => {
     setIsFilterOpen(false);
   }, []);
@@ -261,49 +278,93 @@ const DiscountPage = () => {
 
       <div className="container mx-auto px-4 lg:px-8 py-8 flex flex-col lg:flex-row gap-6">
         
-        {/* ===== SIDEBAR FILTERS - بدون sticky و fixed ===== */}
-        <aside className="w-full lg:w-80 flex-shrink-0">
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        {/* ===== SIDEBAR FILTERS ===== */}
+        <aside className={`lg:w-80 flex-shrink-0 transition-all duration-300 ${
+          isFilterOpen ? 'fixed inset-0 z-50 lg:relative lg:bg-transparent lg:p-0' : 'hidden lg:block'
+        }`}>
+          {isFilterOpen && (
+            <div 
+              className="fixed inset-0 bg-black/50 backdrop-blur-sm lg:hidden"
+              onClick={closeFilter}
+            />
+          )}
+          
+          <div 
+            className={`bg-white shadow-xl border border-gray-100 overflow-y-auto transition-all duration-300 ${
+              isFilterOpen 
+                ? 'fixed top-0 right-0 bottom-0 w-full max-w-md z-50 rounded-none' 
+                : 'lg:sticky lg:top-24 rounded-2xl'
+            }`}
+            style={{
+              maxHeight: isFilterOpen ? '100vh' : '80vh',
+            }}
+            dir="rtl"
+          >
             
-            {/* ===== هدر فیلتر ===== */}
-            <div className="border-b border-gray-100 p-4 flex items-center justify-between">
+            <style jsx>{`
+              div::-webkit-scrollbar {
+                width: 4px;
+              }
+              div::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 10px;
+              }
+              div::-webkit-scrollbar-thumb {
+                background: #8b9b7e;
+                border-radius: 10px;
+              }
+              div::-webkit-scrollbar-thumb:hover {
+                background: #6b7d5e;
+              }
+            `}</style>
+
+            <div className="sticky top-0 bg-white z-10 border-b border-gray-100 p-4 flex items-center justify-between">
               <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
                 <Filter className="w-5 h-5 text-[#8b9b7e]" />
                 فیلترها
               </h2>
-              {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
+              <div className="flex items-center gap-2">
+                {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
+                  <button 
+                    onClick={clearAllFilters}
+                    className="text-xs text-red-400 hover:text-red-600 font-semibold transition-colors flex items-center gap-1"
+                  >
+                    <X className="w-3 h-3" />
+                    حذف همه
+                  </button>
+                )}
                 <button 
-                  onClick={clearAllFilters}
-                  className="text-xs text-red-400 hover:text-red-600 font-semibold transition-colors flex items-center gap-1"
+                  onClick={closeFilter}
+                  className="p-2 bg-red-50 hover:bg-red-100 rounded-full transition-colors shadow-md"
                 >
-                  <X className="w-3 h-3" />
-                  حذف همه
+                  <X className="w-5 h-5 text-red-500" />
                 </button>
-              )}
+              </div>
             </div>
 
-            {/* ===== محتوای فیلترها ===== */}
-            <div className="p-4">
+            <div className="p-6">
               {/* ===== SEARCH ===== */}
-              <div className="mb-4">
+              <div className="mb-6">
                 <div className="relative group">
                   <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 group-focus-within:text-[#8b9b7e] transition-colors" />
                   <input
                     type="text"
                     placeholder="جستجوی محصول..."
                     value={searchQuery}
-                    onChange={(e) => {
-                      setSearchQuery(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    className="w-full pr-10 pl-4 py-2.5 border-2 border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#8b9b7e] focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
+                    onChange={(e) => handleSearch(e.target.value)}
+                    className="w-full pr-10 pl-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#8b9b7e] focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
                   />
+                  {isSearchLoading && (
+                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
+                      <Loader2 className="w-4 h-4 text-[#8b9b7e] animate-spin" />
+                    </div>
+                  )}
                 </div>
               </div>
 
               {/* ===== CATEGORIES ===== */}
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-2">
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-3">
                   <h3 className="font-semibold text-gray-700 text-sm flex items-center gap-2">
                     <span className="w-1 h-4 bg-[#8b9b7e] rounded-full"></span>
                     دسته‌بندی
@@ -317,7 +378,7 @@ const DiscountPage = () => {
                   {visibleCategories.map(({ id, name, icon, color }) => (
                     <label 
                       key={id} 
-                      className={`flex items-center gap-2 p-2 rounded-xl cursor-pointer transition-all duration-300 border-2 flex-1 min-w-[calc(50%-0.5rem)] ${
+                      className={`flex items-center gap-2 p-2.5 rounded-xl cursor-pointer transition-all duration-300 border-2 flex-1 min-w-[calc(50%-0.5rem)] ${
                         selectedCategories.includes(id) 
                           ? 'border-[#8b9b7e] bg-[#8b9b7e]/10 shadow-md' 
                           : 'border-transparent hover:border-gray-200 hover:bg-gray-50'
@@ -329,10 +390,10 @@ const DiscountPage = () => {
                         onChange={() => handleCategoryChange(id)}
                         className="hidden" 
                       />
-                      <div className={`w-6 h-6 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white text-[10px] shadow-md flex-shrink-0`}>
+                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white text-xs shadow-md flex-shrink-0`}>
                         {icon}
                       </div>
-                      <span className="text-[10px] text-gray-700 font-medium truncate">{name}</span>
+                      <span className="text-[11px] text-gray-700 font-medium truncate">{name}</span>
                     </label>
                   ))}
                 </div>
@@ -340,16 +401,16 @@ const DiscountPage = () => {
                 {hasMoreCategories && (
                   <button
                     onClick={() => setShowAllCategories(!showAllCategories)}
-                    className="w-full mt-2 py-1.5 text-[10px] font-medium text-[#8b9b7e] hover:text-[#6b7d5e] transition-colors flex items-center justify-center gap-1 border border-[#8b9b7e]/20 rounded-xl hover:bg-[#8b9b7e]/5"
+                    className="w-full mt-3 py-2 text-xs font-medium text-[#8b9b7e] hover:text-[#6b7d5e] transition-colors flex items-center justify-center gap-1 border border-[#8b9b7e]/20 rounded-xl hover:bg-[#8b9b7e]/5"
                   >
                     {showAllCategories ? (
                       <>
-                        <ChevronUp className="w-3 h-3" />
+                        <ChevronUp className="w-3.5 h-3.5" />
                         نمایش کمتر
                       </>
                     ) : (
                       <>
-                        <ChevronDown className="w-3 h-3" />
+                        <ChevronDown className="w-3.5 h-3.5" />
                         نمایش همه ({allCategories.length} دسته)
                       </>
                     )}
@@ -357,39 +418,32 @@ const DiscountPage = () => {
                 )}
               </div>
 
-              {/* ===== PRICE RANGE ===== */}
-              <div>
-                <h3 className="font-semibold text-gray-700 mb-3 text-sm flex items-center gap-2">
+              {/* ===== PRICE RANGE (بدون پسزمینه سبز) ===== */}
+              <div className="mb-4">
+                <h3 className="font-semibold text-gray-700 mb-4 text-sm flex items-center gap-2">
                   <span className="w-1 h-4 bg-[#8b9b7e] rounded-full"></span>
                   محدوده قیمت (تومان)
                 </h3>
                 
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-xl px-2 py-1.5 text-center border-2 border-gray-200">
-                    <span className="text-[8px] text-gray-400 block">حداقل</span>
-                    <span className="text-xs font-bold text-gray-700">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-xl px-3 py-2 text-center border-2 border-gray-200">
+                    <span className="text-[10px] text-gray-400 block">حداقل</span>
+                    <span className="text-sm font-bold text-gray-700">
                       {tempPrice.min.toLocaleString('fa-IR')}
                     </span>
                   </div>
                   <span className="text-gray-300 text-xs">تا</span>
-                  <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-xl px-2 py-1.5 text-center border-2 border-gray-200">
-                    <span className="text-[8px] text-gray-400 block">حداکثر</span>
-                    <span className="text-xs font-bold text-gray-700">
+                  <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-xl px-3 py-2 text-center border-2 border-gray-200">
+                    <span className="text-[10px] text-gray-400 block">حداکثر</span>
+                    <span className="text-sm font-bold text-gray-700">
                       {tempPrice.max.toLocaleString('fa-IR')}
                     </span>
                   </div>
                 </div>
 
-                <div className="relative pt-2 pb-6">
+                <div className="relative pt-3 pb-8">
                   <div className="relative h-1.5 bg-gray-200 rounded-full">
-                    <div 
-                      className="absolute h-full bg-gradient-to-r from-[#8b9b7e] to-[#6b7d5e] rounded-full transition-all duration-200"
-                      style={{
-                        left: `${getPercentage(tempPrice.min)}%`,
-                        right: `${100 - getPercentage(tempPrice.max)}%`
-                      }}
-                    />
-                    
+                    {/* Min Handle */}
                     <input
                       type="range"
                       min={getProductPriceRange.min}
@@ -402,10 +456,11 @@ const DiscountPage = () => {
                           setTempPrice(prev => ({ ...prev, min: val }));
                         }
                       }}
-                      className="absolute top-1/2 -translate-y-1/2 w-full h-1.5 appearance-none bg-transparent pointer-events-none"
+                      className="absolute top-1/2 -translate-y-1/2 w-full h-1.5 appearance-none bg-transparent"
                       style={{ zIndex: 10 }}
                     />
                     
+                    {/* Max Handle */}
                     <input
                       type="range"
                       min={getProductPriceRange.min}
@@ -418,7 +473,7 @@ const DiscountPage = () => {
                           setTempPrice(prev => ({ ...prev, max: val }));
                         }
                       }}
-                      className="absolute top-1/2 -translate-y-1/2 w-full h-1.5 appearance-none bg-transparent pointer-events-none"
+                      className="absolute top-1/2 -translate-y-1/2 w-full h-1.5 appearance-none bg-transparent"
                       style={{ zIndex: 10 }}
                     />
 
@@ -426,8 +481,8 @@ const DiscountPage = () => {
                       input[type="range"]::-webkit-slider-thumb {
                         -webkit-appearance: none;
                         appearance: none;
-                        width: 18px;
-                        height: 18px;
+                        width: 20px;
+                        height: 20px;
                         border-radius: 50%;
                         background: white;
                         border: 3px solid #8b9b7e;
@@ -441,8 +496,8 @@ const DiscountPage = () => {
                         box-shadow: 0 4px 20px rgba(139, 155, 126, 0.4);
                       }
                       input[type="range"]::-moz-range-thumb {
-                        width: 18px;
-                        height: 18px;
+                        width: 20px;
+                        height: 20px;
                         border-radius: 50%;
                         background: white;
                         border: 3px solid #8b9b7e;
@@ -452,16 +507,16 @@ const DiscountPage = () => {
                       }
                     `}</style>
 
-                    <div className="absolute -bottom-5 right-0 text-[8px] text-gray-400">
+                    <div className="absolute -bottom-6 right-0 text-[10px] text-gray-400">
                       {getProductPriceRange.min.toLocaleString('fa-IR')}
                     </div>
-                    <div className="absolute -bottom-5 left-0 text-[8px] text-gray-400">
+                    <div className="absolute -bottom-6 left-0 text-[10px] text-gray-400">
                       {getProductPriceRange.max.toLocaleString('fa-IR')}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-1 mt-1">
+                <div className="flex flex-wrap gap-1.5 mt-2">
                   {[
                     { label: 'زیر ۲م', min: getProductPriceRange.min, max: 2000000 },
                     { label: '۲-۵م', min: 2000000, max: 5000000 },
@@ -473,7 +528,7 @@ const DiscountPage = () => {
                       <button
                         key={index}
                         onClick={() => setTempPrice({ min: preset.min, max: preset.max })}
-                        className={`flex-1 text-[8px] px-1.5 py-1 rounded-lg transition-all duration-300 font-medium ${
+                        className={`flex-1 text-[10px] px-2 py-1.5 rounded-lg transition-all duration-300 font-medium ${
                           isActive
                             ? 'bg-[#8b9b7e] text-white shadow-md shadow-[#8b9b7e]/20'
                             : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
@@ -487,37 +542,46 @@ const DiscountPage = () => {
 
                 <button 
                   onClick={applyPriceFilter}
-                  className="w-full mt-3 bg-gradient-to-r from-[#8b9b7e] to-[#6b7d5e] text-white py-2 rounded-xl text-xs font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                  disabled={isFilterApplying}
+                  className="w-full mt-4 bg-gradient-to-r from-[#8b9b7e] to-[#6b7d5e] text-white py-3 rounded-xl text-sm font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  <TrendingDown className="w-3.5 h-3.5" />
-                  اعمال قیمت
+                  {isFilterApplying ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      در حال اعمال...
+                    </>
+                  ) : (
+                    <>
+                      <TrendingDown className="w-4 h-4" />
+                      اعمال قیمت
+                    </>
+                  )}
                 </button>
               </div>
 
-              {/* Active Filters Tags */}
               {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
-                <div className="mt-4 pt-3 border-t border-gray-100">
-                  <p className="text-[10px] text-gray-400 mb-1.5">فیلترهای فعال:</p>
-                  <div className="flex flex-wrap gap-1">
+                <div className="pt-4 border-t border-gray-100">
+                  <p className="text-xs text-gray-400 mb-2">فیلترهای فعال:</p>
+                  <div className="flex flex-wrap gap-1.5">
                     {selectedCategories.map(cat => {
                       const category = allCategories.find(c => c.id === cat);
                       return (
-                        <span key={cat} className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2 py-0.5 rounded-lg text-[8px] font-medium flex items-center gap-0.5 border border-[#8b9b7e]/20">
+                        <span key={cat} className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[#8b9b7e]/20">
                           {category?.icon} {category?.name}
                           <button onClick={() => handleCategoryChange(cat)} className="hover:text-red-500">
-                            <X className="w-2.5 h-2.5" />
+                            <X className="w-3 h-3" />
                           </button>
                         </span>
                       );
                     })}
                     {(priceRange.min !== getProductPriceRange.min || priceRange.max !== getProductPriceRange.max) && (
-                      <span className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2 py-0.5 rounded-lg text-[8px] font-medium flex items-center gap-0.5 border border-[#8b9b7e]/20">
+                      <span className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[#8b9b7e]/20">
                         {priceRange.min.toLocaleString('fa-IR')} - {priceRange.max.toLocaleString('fa-IR')}
                         <button onClick={() => {
                           setPriceRange(getProductPriceRange);
                           setTempPrice(getProductPriceRange);
                         }}>
-                          <X className="w-2.5 h-2.5" />
+                          <X className="w-3 h-3" />
                         </button>
                       </span>
                     )}
@@ -575,13 +639,18 @@ const DiscountPage = () => {
           </div>
 
           {/* ===== PRODUCTS ===== */}
-          {loading ? (
+          {isFilterApplying || isSearchLoading ? (
             <div className="flex justify-center items-center h-96 bg-white rounded-2xl shadow-lg border border-gray-100">
               <div className="text-center">
                 <div className="relative">
                   <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#8b9b7e]/20 border-t-[#8b9b7e] mx-auto"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Loader2 className="w-8 h-8 text-[#8b9b7e] animate-spin" />
+                  </div>
                 </div>
-                <p className="mt-4 text-gray-500 text-sm">در حال بارگذاری محصولات...</p>
+                <p className="mt-4 text-gray-500 text-sm">
+                  {isSearchLoading ? 'در حال جستجو...' : 'در حال اعمال فیلترها...'}
+                </p>
               </div>
             </div>
           ) : filteredProducts.length === 0 ? (
@@ -684,8 +753,8 @@ const DiscountPage = () => {
             </div>
           )}
 
-          {/* ===== PAGINATION ===== */}
-          {!loading && totalPages > 1 && (
+          {/* ===== PAGINATION با رنگ‌های سایت ===== */}
+          {!isFilterApplying && !isSearchLoading && totalPages > 1 && (
             <Pagination 
               currentPage={currentPage} 
               setCurrentPage={setCurrentPage} 
@@ -695,290 +764,12 @@ const DiscountPage = () => {
 
         </main>
       </div>
-
-      {/* ===== مودال فیلتر برای موبایل ===== */}
-      {isFilterOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={closeFilter}
-          />
-          <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white z-10 border-b border-gray-100 p-4 flex items-center justify-between rounded-t-3xl">
-              <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                <Filter className="w-5 h-5 text-[#8b9b7e]" />
-                فیلترها
-              </h2>
-              <div className="flex items-center gap-2">
-                {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
-                  <button 
-                    onClick={clearAllFilters}
-                    className="text-xs text-red-400 hover:text-red-600 font-semibold transition-colors flex items-center gap-1"
-                  >
-                    <X className="w-3 h-3" />
-                    حذف همه
-                  </button>
-                )}
-                <button 
-                  onClick={closeFilter}
-                  className="p-2 bg-red-50 hover:bg-red-100 rounded-full transition-colors shadow-md"
-                >
-                  <X className="w-5 h-5 text-red-500" />
-                </button>
-              </div>
-            </div>
-
-            <div className="p-4">
-              {/* ===== SEARCH ===== */}
-              <div className="mb-4">
-                <div className="relative group">
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 group-focus-within:text-[#8b9b7e] transition-colors" />
-                  <input
-                    type="text"
-                    placeholder="جستجوی محصول..."
-                    value={searchQuery}
-                    onChange={(e) => {
-                      setSearchQuery(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    className="w-full pr-10 pl-4 py-2.5 border-2 border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#8b9b7e] focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
-                  />
-                </div>
-              </div>
-
-              {/* ===== CATEGORIES ===== */}
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-gray-700 text-sm flex items-center gap-2">
-                    <span className="w-1 h-4 bg-[#8b9b7e] rounded-full"></span>
-                    دسته‌بندی
-                  </h3>
-                  <span className="text-[10px] text-gray-400">
-                    {selectedCategories.length} انتخاب شده
-                  </span>
-                </div>
-                
-                <div className="flex flex-wrap gap-2">
-                  {visibleCategories.map(({ id, name, icon, color }) => (
-                    <label 
-                      key={id} 
-                      className={`flex items-center gap-2 p-2 rounded-xl cursor-pointer transition-all duration-300 border-2 flex-1 min-w-[calc(50%-0.5rem)] ${
-                        selectedCategories.includes(id) 
-                          ? 'border-[#8b9b7e] bg-[#8b9b7e]/10 shadow-md' 
-                          : 'border-transparent hover:border-gray-200 hover:bg-gray-50'
-                      }`}
-                    >
-                      <input 
-                        type="checkbox" 
-                        checked={selectedCategories.includes(id)}
-                        onChange={() => handleCategoryChange(id)}
-                        className="hidden" 
-                      />
-                      <div className={`w-6 h-6 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white text-[10px] shadow-md flex-shrink-0`}>
-                        {icon}
-                      </div>
-                      <span className="text-[10px] text-gray-700 font-medium truncate">{name}</span>
-                    </label>
-                  ))}
-                </div>
-
-                {hasMoreCategories && (
-                  <button
-                    onClick={() => setShowAllCategories(!showAllCategories)}
-                    className="w-full mt-2 py-1.5 text-[10px] font-medium text-[#8b9b7e] hover:text-[#6b7d5e] transition-colors flex items-center justify-center gap-1 border border-[#8b9b7e]/20 rounded-xl hover:bg-[#8b9b7e]/5"
-                  >
-                    {showAllCategories ? (
-                      <>
-                        <ChevronUp className="w-3 h-3" />
-                        نمایش کمتر
-                      </>
-                    ) : (
-                      <>
-                        <ChevronDown className="w-3 h-3" />
-                        نمایش همه ({allCategories.length} دسته)
-                      </>
-                    )}
-                  </button>
-                )}
-              </div>
-
-              {/* ===== PRICE RANGE ===== */}
-              <div>
-                <h3 className="font-semibold text-gray-700 mb-3 text-sm flex items-center gap-2">
-                  <span className="w-1 h-4 bg-[#8b9b7e] rounded-full"></span>
-                  محدوده قیمت (تومان)
-                </h3>
-                
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-xl px-2 py-1.5 text-center border-2 border-gray-200">
-                    <span className="text-[8px] text-gray-400 block">حداقل</span>
-                    <span className="text-xs font-bold text-gray-700">
-                      {tempPrice.min.toLocaleString('fa-IR')}
-                    </span>
-                  </div>
-                  <span className="text-gray-300 text-xs">تا</span>
-                  <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-xl px-2 py-1.5 text-center border-2 border-gray-200">
-                    <span className="text-[8px] text-gray-400 block">حداکثر</span>
-                    <span className="text-xs font-bold text-gray-700">
-                      {tempPrice.max.toLocaleString('fa-IR')}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="relative pt-2 pb-6">
-                  <div className="relative h-1.5 bg-gray-200 rounded-full">
-                    <div 
-                      className="absolute h-full bg-gradient-to-r from-[#8b9b7e] to-[#6b7d5e] rounded-full transition-all duration-200"
-                      style={{
-                        left: `${getPercentage(tempPrice.min)}%`,
-                        right: `${100 - getPercentage(tempPrice.max)}%`
-                      }}
-                    />
-                    
-                    <input
-                      type="range"
-                      min={getProductPriceRange.min}
-                      max={getProductPriceRange.max}
-                      step={100000}
-                      value={tempPrice.min}
-                      onChange={(e) => {
-                        const val = Number(e.target.value);
-                        if (val <= tempPrice.max) {
-                          setTempPrice(prev => ({ ...prev, min: val }));
-                        }
-                      }}
-                      className="absolute top-1/2 -translate-y-1/2 w-full h-1.5 appearance-none bg-transparent pointer-events-none"
-                      style={{ zIndex: 10 }}
-                    />
-                    
-                    <input
-                      type="range"
-                      min={getProductPriceRange.min}
-                      max={getProductPriceRange.max}
-                      step={100000}
-                      value={tempPrice.max}
-                      onChange={(e) => {
-                        const val = Number(e.target.value);
-                        if (val >= tempPrice.min) {
-                          setTempPrice(prev => ({ ...prev, max: val }));
-                        }
-                      }}
-                      className="absolute top-1/2 -translate-y-1/2 w-full h-1.5 appearance-none bg-transparent pointer-events-none"
-                      style={{ zIndex: 10 }}
-                    />
-
-                    <style jsx>{`
-                      input[type="range"]::-webkit-slider-thumb {
-                        -webkit-appearance: none;
-                        appearance: none;
-                        width: 18px;
-                        height: 18px;
-                        border-radius: 50%;
-                        background: white;
-                        border: 3px solid #8b9b7e;
-                        box-shadow: 0 2px 12px rgba(139, 155, 126, 0.3);
-                        cursor: pointer;
-                        pointer-events: auto;
-                        transition: all 0.2s;
-                      }
-                      input[type="range"]::-webkit-slider-thumb:hover {
-                        transform: scale(1.15);
-                        box-shadow: 0 4px 20px rgba(139, 155, 126, 0.4);
-                      }
-                      input[type="range"]::-moz-range-thumb {
-                        width: 18px;
-                        height: 18px;
-                        border-radius: 50%;
-                        background: white;
-                        border: 3px solid #8b9b7e;
-                        box-shadow: 0 2px 12px rgba(139, 155, 126, 0.3);
-                        cursor: pointer;
-                        pointer-events: auto;
-                      }
-                    `}</style>
-
-                    <div className="absolute -bottom-5 right-0 text-[8px] text-gray-400">
-                      {getProductPriceRange.min.toLocaleString('fa-IR')}
-                    </div>
-                    <div className="absolute -bottom-5 left-0 text-[8px] text-gray-400">
-                      {getProductPriceRange.max.toLocaleString('fa-IR')}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-1 mt-1">
-                  {[
-                    { label: 'زیر ۲م', min: getProductPriceRange.min, max: 2000000 },
-                    { label: '۲-۵م', min: 2000000, max: 5000000 },
-                    { label: '۵-۱۰م', min: 5000000, max: 10000000 },
-                    { label: 'بالای ۱۰م', min: 10000000, max: getProductPriceRange.max }
-                  ].map((preset, index) => {
-                    const isActive = tempPrice.min === preset.min && tempPrice.max === preset.max;
-                    return (
-                      <button
-                        key={index}
-                        onClick={() => setTempPrice({ min: preset.min, max: preset.max })}
-                        className={`flex-1 text-[8px] px-1.5 py-1 rounded-lg transition-all duration-300 font-medium ${
-                          isActive
-                            ? 'bg-[#8b9b7e] text-white shadow-md shadow-[#8b9b7e]/20'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
-                        }`}
-                      >
-                        {preset.label}
-                      </button>
-                    );
-                  })}
-                </div>
-
-                <button 
-                  onClick={applyPriceFilter}
-                  className="w-full mt-3 bg-gradient-to-r from-[#8b9b7e] to-[#6b7d5e] text-white py-2 rounded-xl text-xs font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
-                >
-                  <TrendingDown className="w-3.5 h-3.5" />
-                  اعمال قیمت
-                </button>
-              </div>
-
-              {/* Active Filters Tags */}
-              {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
-                <div className="mt-4 pt-3 border-t border-gray-100">
-                  <p className="text-[10px] text-gray-400 mb-1.5">فیلترهای فعال:</p>
-                  <div className="flex flex-wrap gap-1">
-                    {selectedCategories.map(cat => {
-                      const category = allCategories.find(c => c.id === cat);
-                      return (
-                        <span key={cat} className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2 py-0.5 rounded-lg text-[8px] font-medium flex items-center gap-0.5 border border-[#8b9b7e]/20">
-                          {category?.icon} {category?.name}
-                          <button onClick={() => handleCategoryChange(cat)} className="hover:text-red-500">
-                            <X className="w-2.5 h-2.5" />
-                          </button>
-                        </span>
-                      );
-                    })}
-                    {(priceRange.min !== getProductPriceRange.min || priceRange.max !== getProductPriceRange.max) && (
-                      <span className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2 py-0.5 rounded-lg text-[8px] font-medium flex items-center gap-0.5 border border-[#8b9b7e]/20">
-                        {priceRange.min.toLocaleString('fa-IR')} - {priceRange.max.toLocaleString('fa-IR')}
-                        <button onClick={() => {
-                          setPriceRange(getProductPriceRange);
-                          setTempPrice(getProductPriceRange);
-                        }}>
-                          <X className="w-2.5 h-2.5" />
-                        </button>
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
 // ==========================================
-// Pagination Component
+// Pagination Component با رنگ‌های سایت
 // ==========================================
 const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -1025,13 +816,13 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   return (
     <div className="w-full mt-12" dir="ltr">
       <div className="max-w-md mx-auto">
-        <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-1 shadow-2xl">
-          <div className="relative flex items-center justify-between bg-slate-900/80 rounded-xl p-1.5 backdrop-blur-sm">
+        <div className="bg-gradient-to-r from-[#8A9A7B] to-[#9EAD8C] rounded-2xl p-1 shadow-2xl shadow-[#8A9A7B]/20">
+          <div className="relative flex items-center justify-between bg-white/95 backdrop-blur-sm rounded-xl p-1.5">
             
             <button
               onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
               disabled={currentPage === 1}
-              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-white/60 transition-all hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[#8A9A7B] transition-all hover:bg-[#8A9A7B]/10 hover:text-[#6B7D5E] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-4 h-4" />
               <span className="hidden sm:inline">قبلی</span>
@@ -1047,8 +838,8 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
                     onClick={() => setCurrentPage(page)}
                     className={`relative z-10 flex h-9 w-9 items-center justify-center rounded-lg text-sm font-semibold transition-all ${
                       isActive 
-                        ? 'text-white' 
-                        : 'text-white/40 hover:text-white hover:bg-white/5'
+                        ? 'text-white bg-[#8A9A7B] shadow-md' 
+                        : 'text-[#8A9A7B] hover:text-[#6B7D5E] hover:bg-[#8A9A7B]/10'
                     }`}
                   >
                     {page}
@@ -1057,7 +848,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
               })}
 
               <div
-                className="absolute bottom-1 z-0 h-0.5 rounded-full bg-gradient-to-r from-emerald-400 to-cyan-400 shadow-[0_0_20px_rgba(52,211,153,0.4)] transition-all duration-300 ease-out"
+                className="absolute bottom-1 z-0 h-0.5 rounded-full bg-gradient-to-r from-[#8A9A7B] to-[#9EAD8C] shadow-[0_0_20px_rgba(138,154,123,0.4)] transition-all duration-300 ease-out"
                 style={{ 
                   left: lineStyle.left, 
                   width: lineStyle.width, 
@@ -1069,7 +860,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
             <button
               onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
               disabled={currentPage === totalPages}
-              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-white/60 transition-all hover:bg-white/10 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[#8A9A7B] transition-all hover:bg-[#8A9A7B]/10 hover:text-[#6B7D5E] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
             >
               <span className="hidden sm:inline">بعدی</span>
               <ChevronRight className="w-4 h-4" />
@@ -1077,7 +868,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
           </div>
         </div>
         
-        <div className="text-center mt-3 text-xs text-gray-400">
+        <div className="text-center mt-3 text-xs text-[#8A9A7B]">
           صفحه {currentPage} از {totalPages}
         </div>
       </div>
@@ -1085,4 +876,4 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   );
 };
 
-export default DiscountPage;
+export default Dis;

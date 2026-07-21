@@ -11,7 +11,6 @@ function DiscountPage() {
       <Header />
       <UnderHeader />
       <Dis />
-      <Pagination />
       <Footer />
     </>
   )
