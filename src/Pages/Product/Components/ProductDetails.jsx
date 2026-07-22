@@ -4,7 +4,6 @@ import SpecsTab from './tabs/SpecsTab';
 import HowToBuyTab from './tabs/HowToBuyTab';
 import ColorGalleryTab from './tabs/ColorGalleryTab';
 
-// ====== دریافت activeTab و setActiveTab از props ======
 const ProductDetails = ({ product, activeTab, setActiveTab }) => {
   const tabs = [
     { id: 'description', label: 'توضیحات' },
@@ -25,7 +24,7 @@ const ProductDetails = ({ product, activeTab, setActiveTab }) => {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)} // <-- اینجا setActiveTab استفاده میشه
+              onClick={() => setActiveTab(tab.id)}
               className={`pb-3 px-1 whitespace-nowrap text-xs sm:text-sm font-medium transition-colors relative ${
                 activeTab === tab.id
                   ? 'text-secondary border-b-2 border-secondary'

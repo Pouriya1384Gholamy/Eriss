@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { products } from "../../../data/products";
+import { products, calculateDiscountPrice } from "../../../data/products";
 import Slider from "../../../Components/ui/Slider";
 import {
   FaStar,
@@ -56,8 +56,14 @@ function ProductHero() {
 
   const hasColors = Array.isArray(product.colors) && product.colors.length > 0;
 
+  // ===== محاسبه قیمت تخفیف‌خورده =====
   const getPrice = () => {
     let price = product.price || 0;
+
+    // اگر تخفیف دارد، قیمت تخفیف‌خورده را محاسبه کن
+    if (product.discountPercentage && product.discountPercentage > 0) {
+      price = calculateDiscountPrice(product.price, product.discountPercentage);
+    }
 
     if (isBulk && product.bulkDiscount) {
       price = price * (1 - product.bulkDiscount / 100);
@@ -166,10 +172,9 @@ function ProductHero() {
     0
   );
 
-  // ====== کامپوننت پنل خرید (بدون بخش خرید اینترنتی) ======
+  // ====== کامپوننت پنل خرید (فقط قیمت تخفیف‌خورده) ======
   const PurchasePanel = ({ showOnlineBadge = false }) => (
     <div className="p-4 bg-gray-50/50 sm:p-5 rounded-xl border border-gray-200 h-full">
-      {/* خرید اینترنتی - فقط در صورت درخواست نمایش داده میشه */}
       {showOnlineBadge && (
         <>
           <div className="flex items-center gap-2 mb-4">
@@ -182,7 +187,6 @@ function ProductHero() {
         </>
       )}
 
-      {/* مشخصات - با grid 1 ستونه */}
       <div className="grid grid-cols-1 gap-2 mb-4">
         <div className="flex items-center gap-2">
           <span className="text-xs text-gray-400 whitespace-nowrap">ابعاد :</span>
@@ -237,7 +241,7 @@ function ProductHero() {
         </div>
       </div>
 
-      {/* قیمت */}
+      {/* ===== نمایش فقط قیمت تخفیف‌خورده ===== */}
       <div className="flex items-center justify-between bg-white p-3 rounded-xl shadow-sm border border-gray-100 mb-4">
         <div className="flex items-center gap-2">
           <MdOutlinePriceChange className="text-[#9EAD8C] text-xl" />
@@ -251,7 +255,6 @@ function ProductHero() {
         </div>
       </div>
 
-      {/* خرید عمده */}
       <div className="flex items-center gap-3 mb-4 p-2 bg-blue-50/50 rounded-lg border border-blue-100">
         <input
           type="checkbox"
@@ -268,7 +271,6 @@ function ProductHero() {
         </label>
       </div>
 
-      {/* تعداد محصول */}
       <div className="flex items-center gap-3 mb-3">
         <span className="text-xs text-gray-400 font-medium whitespace-nowrap">تعداد:</span>
         <div className="flex items-center border-2 border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
@@ -292,7 +294,6 @@ function ProductHero() {
         </div>
       </div>
 
-      {/* دکمه افزودن به سبد خرید - در پایین */}
       <button
         onClick={addToCart}
         className="w-full py-3.5 bg-[#9EAD8C] text-white rounded-xl hover:bg-[#8A9B78] transition-all duration-300 hover:scale-[1.02] text-sm font-medium shadow-md hover:shadow-lg flex items-center justify-center gap-2"
@@ -448,7 +449,7 @@ function ProductHero() {
 
       {/* Main layout */}
       <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 items-start">
-        {/* Gallery - در موبایل بزرگ و وسط‌چین */}
+        {/* Gallery */}
         <article className="w-full lg:w-[32%] xl:w-[30%] flex justify-center">
           <div className="sticky top-4 bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-[400px] lg:max-w-none">
             <div className="aspect-[4/5] max-h-[500px] lg:max-h-[550px]">
@@ -457,7 +458,7 @@ function ProductHero() {
           </div>
         </article>
 
-        {/* Details - پنل خرید بزرگ‌تر */}
+        {/* Details */}
         <article className="w-full lg:w-[68%] xl:w-[70%]">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
             <div className="p-4 sm:p-5 lg:p-6">
@@ -553,7 +554,7 @@ function ProductHero() {
                   </div>
                 </div>
 
-                {/* ====== ستون پنل خرید - دسکتاپ (با نشان خرید اینترنتی) ====== */}
+                {/* ====== ستون پنل خرید - دسکتاپ (فقط قیمت تخفیف‌خورده) ====== */}
                 <div className="hidden lg:block lg:w-[340px] xl:w-[380px] flex-shrink-0 mt-4 lg:mt-0">
                   <div className="sticky top-4">
                     <PurchasePanel showOnlineBadge={true} />
@@ -562,7 +563,7 @@ function ProductHero() {
               </div>
             </div>
 
-            {/* ====== پنل خرید - موبایل (بدون نشان خرید اینترنتی) ====== */}
+            {/* ====== پنل خرید - موبایل (فقط قیمت تخفیف‌خورده) ====== */}
             <div className="lg:hidden p-4 sm:p-5 border-t border-gray-200">
               <PurchasePanel showOnlineBadge={false} />
             </div>

@@ -54,7 +54,6 @@ const SpecsTab = ({ product }) => {
         })}
       </div>
 
-      {/* اطلاعات اضافی */}
       <div className="mt-6 p-4 bg-[var(--brand-ivory)] rounded-lg">
         <h3 className="font-bold text-[var(--brand-charcoal)] mb-2">اطلاعات بیشتر:</h3>
         <ul className="space-y-1 text-sm text-[var(--brand-charcoal)]/75">

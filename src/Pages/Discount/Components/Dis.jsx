@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { products, calculateDiscountPrice } from '../../../data/products';
 import { 
   ChevronLeft, ChevronRight, X, Filter, Search, Star, 
@@ -7,6 +8,8 @@ import {
 } from 'lucide-react';
 
 const Dis = () => {
+  const navigate = useNavigate();
+
   // === State Management ===
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -191,6 +194,11 @@ const Dis = () => {
     );
   }, []);
 
+  // ===== تابع هدایت به صفحه محصول =====
+  const handleQuickView = useCallback((productId) => {
+    navigate(`/product/${productId}`);
+  }, [navigate]);
+
   // ===== جلوگیری از اسکرول صفحه پشت و مخفی کردن هدر =====
   useEffect(() => {
     const header = document.querySelector('header');
@@ -301,7 +309,7 @@ const Dis = () => {
             dir="rtl"
           >
             
-            <style jsx>{`
+            <style>{`
               div::-webkit-scrollbar {
                 width: 4px;
               }
@@ -418,7 +426,7 @@ const Dis = () => {
                 )}
               </div>
 
-              {/* ===== PRICE RANGE (بدون پسزمینه سبز) ===== */}
+              {/* ===== PRICE RANGE ===== */}
               <div className="mb-4">
                 <h3 className="font-semibold text-gray-700 mb-4 text-sm flex items-center gap-2">
                   <span className="w-1 h-4 bg-[#8b9b7e] rounded-full"></span>
@@ -477,7 +485,7 @@ const Dis = () => {
                       style={{ zIndex: 10 }}
                     />
 
-                    <style jsx>{`
+                    <style>{`
                       input[type="range"]::-webkit-slider-thumb {
                         -webkit-appearance: none;
                         appearance: none;
@@ -702,7 +710,10 @@ const Dis = () => {
                         )}
 
                         <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2 sm:pb-4">
-                          <button className="bg-white text-gray-800 shadow-xl px-3 py-1.5 sm:px-6 sm:py-2.5 rounded-full text-[10px] sm:text-sm font-bold hover:bg-[#8b9b7e] hover:text-white transition-all duration-300 transform hover:scale-105 flex items-center gap-1 sm:gap-2">
+                          <button 
+                            onClick={() => handleQuickView(product.id)}
+                            className="bg-white text-gray-800 shadow-xl px-3 py-1.5 sm:px-6 sm:py-2.5 rounded-full text-[10px] sm:text-sm font-bold hover:bg-[#8b9b7e] hover:text-white transition-all duration-300 transform hover:scale-105 flex items-center gap-1 sm:gap-2"
+                          >
                             <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
                             <span className="hidden sm:inline">مشاهده سریع</span>
                           </button>
@@ -723,20 +734,21 @@ const Dis = () => {
                           {product.title}
                         </h3>
                         
+                        {/* ===== نمایش هر دو قیمت ===== */}
                         <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-gray-100 mt-auto">
                           <div>
                             {hasDiscount ? (
                               <>
                                 <span className="text-gray-400 line-through text-[8px] sm:text-[10px] block mb-0.5">
-                                  {product.price.toLocaleString('fa-IR')}
+                                  {product.price.toLocaleString('fa-IR')} تومان
                                 </span>
                                 <span className="text-[#8b9b7e] font-extrabold text-xs sm:text-lg">
-                                  {finalPrice.toLocaleString('fa-IR')}
+                                  {finalPrice.toLocaleString('fa-IR')} تومان
                                 </span>
                               </>
                             ) : (
                               <span className="text-gray-800 font-extrabold text-xs sm:text-lg">
-                                {product.price.toLocaleString('fa-IR')}
+                                {product.price.toLocaleString('fa-IR')} تومان
                               </span>
                             )}
                           </div>
@@ -753,7 +765,7 @@ const Dis = () => {
             </div>
           )}
 
-          {/* ===== PAGINATION با رنگ‌های سایت ===== */}
+          {/* ===== PAGINATION ===== */}
           {!isFilterApplying && !isSearchLoading && totalPages > 1 && (
             <Pagination 
               currentPage={currentPage} 
@@ -769,7 +781,7 @@ const Dis = () => {
 };
 
 // ==========================================
-// Pagination Component با رنگ‌های سایت
+// Pagination Component
 // ==========================================
 const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   const [isMobile, setIsMobile] = useState(false);

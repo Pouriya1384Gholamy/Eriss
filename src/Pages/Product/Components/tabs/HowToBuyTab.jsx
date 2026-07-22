@@ -10,7 +10,6 @@ const faqs = [
 ];
 
 const HowToBuyTab = () => {
-  const [question, setQuestion] = useState("");
   const [openId, setOpenId] = useState(null);
 
   return (

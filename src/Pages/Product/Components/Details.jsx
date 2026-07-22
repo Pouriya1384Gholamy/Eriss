@@ -43,7 +43,6 @@ function Details() {
           const isLast = index === breadcrumbItems.length - 1;
           return (
             <React.Fragment key={index}>
-
               {isLast ? (
                 <span
                   aria-current="page"
@@ -59,11 +58,9 @@ function Details() {
                   {item.label}
                 </Link>
               )}
-
               {!isLast && (
                 <span className="text-gray-300 select-none text-xs">›</span>
               )}
-
             </React.Fragment>
           );
         })}

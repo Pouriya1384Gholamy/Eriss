@@ -21,10 +21,10 @@ function SimilarProduct({ currentProduct }) {
   if (!currentProduct || similarProducts.length === 0) return null;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4"> {/* py-6 -> py-4 */}
-      <div className="bg-primary rounded-xl shadow-sm p-4 sm:p-6"> {/* پنل باکس مثل ProductDetails */}
-        <div className="flex items-center justify-between mb-3"> {/* mb-4 -> mb-3 */}
-          <p className="text-base sm:text-lg lg:text-xl font-bold text-gray-800"> {/* text-lg -> text-base */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="bg-primary rounded-xl shadow-sm p-4 sm:p-6">
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-base sm:text-lg lg:text-xl font-bold text-gray-800">
             محصولات <span className="text-text1">مرتبط</span>
           </p>
           <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
