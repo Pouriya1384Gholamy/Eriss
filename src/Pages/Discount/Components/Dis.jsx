@@ -253,7 +253,7 @@ const Dis = () => {
     if (!hasActiveFilters) return null;
 
     return (
-      <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 p-3 sm:p-4 mb-4 sm:mb-6">
+      <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-md border border-[var(--color-border)]/40 p-3 sm:p-4 mb-4 sm:mb-6">
         <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           <span className="text-[11px] sm:text-sm font-medium text-[var(--color-fiveth)] ml-1 sm:ml-2">فیلترهای فعال:</span>
           
@@ -312,46 +312,19 @@ const Dis = () => {
   return (
     <div className="min-h-screen bg-[var(--color-background)] font-sans" dir="rtl">
       
-      {/* ===== HERO SECTION ===== */}
-      <div className="relative bg-gradient-to-br from-[var(--color-background)] via-[var(--color-sixeth)] to-[var(--color-background)] text-[var(--color-text)] py-12 sm:py-16 md:py-20 px-3 sm:px-4 overflow-hidden border-b border-[var(--color-border)]/30">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-[var(--color-primary)]/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 left-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-[var(--color-secondary)]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-[var(--color-primary)]/5 rounded-full blur-3xl animate-pulse delay-500"></div>
-        </div>
-        
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-30"></div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-30"></div>
-        
-        <div className="container mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[var(--color-primary)]/10 backdrop-blur-sm border border-[var(--color-border)] rounded-full px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2.5 mb-4 sm:mb-6">
-            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-[var(--color-primary)] animate-pulse" />
-            <span className="text-[10px] sm:text-xs md:text-sm font-medium text-[var(--color-primary)]">تخفیف‌های ویژه زمستانی</span>
+      {/* ===== HERO SECTION ساده ===== */}
+      <div className="bg-[var(--color-sixeth)] border-b border-[var(--color-border)]/40 py-8 sm:py-10 md:py-12 px-4">
+        <div className="container mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-[var(--color-primary)]/10 border border-[var(--color-border)] rounded-full px-4 py-1.5 mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-[var(--color-primary)]" />
+            <span className="text-xs font-medium text-[var(--color-primary)]">تخفیف‌های ویژه</span>
           </div>
-          
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-3 sm:mb-4 bg-gradient-to-r from-[var(--color-text)] via-[var(--color-primary)] to-[var(--color-text)] bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--color-text)]">
             تخفیفات شگفت‌انگیز
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-[var(--color-fiveth)] max-w-2xl mx-auto leading-relaxed px-2">
-            بهترین محصولات با کیفیت بالا و قیمت‌های استثنایی
+          <p className="text-sm text-[var(--color-fiveth)] mt-1">
+            {discountedProducts.length} محصول تخفیف‌دار
           </p>
-          
-          <div className="flex justify-center gap-4 sm:gap-8 md:gap-12 mt-6 sm:mt-8 md:mt-10">
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-primary)]">{discountedProducts.length}</div>
-              <div className="text-[9px] sm:text-[10px] md:text-xs text-[var(--color-fiveth)] mt-0.5 sm:mt-1">محصول تخفیف‌دار</div>
-            </div>
-            <div className="w-px h-8 sm:h-10 md:h-12 bg-[var(--color-border)]/50"></div>
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-primary)]">{allCategories.length}</div>
-              <div className="text-[9px] sm:text-[10px] md:text-xs text-[var(--color-fiveth)] mt-0.5 sm:mt-1">دسته‌بندی</div>
-            </div>
-            <div className="w-px h-8 sm:h-10 md:h-12 bg-[var(--color-border)]/50"></div>
-            <div className="text-center">
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-primary)]">۵⭐</div>
-              <div className="text-[9px] sm:text-[10px] md:text-xs text-[var(--color-fiveth)] mt-0.5 sm:mt-1">امتیاز کاربران</div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -369,7 +342,7 @@ const Dis = () => {
           )}
           
           <div 
-            className={`bg-[var(--color-sixeth)] border border-[var(--color-border)]/40 shadow-2xl shadow-black/50 transition-all duration-300 ${
+            className={`bg-[var(--color-sixeth)] border border-[var(--color-border)]/40 shadow-lg shadow-black/5 transition-all duration-300 ${
               isFilterOpen 
                 ? 'fixed top-0 right-0 bottom-0 w-full max-w-sm z-50 rounded-none' 
                 : 'lg:sticky lg:top-24 rounded-2xl'
@@ -470,7 +443,7 @@ const Dis = () => {
                       key={id} 
                       className={`flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 md:p-2.5 rounded-xl cursor-pointer transition-all duration-300 border-2 flex-1 min-w-[calc(50%-0.5rem)] ${
                         selectedCategories.includes(id) 
-                          ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10 shadow-lg shadow-[var(--color-primary)]/10' 
+                          ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10 shadow-md shadow-[var(--color-primary)]/10' 
                           : 'border-transparent hover:border-[var(--color-border)]/40 hover:bg-[var(--color-background)]'
                       }`}
                     >
@@ -574,14 +547,14 @@ const Dis = () => {
                         border-radius: 50%;
                         background: var(--color-primary);
                         border: 3px solid var(--color-background);
-                        box-shadow: 0 0 20px rgba(105, 116, 72, 0.4);
+                        box-shadow: 0 0 20px rgba(158, 173, 140, 0.3);
                         cursor: pointer;
                         pointer-events: auto;
                         transition: all 0.2s;
                       }
                       input[type="range"]::-webkit-slider-thumb:hover {
                         transform: scale(1.2);
-                        box-shadow: 0 0 30px rgba(105, 116, 72, 0.6);
+                        box-shadow: 0 0 30px rgba(158, 173, 140, 0.5);
                       }
                       input[type="range"]::-moz-range-thumb {
                         width: 16px;
@@ -589,7 +562,7 @@ const Dis = () => {
                         border-radius: 50%;
                         background: var(--color-primary);
                         border: 3px solid var(--color-background);
-                        box-shadow: 0 0 20px rgba(105, 116, 72, 0.4);
+                        box-shadow: 0 0 20px rgba(158, 173, 140, 0.3);
                         cursor: pointer;
                         pointer-events: auto;
                       }
@@ -618,7 +591,7 @@ const Dis = () => {
                         onClick={() => setTempPrice({ min: preset.min, max: preset.max })}
                         className={`flex-1 text-[8px] sm:text-[9px] md:text-[10px] px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-lg transition-all duration-300 font-medium ${
                           isActive
-                            ? 'bg-[var(--color-primary)] text-[var(--color-background)] shadow-lg shadow-[var(--color-primary)]/30'
+                            ? 'bg-[var(--color-primary)] text-[var(--color-background)] shadow-md shadow-[var(--color-primary)]/30'
                             : 'bg-[var(--color-background)] text-[var(--color-fiveth)] hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-text)] border border-[var(--color-border)]/30'
                         }`}
                       >
@@ -631,7 +604,7 @@ const Dis = () => {
                 <button 
                   onClick={applyPriceFilter}
                   disabled={isFilterApplying}
-                  className="w-full mt-3 sm:mt-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-[var(--color-background)] py-2 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold hover:shadow-2xl hover:shadow-[var(--color-primary)]/30 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full mt-3 sm:mt-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-[var(--color-background)] py-2 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold hover:shadow-xl hover:shadow-[var(--color-primary)]/20 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isFilterApplying ? (
                     <>
@@ -654,7 +627,7 @@ const Dis = () => {
         <main className="flex-1 min-w-0">
           
           {/* ===== TOOLBAR ===== */}
-          <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 p-2.5 sm:p-3 md:p-4 mb-3 sm:mb-4 md:mb-6 flex flex-wrap items-center justify-between gap-2 sm:gap-3">
+          <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-md border border-[var(--color-border)]/40 p-2.5 sm:p-3 md:p-4 mb-3 sm:mb-4 md:mb-6 flex flex-wrap items-center justify-between gap-2 sm:gap-3">
             <div className="flex items-center gap-2 sm:gap-3">
               <button 
                 onClick={() => setIsFilterOpen(true)}
@@ -701,7 +674,7 @@ const Dis = () => {
 
           {/* ===== PRODUCTS با Flex و 3 ستونه از sm به بالا ===== */}
           {isFilterApplying || isSearchLoading ? (
-            <div className="flex justify-center items-center h-64 sm:h-80 md:h-96 bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40">
+            <div className="flex justify-center items-center h-64 sm:h-80 md:h-96 bg-[var(--color-sixeth)] rounded-2xl shadow-md border border-[var(--color-border)]/40">
               <div className="text-center">
                 <div className="relative">
                   <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-[var(--color-primary)]/20 border-t-[var(--color-primary)] mx-auto"></div>
@@ -715,13 +688,13 @@ const Dis = () => {
               </div>
             </div>
           ) : filteredProducts.length === 0 ? (
-            <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 py-12 sm:py-16 md:py-20 text-center px-4">
+            <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-md border border-[var(--color-border)]/40 py-12 sm:py-16 md:py-20 text-center px-4">
               <div className="text-5xl sm:text-6xl md:text-7xl mb-3 sm:mb-4">🔍</div>
               <h3 className="text-xl sm:text-2xl font-semibold text-[var(--color-text)] mb-2">محصول تخفیف‌داری یافت نشد!</h3>
               <p className="text-sm sm:text-base text-[var(--color-fiveth)]">لطفاً فیلترهای خود را تغییر دهید.</p>
               <button 
                 onClick={clearAllFilters}
-                className="mt-4 px-4 sm:px-6 py-2 sm:py-2.5 bg-[var(--color-primary)] text-[var(--color-background)] rounded-xl text-xs sm:text-sm font-bold hover:bg-[var(--color-secondary)] transition-all shadow-lg shadow-[var(--color-primary)]/30 hover:shadow-xl"
+                className="mt-4 px-4 sm:px-6 py-2 sm:py-2.5 bg-[var(--color-primary)] text-[var(--color-background)] rounded-xl text-xs sm:text-sm font-bold hover:bg-[var(--color-secondary)] transition-all shadow-md shadow-[var(--color-primary)]/30 hover:shadow-lg"
               >
                 حذف همه فیلترها
               </button>
@@ -739,7 +712,7 @@ const Dis = () => {
                     className="w-1/2 sm:w-1/3 px-1.5 sm:px-2 md:px-2.5 mb-3 sm:mb-4 md:mb-5"
                     onClick={() => navigate(`/product/${product.id}`)}
                   >
-                    <div className="group bg-[var(--color-sixeth)] rounded-2xl border border-[var(--color-border)]/30 overflow-hidden hover:border-[var(--color-primary)]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 hover:-translate-y-2 flex flex-col cursor-pointer h-full">
+                    <div className="group bg-[var(--color-sixeth)] rounded-2xl border border-[var(--color-border)]/30 overflow-hidden hover:border-[var(--color-primary)]/50 transition-all duration-500 hover:shadow-xl hover:shadow-[var(--color-primary)]/10 hover:-translate-y-2 flex flex-col cursor-pointer h-full">
                       <div className="relative aspect-square bg-gradient-to-br from-[var(--color-background)] to-[var(--color-background)] overflow-hidden flex-shrink-0">
                         <img 
                           src={product.image} 
@@ -752,7 +725,7 @@ const Dis = () => {
                             e.stopPropagation();
                             toggleWishlist(product.id);
                           }}
-                          className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 p-1 sm:p-1.5 bg-[var(--color-background)]/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-[var(--color-background)] transition-all duration-300 hover:scale-110 border border-[var(--color-border)]/30 z-10"
+                          className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 p-1 sm:p-1.5 bg-[var(--color-background)]/90 backdrop-blur-sm rounded-full shadow-md hover:bg-[var(--color-background)] transition-all duration-300 hover:scale-110 border border-[var(--color-border)]/30 z-10"
                         >
                           <Heart className={`w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 transition-colors ${
                             isWishlisted ? 'fill-red-500 text-red-500' : 'text-[var(--color-fiveth)]'
@@ -760,7 +733,7 @@ const Dis = () => {
                         </button>
 
                         {hasDiscount && (
-                          <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-[7px] sm:text-[8px] md:text-[10px] font-bold px-1.5 py-0.5 sm:px-2 sm:py-0.5 md:px-2.5 md:py-1 rounded-full shadow-lg flex items-center gap-0.5 sm:gap-1 animate-pulse z-10">
+                          <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-[7px] sm:text-[8px] md:text-[10px] font-bold px-1.5 py-0.5 sm:px-2 sm:py-0.5 md:px-2.5 md:py-1 rounded-full shadow-md flex items-center gap-0.5 sm:gap-1 animate-pulse z-10">
                             <Gift className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3" />
                             <span>{product.discountPercentage}%</span>
                           </div>
@@ -772,7 +745,7 @@ const Dis = () => {
                               e.stopPropagation();
                               handleQuickView(product.id);
                             }}
-                            className="bg-[var(--color-primary)] text-[var(--color-background)] shadow-xl px-1.5 py-0.5 sm:px-2.5 sm:py-1 md:px-4 md:py-2 rounded-full text-[7px] sm:text-[8px] md:text-[11px] font-bold hover:bg-[var(--color-secondary)] transition-all duration-300 transform hover:scale-105 flex items-center gap-0.5 sm:gap-1"
+                            className="bg-[var(--color-primary)] text-[var(--color-background)] shadow-md px-1.5 py-0.5 sm:px-2.5 sm:py-1 md:px-4 md:py-2 rounded-full text-[7px] sm:text-[8px] md:text-[11px] font-bold hover:bg-[var(--color-secondary)] transition-all duration-300 transform hover:scale-105 flex items-center gap-0.5 sm:gap-1"
                           >
                             <Eye className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3.5 md:h-3.5" />
                             <span className="hidden sm:inline text-[8px] md:text-[11px]">مشاهده</span>
@@ -892,7 +865,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   return (
     <div className="w-full mt-8 sm:mt-10 md:mt-12" dir="ltr">
       <div className="max-w-md mx-auto px-2 sm:px-0">
-        <div className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] rounded-2xl p-1 shadow-2xl shadow-[var(--color-primary)]/30">
+        <div className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] rounded-2xl p-1 shadow-md shadow-[var(--color-primary)]/30">
           <div className="relative flex items-center justify-between bg-[var(--color-background)]/95 backdrop-blur-sm rounded-xl p-1 border border-[var(--color-border)]/20">
             
             <button
@@ -914,7 +887,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
                     onClick={() => setCurrentPage(page)}
                     className={`relative z-10 flex h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 items-center justify-center rounded-lg text-[10px] sm:text-xs md:text-sm font-semibold transition-all ${
                       isActive 
-                        ? 'text-[var(--color-background)] bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/30' 
+                        ? 'text-[var(--color-background)] bg-[var(--color-primary)] shadow-md shadow-[var(--color-primary)]/30' 
                         : 'text-[var(--color-fiveth)] hover:text-[var(--color-text)] hover:bg-[var(--color-primary)]/10'
                     }`}
                   >
@@ -924,7 +897,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
               })}
 
               <div
-                className="absolute bottom-0.5 sm:bottom-1 z-0 h-0.5 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] shadow-[0_0_30px_rgba(105,116,72,0.5)] transition-all duration-300 ease-out"
+                className="absolute bottom-0.5 sm:bottom-1 z-0 h-0.5 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] shadow-[0_0_30px_rgba(158,173,140,0.4)] transition-all duration-300 ease-out"
                 style={{ 
                   left: lineStyle.left, 
                   width: lineStyle.width, 
