@@ -8,28 +8,31 @@ import { BsAwardFill } from "react-icons/bs";
 const TrustBadge = ({ icon: Icon, title, subtitle, color, isLast }) => (
   <div
     className={`flex flex-col items-center gap-1.5 px-3 py-5 text-center
-                ${!isLast ? "border-b md:border-b-0 md:border-l border-[#e8ede4]" : ""}`}
+                transition-all duration-300 hover:scale-105 hover:bg-[var(--color-primary)]/5
+                ${!isLast ? "border-b md:border-b-0 md:border-l border-[var(--color-border)]/30" : ""}`}
   >
-    <div className={`w-11 h-11 rounded-full flex items-center justify-center ${color.bg}`}>
+    <div className={`w-11 h-11 rounded-full flex items-center justify-center ${color.bg} transition-all duration-300 group-hover:shadow-lg group-hover:shadow-[var(--color-primary)]/20`}>
       <Icon className={`text-xl ${color.icon}`} />
     </div>
-    <p className="text-xs font-bold text-[#2d2d2d] leading-5">{title}</p>
-    <p className="text-[10px] text-gray-400 leading-4">{subtitle}</p>
+    <p className="text-xs font-bold text-[var(--color-text)] leading-5">{title}</p>
+    <p className="text-[10px] text-[var(--color-fiveth)] leading-4">{subtitle}</p>
   </div>
 );
 
 const FooterLinkColumn = ({ title, links }) => (
   <div className="flex flex-col gap-2.5">
-    <h4 className="text-sm font-black text-[#2d2d2d] mb-1 border-b border-[#c8d8c0] pb-2">
+    <h4 className="text-sm font-black text-[var(--color-text)] mb-1 border-b border-[var(--color-primary)]/30 pb-2 flex items-center gap-2">
+      <span className="w-1 h-4 bg-[var(--color-primary)] rounded-full"></span>
       {title}
     </h4>
     {links.map((link) => (
       <a
         key={link.label}
         href={link.href}
-        className="text-sm text-gray-500 hover:text-[#7a9e6f] hover:-translate-x-1
-                   transition-all duration-200 w-fit"
+        className="text-sm text-[var(--color-fiveth)] hover:text-[var(--color-primary)] hover:-translate-x-1
+                   transition-all duration-200 w-fit group flex items-center gap-2"
       >
+        <span className="w-1 h-1 bg-[var(--color-primary)]/0 rounded-full group-hover:bg-[var(--color-primary)] transition-all duration-300"></span>
         {link.label}
       </a>
     ))}
@@ -43,9 +46,9 @@ const SocialBtn = ({ icon: Icon, href, label }) => (
     target="_blank"
     rel="noopener noreferrer"
     className="w-10 h-10 rounded-full flex items-center justify-center
-               border-2 border-[#7a9e6f] text-[#7a9e6f]
-               hover:bg-[#7a9e6f] hover:text-white
-               transition-all duration-300"
+               border-2 border-[var(--color-border)]/40 text-[var(--color-fiveth)]
+               hover:border-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-[var(--color-background)]
+               transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-[var(--color-primary)]/20"
   >
     <Icon className="text-lg" />
   </a>
@@ -58,25 +61,25 @@ const trustBadges = [
     icon: MdLocalShipping,
     title: "ارسال سراسری",
     subtitle: "به تمام نقاط ایران",
-    color: { bg: "bg-[#eef4eb]", icon: "text-[#7a9e6f]" },
+    color: { bg: "bg-[var(--color-primary)]/10", icon: "text-[var(--color-primary)]" },
   },
   {
     icon: HiShieldCheck,
     title: "ضمانت اصالت",
     subtitle: "تضمین کیفیت محصولات",
-    color: { bg: "bg-[#eef4eb]", icon: "text-[#5d8c5a]" },
+    color: { bg: "bg-[var(--color-secondary)]/10", icon: "text-[var(--color-secondary)]" },
   },
   {
     icon: MdSupportAgent,
     title: "پشتیبانی ۲۴/۷",
     subtitle: "همیشه در کنار شما",
-    color: { bg: "bg-[#eef4eb]", icon: "text-[#7a9e6f]" },
+    color: { bg: "bg-[var(--color-primary)]/10", icon: "text-[var(--color-primary)]" },
   },
   {
     icon: BsAwardFill,
     title: "بیش از ۱۰ سال تجربه",
     subtitle: "در صنعت چوب ایران",
-    color: { bg: "bg-[#eef4eb]", icon: "text-[#5d8c5a]" },
+    color: { bg: "bg-[var(--color-secondary)]/10", icon: "text-[var(--color-secondary)]" },
   },
 ];
 
@@ -124,13 +127,13 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#f5f0e8] font-vazir" dir="rtl">
+    <footer className="w-full bg-[var(--color-background)] font-vazir border-t border-[var(--color-border)]/30" dir="rtl">
 
       {/* ── Trust Badges ── */}
       <div className="w-full px-4 pt-6 flex justify-center">
         <div
-          className="w-full max-w-4xl bg-white rounded-[20px] shadow-md
-                     border border-[#c8d8c0] mx-auto"
+          className="w-full max-w-4xl bg-[var(--color-sixeth)] rounded-[20px] shadow-2xl shadow-black/30
+                     border border-[var(--color-border)]/30 mx-auto hover:shadow-[var(--color-primary)]/5 transition-shadow duration-500"
         >
           <div className="grid grid-cols-2 md:grid-cols-4">
             {trustBadges.map((badge, i) => (
@@ -152,8 +155,10 @@ export default function Footer() {
 
           <div className="md:col-span-1 space-y-4">
             <div>
-              <h2 className="text-xl font-black text-[#2d2d2d] mb-2">اریس وود</h2>
-              <p className="text-sm text-gray-500 leading-7">
+              <h2 className="text-xl font-black text-[var(--color-text)] mb-2 tracking-tight">
+                اریس <span className="text-[var(--color-primary)]">وود</span>
+              </h2>
+              <p className="text-sm text-[var(--color-fiveth)] leading-7">
                 بیش از یک دهه تجربه در تأمین و عرضه انواع چوب طبیعی و مصنوعی
                 با بالاترین استانداردهای کیفی برای مشتریان سراسر ایران.
               </p>
@@ -175,29 +180,29 @@ export default function Footer() {
         {/* ── Bottom Row ── */}
         <div
           className="flex flex-col sm:flex-row items-center justify-between
-                     gap-6 border-t border-[#c8d8c0] pt-6"
+                     gap-6 border-t border-[var(--color-border)]/30 pt-6"
         >
           <div className="flex items-center gap-3">
             {["نماد اعتماد", "ساماندهی"].map((text) => (
               <div
                 key={text}
-                className="w-16 h-20 rounded-xl bg-white border border-[#c8d8c0]
-                           flex items-center justify-center text-[10px] text-gray-400
-                           shadow-sm text-center px-1"
+                className="w-16 h-20 rounded-xl bg-[var(--color-sixeth)] border border-[var(--color-border)]/30
+                           flex items-center justify-center text-[10px] text-[var(--color-fiveth)]
+                           shadow-lg shadow-black/20 text-center px-1 hover:border-[var(--color-primary)]/50 transition-all duration-300 hover:scale-105"
               >
                 {text}
               </div>
             ))}
           </div>
 
-          <div className="text-center text-sm text-gray-500 leading-7">
+          <div className="text-center text-sm text-[var(--color-fiveth)] leading-7">
             <p>
               تهران، خیابان ولیعصر، پلاک ۱۲۳ &nbsp;|&nbsp; تلفن:{" "}
-              <span className="text-[#7a9e6f] font-bold">۰۲۱-۸۸۱۲۳۴۵۶</span>
+              <span className="text-[var(--color-primary)] font-bold">۰۲۱-۸۸۱۲۳۴۵۶</span>
             </p>
             <p>
               ایمیل:{" "}
-              <a href="mailto:info@ariswood.ir" className="text-[#7a9e6f] hover:underline">
+              <a href="mailto:info@ariswood.ir" className="text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors hover:underline">
                 info@ariswood.ir
               </a>
             </p>
@@ -205,8 +210,12 @@ export default function Footer() {
         </div>
 
         {/* ── Copyright ── */}
-        <p className="text-center text-xs text-gray-400 mt-6">
-          © ۱۴۰۵ اریس وود — تمامی حقوق محفوظ است.
+        <p className="text-center text-xs text-[var(--color-third)] mt-6">
+          © {new Date().getFullYear()} اریس وود — تمامی حقوق محفوظ است.
+          <span className="hidden sm:inline mx-2">|</span>
+          <span className="block sm:inline text-[11px] text-[var(--color-primary)]/70">
+            به روز رسانی: {new Date().toLocaleDateString('fa-IR')}
+          </span>
         </p>
       </div>
     </footer>

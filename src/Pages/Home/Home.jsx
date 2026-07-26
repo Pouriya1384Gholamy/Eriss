@@ -2,7 +2,6 @@ import React from 'react'
 import Header from '../../Components/layout/Header'
 import UnderHeader from '../../Components/layout/UnderHeader'
 import HeroSection from './Components/HeroSection'
-import CategoryItem from './Components/CategoryItem'
 import FeaturedProducts from './Components/FeaturedProducts'
 import Banner from './Components/Banner'
 import NewProduct from './Components/NewProduct'
@@ -20,7 +19,6 @@ function Home() {
         <Header />
         <UnderHeader />
         <HeroSection />
-        <CategoryItem />
         <FeaturedProducts />
         <Banner />
         <NewProduct />

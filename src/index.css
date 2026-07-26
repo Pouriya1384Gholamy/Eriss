@@ -13,24 +13,23 @@
 @theme{
   
   --animate-morph: border-transform 6s linear infinite alternate forwards;
+  --color-background: #0f100d;
 
-  --color-background: #FDFCFA;
+  --color-primary: #697448; /* رنگ اصلی - سبز زیتونی دکمه ها */
+  --color-secondary: #7e8a57; /* رنگ ثانوی - هاور و تاکید */
+  --color-third: #4f5144; /* متن های کم رنگ و حاشیه های تیره */
+  --color-fourth: #e7e4d7; /* متن های مهم روشن */
+  --color-fiveth: #b8b39f; /* متن های میانی */
+  --color-sixeth: #1a1c17; /* سطح دوم مثل کارت و سایدبار */
+  --color-first: #141611; /* سطح اصلی کارت ها */
 
-  --color-primary: #9EAD8C; /*رنگ اصلی*/
-  --color-secondary: #8A9A7B; /*رنگ ثانوی */
-  --color-third: #D9D9D9; /*سیاهه کم رنگ برای متن های کم رنگ و حاشیه ها*/
-  --color-fourth: #292524 ; /*رنگ سیاهه متوسط برای متن های بیشتر مهم */
-  --color-fiveth: #79716b ; /*ما بین دو تا رنگ بالا برای بعضی متن ها*/ 
-  --color-sixeth: #F4F1EA;
-  --color-first: #FDFCFA;
+  --color-text: #f3f0e4; /* متن اصلی روشن */
+  --color-text1: #ffffff; /* سفید خالص */
+  --color-text-muted: #d7d2bf; /* سفید تیره تر */
+  --color-p-text: #f8f6ee;
+  --color-text-import: #9daa6b; /* متن یا عدد مهم */
 
-  --color-text: #000000; /*برای متن اصلی مشکی*/
-  --color-text1: #ffffff; /*برای متن اصلی سفید*/
-  --color-text-muted: #f5f5f4 ; /*سفید تیره تر*/
-  --color-p-text: #FFFDFD;
-  --color-text-import: #9EAD8C;
-
-  --color-border: #9EAD8C;
+  --color-border: #5c6441; /* بوردر زیتونی */
 
   --font-main: "Vazir", sans-serif;
 

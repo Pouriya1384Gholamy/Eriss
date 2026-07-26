@@ -4,7 +4,7 @@ import { products, calculateDiscountPrice } from '../../../data/products';
 import { 
   ChevronLeft, ChevronRight, X, Filter, Search, Star, 
   TrendingDown, ShoppingBag, Heart, Eye, SlidersHorizontal,
-  ChevronDown, ChevronUp, Loader2
+  ChevronDown, ChevronUp, Loader2, Sparkles, Gift
 } from 'lucide-react';
 
 const Dis = () => {
@@ -58,38 +58,38 @@ const Dis = () => {
     });
     
     const categoryIcons = {
-      'میز ناهارخوری': { icon: '🍽️', color: 'from-amber-400 to-orange-500' },
-      'صندلی': { icon: '🪑', color: 'from-blue-400 to-indigo-500' },
-      'کنسول': { icon: '🪞', color: 'from-purple-400 to-pink-500' },
-      'میز جلو مبلی': { icon: '🪵', color: 'from-emerald-400 to-teal-500' },
-      'کتابخانه': { icon: '📚', color: 'from-rose-400 to-red-500' },
-      'میز تحریر': { icon: '✏️', color: 'from-cyan-400 to-blue-500' },
-      'میز آرایش': { icon: '💄', color: 'from-pink-400 to-rose-500' },
-      'میز سرو': { icon: '🧁', color: 'from-yellow-400 to-amber-500' },
-      'میز تلویزیون': { icon: '📺', color: 'from-gray-400 to-gray-600' },
-      'کمد': { icon: '🚪', color: 'from-amber-500 to-yellow-600' },
-      'تخت': { icon: '🛏️', color: 'from-indigo-400 to-purple-500' },
-      'میز کار': { icon: '💼', color: 'from-slate-400 to-slate-600' },
-      'میز عسلی': { icon: '🍯', color: 'from-orange-400 to-amber-500' },
-      'میز پذیرایی': { icon: '🍷', color: 'from-red-400 to-rose-500' },
-      'ویترین': { icon: '🪟', color: 'from-cyan-400 to-sky-500' },
-      'میز بار': { icon: '🍸', color: 'from-violet-400 to-purple-500' },
-      'میز کنار تخت': { icon: '🌙', color: 'from-indigo-300 to-purple-400' },
-      'نیمکت': { icon: '🪑', color: 'from-amber-600 to-orange-600' },
-      'پارتیشن': { icon: '🧱', color: 'from-stone-400 to-stone-600' },
-      'وایت‌بورد': { icon: '📋', color: 'from-emerald-400 to-green-500' },
-      'جزیره آشپزخانه': { icon: '🏠', color: 'from-amber-400 to-orange-400' },
-      'میز اتو': { icon: '👕', color: 'from-blue-300 to-indigo-400' },
-      'میز لپتاپ': { icon: '💻', color: 'from-slate-500 to-gray-600' },
-      'میز مینیمال': { icon: '⬜', color: 'from-gray-300 to-gray-400' },
-      'میز چوبی': { icon: '🪵', color: 'from-amber-500 to-orange-600' },
+      'میز ناهارخوری': { icon: '🍽️', color: 'from-amber-600 to-orange-600' },
+      'صندلی': { icon: '🪑', color: 'from-blue-500 to-indigo-600' },
+      'کنسول': { icon: '🪞', color: 'from-purple-500 to-pink-600' },
+      'میز جلو مبلی': { icon: '🪵', color: 'from-emerald-500 to-teal-600' },
+      'کتابخانه': { icon: '📚', color: 'from-rose-500 to-red-600' },
+      'میز تحریر': { icon: '✏️', color: 'from-cyan-500 to-blue-600' },
+      'میز آرایش': { icon: '💄', color: 'from-pink-500 to-rose-600' },
+      'میز سرو': { icon: '🧁', color: 'from-yellow-500 to-amber-600' },
+      'میز تلویزیون': { icon: '📺', color: 'from-gray-500 to-gray-700' },
+      'کمد': { icon: '🚪', color: 'from-amber-600 to-yellow-700' },
+      'تخت': { icon: '🛏️', color: 'from-indigo-500 to-purple-600' },
+      'میز کار': { icon: '💼', color: 'from-slate-500 to-slate-700' },
+      'میز عسلی': { icon: '🍯', color: 'from-orange-500 to-amber-600' },
+      'میز پذیرایی': { icon: '🍷', color: 'from-red-500 to-rose-600' },
+      'ویترین': { icon: '🪟', color: 'from-cyan-500 to-sky-600' },
+      'میز بار': { icon: '🍸', color: 'from-violet-500 to-purple-600' },
+      'میز کنار تخت': { icon: '🌙', color: 'from-indigo-400 to-purple-500' },
+      'نیمکت': { icon: '🪑', color: 'from-amber-700 to-orange-700' },
+      'پارتیشن': { icon: '🧱', color: 'from-stone-500 to-stone-700' },
+      'وایت‌بورد': { icon: '📋', color: 'from-emerald-500 to-green-600' },
+      'جزیره آشپزخانه': { icon: '🏠', color: 'from-amber-500 to-orange-500' },
+      'میز اتو': { icon: '👕', color: 'from-blue-400 to-indigo-500' },
+      'میز لپتاپ': { icon: '💻', color: 'from-slate-600 to-gray-700' },
+      'میز مینیمال': { icon: '⬜', color: 'from-gray-400 to-gray-500' },
+      'میز چوبی': { icon: '🪵', color: 'from-amber-600 to-orange-700' },
     };
     
     return Array.from(categorySet).map(cat => ({
       id: cat,
       name: cat,
       icon: categoryIcons[cat]?.icon || '📦',
-      color: categoryIcons[cat]?.color || 'from-gray-400 to-gray-500'
+      color: categoryIcons[cat]?.color || 'from-gray-500 to-gray-600'
     }));
   }, [discountedProducts]);
 
@@ -234,7 +234,7 @@ const Dis = () => {
     return Array(5).fill(0).map((_, i) => (
       <Star 
         key={i} 
-        className={`w-3.5 h-3.5 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-200'}`}
+        className={`w-3.5 h-3.5 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-[var(--color-third)]'}`}
       />
     ));
   };
@@ -244,41 +244,48 @@ const Dis = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 font-sans" dir="rtl">
+    <div className="min-h-screen bg-[var(--color-background)] font-sans" dir="rtl">
       
-      {/* ===== HERO SECTION ===== */}
-      <div className="relative bg-gradient-to-br from-[#8b9b7e] via-[#7a8a6e] to-[#6b7d5e] text-white py-16 px-4 overflow-hidden">
+      {/* ===== HERO SECTION با طراحی لوکس تیره ===== */}
+      <div className="relative bg-gradient-to-br from-[var(--color-background)] via-[var(--color-sixeth)] to-[var(--color-background)] text-[var(--color-text)] py-20 px-4 overflow-hidden border-b border-[var(--color-border)]/30">
+        {/* حلقه‌های تزئینی */}
         <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-primary)]/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[var(--color-secondary)]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[var(--color-primary)]/5 rounded-full blur-3xl animate-pulse delay-500"></div>
         </div>
         
+        {/* خطوط تزئینی */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-30"></div>
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-30"></div>
+        
         <div className="container mx-auto relative z-10 text-center">
-          <div className="inline-block bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 mb-6">
-            <span className="text-sm font-medium">🔥 تخفیف‌های ویژه</span>
+          <div className="inline-flex items-center gap-2 bg-[var(--color-primary)]/10 backdrop-blur-sm border border-[var(--color-border)] rounded-full px-6 py-2.5 mb-6">
+            <Sparkles className="w-4 h-4 text-[var(--color-primary)] animate-pulse" />
+            <span className="text-sm font-medium text-[var(--color-primary)]">تخفیف‌های ویژه زمستانی</span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
+          
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 bg-gradient-to-r from-[var(--color-text)] via-[var(--color-primary)] to-[var(--color-text)] bg-clip-text text-transparent">
             تخفیفات شگفت‌انگیز
           </h1>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
+          <p className="text-lg text-[var(--color-fiveth)] max-w-2xl mx-auto leading-relaxed">
             بهترین محصولات با کیفیت بالا و قیمت‌های استثنایی
           </p>
           
-          <div className="flex justify-center gap-8 mt-8">
+          <div className="flex justify-center gap-12 mt-10">
             <div className="text-center">
-              <div className="text-2xl font-bold">{discountedProducts.length}</div>
-              <div className="text-xs text-white/60">محصول تخفیف‌دار</div>
+              <div className="text-3xl font-bold text-[var(--color-primary)]">{discountedProducts.length}</div>
+              <div className="text-xs text-[var(--color-fiveth)] mt-1">محصول تخفیف‌دار</div>
             </div>
-            <div className="w-px h-10 bg-white/20"></div>
+            <div className="w-px h-12 bg-[var(--color-border)]/50"></div>
             <div className="text-center">
-              <div className="text-2xl font-bold">{allCategories.length}</div>
-              <div className="text-xs text-white/60">دسته‌بندی</div>
+              <div className="text-3xl font-bold text-[var(--color-primary)]">{allCategories.length}</div>
+              <div className="text-xs text-[var(--color-fiveth)] mt-1">دسته‌بندی</div>
             </div>
-            <div className="w-px h-10 bg-white/20"></div>
+            <div className="w-px h-12 bg-[var(--color-border)]/50"></div>
             <div className="text-center">
-              <div className="text-2xl font-bold">۵⭐</div>
-              <div className="text-xs text-white/60">امتیاز کاربران</div>
+              <div className="text-3xl font-bold text-[var(--color-primary)]">۵⭐</div>
+              <div className="text-xs text-[var(--color-fiveth)] mt-1">امتیاز کاربران</div>
             </div>
           </div>
         </div>
@@ -286,19 +293,19 @@ const Dis = () => {
 
       <div className="container mx-auto px-4 lg:px-8 py-8 flex flex-col lg:flex-row gap-6">
         
-        {/* ===== SIDEBAR FILTERS ===== */}
+        {/* ===== SIDEBAR FILTERS با طراحی تیره ===== */}
         <aside className={`lg:w-80 flex-shrink-0 transition-all duration-300 ${
           isFilterOpen ? 'fixed inset-0 z-50 lg:relative lg:bg-transparent lg:p-0' : 'hidden lg:block'
         }`}>
           {isFilterOpen && (
             <div 
-              className="fixed inset-0 bg-black/50 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 bg-[var(--color-background)]/80 backdrop-blur-md lg:hidden"
               onClick={closeFilter}
             />
           )}
           
           <div 
-            className={`bg-white shadow-xl border border-gray-100 overflow-y-auto transition-all duration-300 ${
+            className={`bg-[var(--color-sixeth)] border border-[var(--color-border)]/40 shadow-2xl shadow-black/50 overflow-y-auto transition-all duration-300 ${
               isFilterOpen 
                 ? 'fixed top-0 right-0 bottom-0 w-full max-w-md z-50 rounded-none' 
                 : 'lg:sticky lg:top-24 rounded-2xl'
@@ -314,28 +321,28 @@ const Dis = () => {
                 width: 4px;
               }
               div::-webkit-scrollbar-track {
-                background: #f1f1f1;
+                background: var(--color-background);
                 border-radius: 10px;
               }
               div::-webkit-scrollbar-thumb {
-                background: #8b9b7e;
+                background: var(--color-primary);
                 border-radius: 10px;
               }
               div::-webkit-scrollbar-thumb:hover {
-                background: #6b7d5e;
+                background: var(--color-secondary);
               }
             `}</style>
 
-            <div className="sticky top-0 bg-white z-10 border-b border-gray-100 p-4 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-                <Filter className="w-5 h-5 text-[#8b9b7e]" />
+            <div className="sticky top-0 bg-[var(--color-sixeth)]/95 backdrop-blur-sm z-10 border-b border-[var(--color-border)]/30 p-4 flex items-center justify-between">
+              <h2 className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2">
+                <Filter className="w-5 h-5 text-[var(--color-primary)]" />
                 فیلترها
               </h2>
               <div className="flex items-center lg:hidden gap-2">
                 {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
                   <button 
                     onClick={clearAllFilters}
-                    className="text-xs text-red-400 hover:text-red-600 font-semibold transition-colors flex items-center gap-1"
+                    className="text-xs text-red-400 hover:text-red-300 font-semibold transition-colors flex items-center gap-1"
                   >
                     <X className="w-3 h-3" />
                     حذف همه
@@ -343,9 +350,9 @@ const Dis = () => {
                 )}
                 <button 
                   onClick={closeFilter}
-                  className="p-2 bg-red-50 hover:bg-red-100 rounded-full transition-colors shadow-md"
+                  className="p-2 bg-red-500/10 hover:bg-red-500/20 rounded-full transition-colors border border-red-500/20"
                 >
-                  <X className="w-5 h-5 text-red-500" />
+                  <X className="w-5 h-5 text-red-400" />
                 </button>
               </div>
             </div>
@@ -354,17 +361,17 @@ const Dis = () => {
               {/* ===== SEARCH ===== */}
               <div className="mb-6">
                 <div className="relative group">
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 group-focus-within:text-[#8b9b7e] transition-colors" />
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-fiveth)] w-4 h-4 group-focus-within:text-[var(--color-primary)] transition-colors" />
                   <input
                     type="text"
                     placeholder="جستجوی محصول..."
                     value={searchQuery}
                     onChange={(e) => handleSearch(e.target.value)}
-                    className="w-full pr-10 pl-4 py-3 border-2 border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-[#8b9b7e] focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white"
+                    className="w-full pr-10 pl-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)]/40 rounded-xl text-sm text-[var(--color-text)] placeholder:text-[var(--color-fiveth)] focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all"
                   />
                   {isSearchLoading && (
                     <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                      <Loader2 className="w-4 h-4 text-[#8b9b7e] animate-spin" />
+                      <Loader2 className="w-4 h-4 text-[var(--color-primary)] animate-spin" />
                     </div>
                   )}
                 </div>
@@ -373,11 +380,11 @@ const Dis = () => {
               {/* ===== CATEGORIES ===== */}
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold text-gray-700 text-sm flex items-center gap-2">
-                    <span className="w-1 h-4 bg-[#8b9b7e] rounded-full"></span>
+                  <h3 className="font-semibold text-[var(--color-text)] text-sm flex items-center gap-2">
+                    <span className="w-1 h-4 bg-[var(--color-primary)] rounded-full"></span>
                     دسته‌بندی
                   </h3>
-                  <span className="text-[10px] text-gray-400">
+                  <span className="text-[10px] text-[var(--color-fiveth)]">
                     {selectedCategories.length} انتخاب شده
                   </span>
                 </div>
@@ -388,8 +395,8 @@ const Dis = () => {
                       key={id} 
                       className={`flex items-center gap-2 p-2.5 rounded-xl cursor-pointer transition-all duration-300 border-2 flex-1 min-w-[calc(50%-0.5rem)] ${
                         selectedCategories.includes(id) 
-                          ? 'border-[#8b9b7e] bg-[#8b9b7e]/10 shadow-md' 
-                          : 'border-transparent hover:border-gray-200 hover:bg-gray-50'
+                          ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10 shadow-lg shadow-[var(--color-primary)]/10' 
+                          : 'border-transparent hover:border-[var(--color-border)]/40 hover:bg-[var(--color-background)]'
                       }`}
                     >
                       <input 
@@ -398,10 +405,10 @@ const Dis = () => {
                         onChange={() => handleCategoryChange(id)}
                         className="hidden" 
                       />
-                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white text-xs shadow-md flex-shrink-0`}>
+                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white text-xs shadow-lg flex-shrink-0`}>
                         {icon}
                       </div>
-                      <span className="text-[11px] text-gray-700 font-medium truncate">{name}</span>
+                      <span className="text-[11px] text-[var(--color-text)] font-medium truncate">{name}</span>
                     </label>
                   ))}
                 </div>
@@ -409,7 +416,7 @@ const Dis = () => {
                 {hasMoreCategories && (
                   <button
                     onClick={() => setShowAllCategories(!showAllCategories)}
-                    className="w-full mt-3 py-2 text-xs font-medium text-[#8b9b7e] hover:text-[#6b7d5e] transition-colors flex items-center justify-center gap-1 border border-[#8b9b7e]/20 rounded-xl hover:bg-[#8b9b7e]/5"
+                    className="w-full mt-3 py-2 text-xs font-medium text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors flex items-center justify-center gap-1 border border-[var(--color-border)]/30 rounded-xl hover:bg-[var(--color-primary)]/5"
                   >
                     {showAllCategories ? (
                       <>
@@ -428,29 +435,29 @@ const Dis = () => {
 
               {/* ===== PRICE RANGE ===== */}
               <div className="mb-4">
-                <h3 className="font-semibold text-gray-700 mb-4 text-sm flex items-center gap-2">
-                  <span className="w-1 h-4 bg-[#8b9b7e] rounded-full"></span>
+                <h3 className="font-semibold text-[var(--color-text)] mb-4 text-sm flex items-center gap-2">
+                  <span className="w-1 h-4 bg-[var(--color-primary)] rounded-full"></span>
                   محدوده قیمت (تومان)
                 </h3>
                 
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-xl px-3 py-2 text-center border-2 border-gray-200">
-                    <span className="text-[10px] text-gray-400 block">حداقل</span>
-                    <span className="text-sm font-bold text-gray-700">
+                  <div className="flex-1 bg-[var(--color-background)] rounded-xl px-3 py-2 text-center border border-[var(--color-border)]/30">
+                    <span className="text-[10px] text-[var(--color-fiveth)] block">حداقل</span>
+                    <span className="text-sm font-bold text-[var(--color-text)]">
                       {tempPrice.min.toLocaleString('fa-IR')}
                     </span>
                   </div>
-                  <span className="text-gray-300 text-xs">تا</span>
-                  <div className="flex-1 bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-xl px-3 py-2 text-center border-2 border-gray-200">
-                    <span className="text-[10px] text-gray-400 block">حداکثر</span>
-                    <span className="text-sm font-bold text-gray-700">
+                  <span className="text-[var(--color-third)] text-xs">تا</span>
+                  <div className="flex-1 bg-[var(--color-background)] rounded-xl px-3 py-2 text-center border border-[var(--color-border)]/30">
+                    <span className="text-[10px] text-[var(--color-fiveth)] block">حداکثر</span>
+                    <span className="text-sm font-bold text-[var(--color-text)]">
                       {tempPrice.max.toLocaleString('fa-IR')}
                     </span>
                   </div>
                 </div>
 
                 <div className="relative pt-3 pb-8">
-                  <div className="relative h-1.5 bg-gray-200 rounded-full">
+                  <div className="relative h-1.5 bg-[var(--color-background)] rounded-full border border-[var(--color-border)]/30">
                     {/* Min Handle */}
                     <input
                       type="range"
@@ -492,33 +499,33 @@ const Dis = () => {
                         width: 20px;
                         height: 20px;
                         border-radius: 50%;
-                        background: white;
-                        border: 3px solid #8b9b7e;
-                        box-shadow: 0 2px 12px rgba(139, 155, 126, 0.3);
+                        background: var(--color-primary);
+                        border: 3px solid var(--color-background);
+                        box-shadow: 0 0 20px rgba(105, 116, 72, 0.4), 0 0 60px rgba(105, 116, 72, 0.2);
                         cursor: pointer;
                         pointer-events: auto;
                         transition: all 0.2s;
                       }
                       input[type="range"]::-webkit-slider-thumb:hover {
-                        transform: scale(1.15);
-                        box-shadow: 0 4px 20px rgba(139, 155, 126, 0.4);
+                        transform: scale(1.2);
+                        box-shadow: 0 0 30px rgba(105, 116, 72, 0.6), 0 0 80px rgba(105, 116, 72, 0.3);
                       }
                       input[type="range"]::-moz-range-thumb {
                         width: 20px;
                         height: 20px;
                         border-radius: 50%;
-                        background: white;
-                        border: 3px solid #8b9b7e;
-                        box-shadow: 0 2px 12px rgba(139, 155, 126, 0.3);
+                        background: var(--color-primary);
+                        border: 3px solid var(--color-background);
+                        box-shadow: 0 0 20px rgba(105, 116, 72, 0.4);
                         cursor: pointer;
                         pointer-events: auto;
                       }
                     `}</style>
 
-                    <div className="absolute -bottom-6 right-0 text-[10px] text-gray-400">
+                    <div className="absolute -bottom-6 right-0 text-[10px] text-[var(--color-fiveth)]">
                       {getProductPriceRange.min.toLocaleString('fa-IR')}
                     </div>
-                    <div className="absolute -bottom-6 left-0 text-[10px] text-gray-400">
+                    <div className="absolute -bottom-6 left-0 text-[10px] text-[var(--color-fiveth)]">
                       {getProductPriceRange.max.toLocaleString('fa-IR')}
                     </div>
                   </div>
@@ -538,8 +545,8 @@ const Dis = () => {
                         onClick={() => setTempPrice({ min: preset.min, max: preset.max })}
                         className={`flex-1 text-[10px] px-2 py-1.5 rounded-lg transition-all duration-300 font-medium ${
                           isActive
-                            ? 'bg-[#8b9b7e] text-white shadow-md shadow-[#8b9b7e]/20'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
+                            ? 'bg-[var(--color-primary)] text-[var(--color-background)] shadow-lg shadow-[var(--color-primary)]/30'
+                            : 'bg-[var(--color-background)] text-[var(--color-fiveth)] hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-text)] border border-[var(--color-border)]/30'
                         }`}
                       >
                         {preset.label}
@@ -551,7 +558,7 @@ const Dis = () => {
                 <button 
                   onClick={applyPriceFilter}
                   disabled={isFilterApplying}
-                  className="w-full mt-4 bg-gradient-to-r from-[#8b9b7e] to-[#6b7d5e] text-white py-3 rounded-xl text-sm font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full mt-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-[var(--color-background)] py-3 rounded-xl text-sm font-bold hover:shadow-2xl hover:shadow-[var(--color-primary)]/30 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isFilterApplying ? (
                     <>
@@ -568,27 +575,27 @@ const Dis = () => {
               </div>
 
               {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
-                <div className="pt-4 border-t border-gray-100">
-                  <p className="text-xs text-gray-400 mb-2">فیلترهای فعال:</p>
+                <div className="pt-4 border-t border-[var(--color-border)]/30">
+                  <p className="text-xs text-[var(--color-fiveth)] mb-2">فیلترهای فعال:</p>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedCategories.map(cat => {
                       const category = allCategories.find(c => c.id === cat);
                       return (
-                        <span key={cat} className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[#8b9b7e]/20">
+                        <span key={cat} className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[var(--color-primary)]/20">
                           {category?.icon} {category?.name}
-                          <button onClick={() => handleCategoryChange(cat)} className="hover:text-red-500">
+                          <button onClick={() => handleCategoryChange(cat)} className="hover:text-red-400 transition-colors">
                             <X className="w-3 h-3" />
                           </button>
                         </span>
                       );
                     })}
                     {(priceRange.min !== getProductPriceRange.min || priceRange.max !== getProductPriceRange.max) && (
-                      <span className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[#8b9b7e]/20">
+                      <span className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[var(--color-primary)]/20">
                         {priceRange.min.toLocaleString('fa-IR')} - {priceRange.max.toLocaleString('fa-IR')}
                         <button onClick={() => {
                           setPriceRange(getProductPriceRange);
                           setTempPrice(getProductPriceRange);
-                        }}>
+                        }} className="hover:text-red-400 transition-colors">
                           <X className="w-3 h-3" />
                         </button>
                       </span>
@@ -604,26 +611,26 @@ const Dis = () => {
         <main className="flex-1 min-w-0">
           
           {/* ===== TOOLBAR ===== */}
-          <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4 mb-6 flex flex-wrap items-center justify-between gap-3">
+          <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 p-4 mb-6 flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => setIsFilterOpen(true)}
-                className="lg:hidden p-2.5 bg-gray-100 rounded-xl hover:bg-gray-200 transition-colors"
+                className="lg:hidden p-2.5 bg-[var(--color-background)] rounded-xl hover:bg-[var(--color-primary)]/10 transition-colors border border-[var(--color-border)]/30"
               >
-                <SlidersHorizontal className="w-5 h-5 text-gray-600" />
+                <SlidersHorizontal className="w-5 h-5 text-[var(--color-fiveth)]" />
               </button>
               
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-[var(--color-fiveth)]">
                 <span className="font-medium">نمایش</span>
-                <span className="font-bold text-[#8b9b7e] mx-1.5">
+                <span className="font-bold text-[var(--color-primary)] mx-1.5">
                   {filteredProducts.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1}
                 </span>
                 <span className="font-medium">تا</span>
-                <span className="font-bold text-[#8b9b7e] mx-1.5">
+                <span className="font-bold text-[var(--color-primary)] mx-1.5">
                   {Math.min(currentPage * itemsPerPage, filteredProducts.length)}
                 </span>
                 <span className="font-medium">از</span>
-                <span className="font-bold text-gray-800 mx-1.5">{filteredProducts.length}</span>
+                <span className="font-bold text-[var(--color-text)] mx-1.5">{filteredProducts.length}</span>
                 <span className="font-medium">محصول تخفیف‌دار</span>
               </div>
             </div>
@@ -635,7 +642,7 @@ const Dis = () => {
                   setSortBy(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="border-2 border-gray-200 rounded-xl px-3 py-2 text-sm focus:ring-2 focus:ring-[#8b9b7e] focus:border-transparent outline-none transition-all bg-gray-50 focus:bg-white appearance-none cursor-pointer"
+                className="bg-[var(--color-background)] border border-[var(--color-border)]/40 rounded-xl px-3 py-2 text-sm text-[var(--color-text)] focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all appearance-none cursor-pointer"
               >
                 <option value="default">مرتب‌سازی</option>
                 <option value="price-low">💰 ارزان‌ترین</option>
@@ -648,33 +655,33 @@ const Dis = () => {
 
           {/* ===== PRODUCTS ===== */}
           {isFilterApplying || isSearchLoading ? (
-            <div className="flex justify-center items-center h-96 bg-white rounded-2xl shadow-lg border border-gray-100">
+            <div className="flex justify-center items-center h-96 bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40">
               <div className="text-center">
                 <div className="relative">
-                  <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#8b9b7e]/20 border-t-[#8b9b7e] mx-auto"></div>
+                  <div className="animate-spin rounded-full h-16 w-16 border-4 border-[var(--color-primary)]/20 border-t-[var(--color-primary)] mx-auto"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <Loader2 className="w-8 h-8 text-[#8b9b7e] animate-spin" />
+                    <Loader2 className="w-8 h-8 text-[var(--color-primary)] animate-spin" />
                   </div>
                 </div>
-                <p className="mt-4 text-gray-500 text-sm">
+                <p className="mt-4 text-[var(--color-fiveth)] text-sm">
                   {isSearchLoading ? 'در حال جستجو...' : 'در حال اعمال فیلترها...'}
                 </p>
               </div>
             </div>
           ) : filteredProducts.length === 0 ? (
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 py-20 text-center">
+            <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 py-20 text-center">
               <div className="text-7xl mb-4">🔍</div>
-              <h3 className="text-2xl font-semibold text-gray-700 mb-2">محصول تخفیف‌داری یافت نشد!</h3>
-              <p className="text-gray-500">لطفاً فیلترهای خود را تغییر دهید.</p>
+              <h3 className="text-2xl font-semibold text-[var(--color-text)] mb-2">محصول تخفیف‌داری یافت نشد!</h3>
+              <p className="text-[var(--color-fiveth)]">لطفاً فیلترهای خود را تغییر دهید.</p>
               <button 
                 onClick={clearAllFilters}
-                className="mt-4 px-6 py-2.5 bg-[#8b9b7e] text-white rounded-xl text-sm font-medium hover:bg-[#6b7d5e] transition-colors"
+                className="mt-4 px-6 py-2.5 bg-[var(--color-primary)] text-[var(--color-background)] rounded-xl text-sm font-bold hover:bg-[var(--color-secondary)] transition-all shadow-lg shadow-[var(--color-primary)]/30 hover:shadow-xl"
               >
                 حذف همه فیلترها
               </button>
             </div>
           ) : (
-            <div className="flex flex-wrap -mx-1.5 sm:-mx-2.5">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
               {paginatedProducts.map((product) => {
                 const finalPrice = calculateDiscountPrice(product.price, product.discountPercentage);
                 const hasDiscount = product.discountPercentage && product.discountPercentage > 0;
@@ -683,80 +690,78 @@ const Dis = () => {
                 return (
                   <div 
                     key={product.id} 
-                    className="w-1/2 px-1.5 sm:px-2.5 mb-3 sm:mb-5 xl:w-1/3"
+                    className="group bg-[var(--color-sixeth)] rounded-2xl border border-[var(--color-border)]/30 overflow-hidden hover:border-[var(--color-primary)]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 hover:-translate-y-2 hover:scale-[1.02] flex flex-col"
                   >
-                    <div className="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:border-[#8b9b7e]/20 h-full flex flex-col">
-                      <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden flex-shrink-0">
-                        <img 
-                          src={product.image} 
-                          alt={product.title} 
-                          className="w-full h-full object-cover mix-blend-multiply group-hover:scale-110 transition-transform duration-700" 
-                        />
-                        
-                        <button
-                          onClick={() => toggleWishlist(product.id)}
-                          className="absolute top-2 left-2 sm:top-3 sm:left-3 p-1.5 sm:p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110"
+                    <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-[var(--color-background)] to-[var(--color-background)] overflow-hidden flex-shrink-0">
+                      <img 
+                        src={product.image} 
+                        alt={product.title} 
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                      />
+                      
+                      <button
+                        onClick={() => toggleWishlist(product.id)}
+                        className="absolute top-2 left-2 sm:top-3 sm:left-3 p-1.5 sm:p-2 bg-[var(--color-background)]/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-[var(--color-background)] transition-all duration-300 hover:scale-110 border border-[var(--color-border)]/30"
+                      >
+                        <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors ${
+                          isWishlisted ? 'fill-red-500 text-red-500' : 'text-[var(--color-fiveth)]'
+                        }`} />
+                      </button>
+
+                      {hasDiscount && (
+                        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-lg flex items-center gap-1 animate-pulse">
+                          <Gift className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                          <span>{product.discountPercentage}%</span>
+                        </div>
+                      )}
+
+                      <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2 sm:pb-4">
+                        <button 
+                          onClick={() => handleQuickView(product.id)}
+                          className="bg-[var(--color-primary)] text-[var(--color-background)] shadow-xl px-3 py-1.5 sm:px-6 sm:py-2.5 rounded-full text-[10px] sm:text-sm font-bold hover:bg-[var(--color-secondary)] transition-all duration-300 transform hover:scale-105 flex items-center gap-1 sm:gap-2"
                         >
-                          <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors ${
-                            isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-500'
-                          }`} />
+                          <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
+                          <span className="hidden sm:inline">مشاهده سریع</span>
                         </button>
-
-                        {hasDiscount && (
-                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-lg flex items-center gap-1 animate-pulse">
-                            <span>{product.discountPercentage}%</span>
-                            <span className="text-white/80 hidden sm:inline">تخفیف</span>
-                          </div>
-                        )}
-
-                        <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2 sm:pb-4">
-                          <button 
-                            onClick={() => handleQuickView(product.id)}
-                            className="bg-white text-gray-800 shadow-xl px-3 py-1.5 sm:px-6 sm:py-2.5 rounded-full text-[10px] sm:text-sm font-bold hover:bg-[#8b9b7e] hover:text-white transition-all duration-300 transform hover:scale-105 flex items-center gap-1 sm:gap-2"
-                          >
-                            <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
-                            <span className="hidden sm:inline">مشاهده سریع</span>
-                          </button>
+                      </div>
+                    </div>
+                    
+                    <div className="p-3 sm:p-5 flex-1 flex flex-col">
+                      <div className="flex items-center justify-between mb-1 sm:mb-2">
+                        <span className="text-[8px] sm:text-[10px] font-medium text-[var(--color-fiveth)] bg-[var(--color-background)] px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full truncate max-w-[60%] border border-[var(--color-border)]/20">
+                          {product.category}
+                        </span>
+                        <div className="flex items-center gap-0.5">
+                          {renderStars(product.rating)}
                         </div>
                       </div>
                       
-                      <div className="p-3 sm:p-5 flex-1 flex flex-col">
-                        <div className="flex items-center justify-between mb-1 sm:mb-2">
-                          <span className="text-[8px] sm:text-[10px] font-medium text-gray-400 bg-gray-50 px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full truncate max-w-[60%]">
-                            {product.category}
-                          </span>
-                          <div className="flex items-center gap-0.5">
-                            {renderStars(product.rating)}
-                          </div>
-                        </div>
-                        
-                        <h3 className="font-bold text-gray-800 text-[11px] sm:text-sm mb-1 sm:mb-2 line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] group-hover:text-[#8b9b7e] transition-colors flex-1">
-                          {product.title}
-                        </h3>
-                        
-                        {/* ===== نمایش هر دو قیمت ===== */}
-                        <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-gray-100 mt-auto">
-                          <div>
-                            {hasDiscount ? (
-                              <>
-                                <span className="text-gray-400 line-through text-[8px] sm:text-[10px] block mb-0.5">
-                                  {product.price.toLocaleString('fa-IR')} تومان
-                                </span>
-                                <span className="text-[#8b9b7e] font-extrabold text-xs sm:text-lg">
-                                  {finalPrice.toLocaleString('fa-IR')} تومان
-                                </span>
-                              </>
-                            ) : (
-                              <span className="text-gray-800 font-extrabold text-xs sm:text-lg">
+                      <h3 className="font-bold text-[var(--color-text)] text-[11px] sm:text-sm mb-1 sm:mb-2 line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] group-hover:text-[var(--color-primary)] transition-colors flex-1">
+                        {product.title}
+                      </h3>
+                      
+                      {/* ===== نمایش هر دو قیمت ===== */}
+                      <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-[var(--color-border)]/20 mt-auto">
+                        <div>
+                          {hasDiscount ? (
+                            <>
+                              <span className="text-[var(--color-third)] line-through text-[8px] sm:text-[10px] block mb-0.5">
                                 {product.price.toLocaleString('fa-IR')} تومان
                               </span>
-                            )}
-                          </div>
-                          
-                          <button className="p-1.5 sm:p-2.5 bg-[#8b9b7e]/10 rounded-lg sm:rounded-xl hover:bg-[#8b9b7e] hover:text-white transition-all duration-300 group/btn">
-                            <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8b9b7e] group-hover/btn:text-white" />
-                          </button>
+                              <span className="text-[var(--color-primary)] font-extrabold text-xs sm:text-lg">
+                                {finalPrice.toLocaleString('fa-IR')} تومان
+                              </span>
+                            </>
+                          ) : (
+                            <span className="text-[var(--color-text)] font-extrabold text-xs sm:text-lg">
+                              {product.price.toLocaleString('fa-IR')} تومان
+                            </span>
+                          )}
                         </div>
+                        
+                        <button className="p-1.5 sm:p-2.5 bg-[var(--color-primary)]/10 rounded-lg sm:rounded-xl hover:bg-[var(--color-primary)] hover:text-[var(--color-background)] transition-all duration-300 group/btn border border-[var(--color-border)]/20 hover:border-transparent">
+                          <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-primary)] group-hover/btn:text-[var(--color-background)]" />
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -781,7 +786,7 @@ const Dis = () => {
 };
 
 // ==========================================
-// Pagination Component
+// Pagination Component با طراحی تیره
 // ==========================================
 const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -828,13 +833,13 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   return (
     <div className="w-full mt-12" dir="ltr">
       <div className="max-w-md mx-auto">
-        <div className="bg-gradient-to-r from-[#8A9A7B] to-[#9EAD8C] rounded-2xl p-1 shadow-2xl shadow-[#8A9A7B]/20">
-          <div className="relative flex items-center justify-between bg-white/95 backdrop-blur-sm rounded-xl p-1.5">
+        <div className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] rounded-2xl p-1 shadow-2xl shadow-[var(--color-primary)]/30">
+          <div className="relative flex items-center justify-between bg-[var(--color-background)]/95 backdrop-blur-sm rounded-xl p-1.5 border border-[var(--color-border)]/20">
             
             <button
               onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
               disabled={currentPage === 1}
-              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[#8A9A7B] transition-all hover:bg-[#8A9A7B]/10 hover:text-[#6B7D5E] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-primary)] transition-all hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-secondary)] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
             >
               <ChevronLeft className="w-4 h-4" />
               <span className="hidden sm:inline">قبلی</span>
@@ -850,8 +855,8 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
                     onClick={() => setCurrentPage(page)}
                     className={`relative z-10 flex h-9 w-9 items-center justify-center rounded-lg text-sm font-semibold transition-all ${
                       isActive 
-                        ? 'text-white bg-[#8A9A7B] shadow-md' 
-                        : 'text-[#8A9A7B] hover:text-[#6B7D5E] hover:bg-[#8A9A7B]/10'
+                        ? 'text-[var(--color-background)] bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/30' 
+                        : 'text-[var(--color-fiveth)] hover:text-[var(--color-text)] hover:bg-[var(--color-primary)]/10'
                     }`}
                   >
                     {page}
@@ -860,7 +865,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
               })}
 
               <div
-                className="absolute bottom-1 z-0 h-0.5 rounded-full bg-gradient-to-r from-[#8A9A7B] to-[#9EAD8C] shadow-[0_0_20px_rgba(138,154,123,0.4)] transition-all duration-300 ease-out"
+                className="absolute bottom-1 z-0 h-0.5 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] shadow-[0_0_30px_rgba(105,116,72,0.5)] transition-all duration-300 ease-out"
                 style={{ 
                   left: lineStyle.left, 
                   width: lineStyle.width, 
@@ -872,7 +877,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
             <button
               onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
               disabled={currentPage === totalPages}
-              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[#8A9A7B] transition-all hover:bg-[#8A9A7B]/10 hover:text-[#6B7D5E] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-primary)] transition-all hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-secondary)] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
             >
               <span className="hidden sm:inline">بعدی</span>
               <ChevronRight className="w-4 h-4" />
@@ -880,7 +885,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
           </div>
         </div>
         
-        <div className="text-center mt-3 text-xs text-[#8A9A7B]">
+        <div className="text-center mt-3 text-xs text-[var(--color-fiveth)]">
           صفحه {currentPage} از {totalPages}
         </div>
       </div>
