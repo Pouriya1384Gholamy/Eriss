@@ -234,7 +234,7 @@ const Dis = () => {
     return Array(5).fill(0).map((_, i) => (
       <Star 
         key={i} 
-        className={`w-3.5 h-3.5 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-[var(--color-third)]'}`}
+        className={`w-3 h-3 ${i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-[var(--color-third)]'}`}
       />
     ));
   };
@@ -243,58 +243,122 @@ const Dis = () => {
     setIsFilterOpen(false);
   }, []);
 
+  // ===== کامپوننت نمایش فیلترهای فعال =====
+  const ActiveFilters = () => {
+    const hasActiveFilters = selectedCategories.length > 0 || 
+                            priceRange.min !== getProductPriceRange.min || 
+                            priceRange.max !== getProductPriceRange.max || 
+                            searchQuery !== '';
+
+    if (!hasActiveFilters) return null;
+
+    return (
+      <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 p-3 sm:p-4 mb-4 sm:mb-6">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          <span className="text-[11px] sm:text-sm font-medium text-[var(--color-fiveth)] ml-1 sm:ml-2">فیلترهای فعال:</span>
+          
+          {searchQuery && (
+            <span className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium flex items-center gap-1 border border-[var(--color-primary)]/20">
+              <Search className="w-3 h-3" />
+              <span className="max-w-[60px] sm:max-w-none truncate">{searchQuery}</span>
+              <button onClick={() => {
+                setSearchQuery('');
+                setSearchResults([]);
+                setIsSearching(false);
+              }} className="hover:text-red-400 transition-colors">
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+          
+          {selectedCategories.map(cat => {
+            const category = allCategories.find(c => c.id === cat);
+            return (
+              <span key={cat} className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium flex items-center gap-1 border border-[var(--color-primary)]/20">
+                <span>{category?.icon}</span>
+                <span className="hidden xs:inline">{category?.name}</span>
+                <button onClick={() => handleCategoryChange(cat)} className="hover:text-red-400 transition-colors">
+                  <X className="w-3 h-3" />
+                </button>
+              </span>
+            );
+          })}
+          
+          {(priceRange.min !== getProductPriceRange.min || priceRange.max !== getProductPriceRange.max) && (
+            <span className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-medium flex items-center gap-1 border border-[var(--color-primary)]/20">
+              <span className="hidden xs:inline">💰</span>
+              <span className="text-[9px] sm:text-xs">{priceRange.min.toLocaleString('fa-IR')} - {priceRange.max.toLocaleString('fa-IR')}</span>
+              <button onClick={() => {
+                setPriceRange(getProductPriceRange);
+                setTempPrice(getProductPriceRange);
+              }} className="hover:text-red-400 transition-colors">
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          )}
+          
+          <button 
+            onClick={clearAllFilters}
+            className="text-[10px] sm:text-xs text-red-400 hover:text-red-300 font-semibold transition-colors flex items-center gap-1 px-1.5 sm:px-2 py-1 bg-red-500/10 rounded-lg border border-red-500/20"
+          >
+            <X className="w-3 h-3" />
+            <span className="hidden xs:inline">حذف همه</span>
+          </button>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-[var(--color-background)] font-sans" dir="rtl">
       
-      {/* ===== HERO SECTION با طراحی لوکس تیره ===== */}
-      <div className="relative bg-gradient-to-br from-[var(--color-background)] via-[var(--color-sixeth)] to-[var(--color-background)] text-[var(--color-text)] py-20 px-4 overflow-hidden border-b border-[var(--color-border)]/30">
-        {/* حلقه‌های تزئینی */}
+      {/* ===== HERO SECTION ===== */}
+      <div className="relative bg-gradient-to-br from-[var(--color-background)] via-[var(--color-sixeth)] to-[var(--color-background)] text-[var(--color-text)] py-12 sm:py-16 md:py-20 px-3 sm:px-4 overflow-hidden border-b border-[var(--color-border)]/30">
         <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-primary)]/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[var(--color-secondary)]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[var(--color-primary)]/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+          <div className="absolute top-0 right-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-[var(--color-primary)]/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-0 left-0 w-48 sm:w-64 md:w-96 h-48 sm:h-64 md:h-96 bg-[var(--color-secondary)]/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] md:w-[500px] h-[300px] sm:h-[400px] md:h-[500px] bg-[var(--color-primary)]/5 rounded-full blur-3xl animate-pulse delay-500"></div>
         </div>
         
-        {/* خطوط تزئینی */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-30"></div>
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--color-primary)] to-transparent opacity-30"></div>
         
         <div className="container mx-auto relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 bg-[var(--color-primary)]/10 backdrop-blur-sm border border-[var(--color-border)] rounded-full px-6 py-2.5 mb-6">
-            <Sparkles className="w-4 h-4 text-[var(--color-primary)] animate-pulse" />
-            <span className="text-sm font-medium text-[var(--color-primary)]">تخفیف‌های ویژه زمستانی</span>
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-[var(--color-primary)]/10 backdrop-blur-sm border border-[var(--color-border)] rounded-full px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 md:py-2.5 mb-4 sm:mb-6">
+            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-[var(--color-primary)] animate-pulse" />
+            <span className="text-[10px] sm:text-xs md:text-sm font-medium text-[var(--color-primary)]">تخفیف‌های ویژه زمستانی</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 bg-gradient-to-r from-[var(--color-text)] via-[var(--color-primary)] to-[var(--color-text)] bg-clip-text text-transparent">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-3 sm:mb-4 bg-gradient-to-r from-[var(--color-text)] via-[var(--color-primary)] to-[var(--color-text)] bg-clip-text text-transparent">
             تخفیفات شگفت‌انگیز
           </h1>
-          <p className="text-lg text-[var(--color-fiveth)] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-[var(--color-fiveth)] max-w-2xl mx-auto leading-relaxed px-2">
             بهترین محصولات با کیفیت بالا و قیمت‌های استثنایی
           </p>
           
-          <div className="flex justify-center gap-12 mt-10">
+          <div className="flex justify-center gap-4 sm:gap-8 md:gap-12 mt-6 sm:mt-8 md:mt-10">
             <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-primary)]">{discountedProducts.length}</div>
-              <div className="text-xs text-[var(--color-fiveth)] mt-1">محصول تخفیف‌دار</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-primary)]">{discountedProducts.length}</div>
+              <div className="text-[9px] sm:text-[10px] md:text-xs text-[var(--color-fiveth)] mt-0.5 sm:mt-1">محصول تخفیف‌دار</div>
             </div>
-            <div className="w-px h-12 bg-[var(--color-border)]/50"></div>
+            <div className="w-px h-8 sm:h-10 md:h-12 bg-[var(--color-border)]/50"></div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-primary)]">{allCategories.length}</div>
-              <div className="text-xs text-[var(--color-fiveth)] mt-1">دسته‌بندی</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-primary)]">{allCategories.length}</div>
+              <div className="text-[9px] sm:text-[10px] md:text-xs text-[var(--color-fiveth)] mt-0.5 sm:mt-1">دسته‌بندی</div>
             </div>
-            <div className="w-px h-12 bg-[var(--color-border)]/50"></div>
+            <div className="w-px h-8 sm:h-10 md:h-12 bg-[var(--color-border)]/50"></div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-[var(--color-primary)]">۵⭐</div>
-              <div className="text-xs text-[var(--color-fiveth)] mt-1">امتیاز کاربران</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-primary)]">۵⭐</div>
+              <div className="text-[9px] sm:text-[10px] md:text-xs text-[var(--color-fiveth)] mt-0.5 sm:mt-1">امتیاز کاربران</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8 py-8 flex flex-col lg:flex-row gap-6">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8 flex flex-col lg:flex-row gap-5 md:gap-6 lg:gap-8">
         
-        {/* ===== SIDEBAR FILTERS با طراحی تیره ===== */}
-        <aside className={`lg:w-80 flex-shrink-0 transition-all duration-300 ${
+        {/* ===== SIDEBAR FILTERS ===== */}
+        <aside className={`lg:w-72 xl:w-80 flex-shrink-0 transition-all duration-300 ${
           isFilterOpen ? 'fixed inset-0 z-50 lg:relative lg:bg-transparent lg:p-0' : 'hidden lg:block'
         }`}>
           {isFilterOpen && (
@@ -305,44 +369,48 @@ const Dis = () => {
           )}
           
           <div 
-            className={`bg-[var(--color-sixeth)] border border-[var(--color-border)]/40 shadow-2xl shadow-black/50 overflow-y-auto transition-all duration-300 ${
+            className={`bg-[var(--color-sixeth)] border border-[var(--color-border)]/40 shadow-2xl shadow-black/50 transition-all duration-300 ${
               isFilterOpen 
-                ? 'fixed top-0 right-0 bottom-0 w-full max-w-md z-50 rounded-none' 
+                ? 'fixed top-0 right-0 bottom-0 w-full max-w-sm z-50 rounded-none' 
                 : 'lg:sticky lg:top-24 rounded-2xl'
             }`}
             style={{
-              maxHeight: isFilterOpen ? '100vh' : '80vh',
+              height: isFilterOpen ? '100vh' : 'auto',
+              maxHeight: isFilterOpen ? '100vh' : 'calc(100vh - 120px)',
             }}
             dir="rtl"
           >
-            
             <style>{`
-              div::-webkit-scrollbar {
+              .custom-scroll::-webkit-scrollbar {
                 width: 4px;
               }
-              div::-webkit-scrollbar-track {
+              .custom-scroll::-webkit-scrollbar-track {
                 background: var(--color-background);
                 border-radius: 10px;
               }
-              div::-webkit-scrollbar-thumb {
-                background: var(--color-primary);
+              .custom-scroll::-webkit-scrollbar-thumb {
+                background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary));
                 border-radius: 10px;
               }
-              div::-webkit-scrollbar-thumb:hover {
+              .custom-scroll::-webkit-scrollbar-thumb:hover {
                 background: var(--color-secondary);
+              }
+              .custom-scroll {
+                scrollbar-width: thin;
+                scrollbar-color: var(--color-primary) var(--color-background);
               }
             `}</style>
 
-            <div className="sticky top-0 bg-[var(--color-sixeth)]/95 backdrop-blur-sm z-10 border-b border-[var(--color-border)]/30 p-4 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-[var(--color-text)] flex items-center gap-2">
-                <Filter className="w-5 h-5 text-[var(--color-primary)]" />
+            <div className="sticky top-0 bg-[var(--color-sixeth)]/95 backdrop-blur-sm z-10 border-b border-[var(--color-border)]/30 p-3 sm:p-4 flex items-center justify-between">
+              <h2 className="text-base sm:text-lg font-bold text-[var(--color-text)] flex items-center gap-2">
+                <Filter className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-primary)]" />
                 فیلترها
               </h2>
               <div className="flex items-center lg:hidden gap-2">
                 {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
                   <button 
                     onClick={clearAllFilters}
-                    className="text-xs text-red-400 hover:text-red-300 font-semibold transition-colors flex items-center gap-1"
+                    className="text-[10px] sm:text-xs text-red-400 hover:text-red-300 font-semibold transition-colors flex items-center gap-1"
                   >
                     <X className="w-3 h-3" />
                     حذف همه
@@ -350,50 +418,57 @@ const Dis = () => {
                 )}
                 <button 
                   onClick={closeFilter}
-                  className="p-2 bg-red-500/10 hover:bg-red-500/20 rounded-full transition-colors border border-red-500/20"
+                  className="p-1.5 sm:p-2 bg-red-500/10 hover:bg-red-500/20 rounded-full transition-colors border border-red-500/20"
                 >
-                  <X className="w-5 h-5 text-red-400" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5 text-red-400" />
                 </button>
               </div>
             </div>
 
-            <div className="p-6">
+            <div 
+              className="p-3 sm:p-4 md:p-5 lg:p-6 custom-scroll" 
+              style={{ 
+                maxHeight: isFilterOpen ? 'calc(100vh - 180px)' : 'calc(100vh - 200px)',
+                overflowY: 'auto',
+                overflowX: 'hidden'
+              }}
+            >
               {/* ===== SEARCH ===== */}
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-5 md:mb-6">
                 <div className="relative group">
-                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-fiveth)] w-4 h-4 group-focus-within:text-[var(--color-primary)] transition-colors" />
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--color-fiveth)] w-3.5 h-3.5 sm:w-4 sm:h-4 group-focus-within:text-[var(--color-primary)] transition-colors" />
                   <input
                     type="text"
                     placeholder="جستجوی محصول..."
                     value={searchQuery}
                     onChange={(e) => handleSearch(e.target.value)}
-                    className="w-full pr-10 pl-4 py-3 bg-[var(--color-background)] border border-[var(--color-border)]/40 rounded-xl text-sm text-[var(--color-text)] placeholder:text-[var(--color-fiveth)] focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all"
+                    className="w-full pr-8 sm:pr-10 pl-3 sm:pl-4 py-2 sm:py-3 bg-[var(--color-background)] border border-[var(--color-border)]/40 rounded-xl text-xs sm:text-sm text-[var(--color-text)] placeholder:text-[var(--color-fiveth)] focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all"
                   />
                   {isSearchLoading && (
                     <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                      <Loader2 className="w-4 h-4 text-[var(--color-primary)] animate-spin" />
+                      <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-primary)] animate-spin" />
                     </div>
                   )}
                 </div>
               </div>
 
               {/* ===== CATEGORIES ===== */}
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold text-[var(--color-text)] text-sm flex items-center gap-2">
-                    <span className="w-1 h-4 bg-[var(--color-primary)] rounded-full"></span>
+              <div className="mb-4 sm:mb-5 md:mb-6">
+                <div className="flex items-center justify-between mb-2 sm:mb-3">
+                  <h3 className="font-semibold text-[var(--color-text)] text-xs sm:text-sm flex items-center gap-2">
+                    <span className="w-1 h-3 sm:h-4 bg-[var(--color-primary)] rounded-full"></span>
                     دسته‌بندی
                   </h3>
-                  <span className="text-[10px] text-[var(--color-fiveth)]">
+                  <span className="text-[9px] sm:text-[10px] text-[var(--color-fiveth)]">
                     {selectedCategories.length} انتخاب شده
                   </span>
                 </div>
                 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {visibleCategories.map(({ id, name, icon, color }) => (
                     <label 
                       key={id} 
-                      className={`flex items-center gap-2 p-2.5 rounded-xl cursor-pointer transition-all duration-300 border-2 flex-1 min-w-[calc(50%-0.5rem)] ${
+                      className={`flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 md:p-2.5 rounded-xl cursor-pointer transition-all duration-300 border-2 flex-1 min-w-[calc(50%-0.5rem)] ${
                         selectedCategories.includes(id) 
                           ? 'border-[var(--color-primary)] bg-[var(--color-primary)]/10 shadow-lg shadow-[var(--color-primary)]/10' 
                           : 'border-transparent hover:border-[var(--color-border)]/40 hover:bg-[var(--color-background)]'
@@ -405,10 +480,10 @@ const Dis = () => {
                         onChange={() => handleCategoryChange(id)}
                         className="hidden" 
                       />
-                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white text-xs shadow-lg flex-shrink-0`}>
+                      <div className={`w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white text-[10px] sm:text-xs shadow-lg flex-shrink-0`}>
                         {icon}
                       </div>
-                      <span className="text-[11px] text-[var(--color-text)] font-medium truncate">{name}</span>
+                      <span className="text-[9px] sm:text-[10px] md:text-[11px] text-[var(--color-text)] font-medium truncate">{name}</span>
                     </label>
                   ))}
                 </div>
@@ -416,16 +491,16 @@ const Dis = () => {
                 {hasMoreCategories && (
                   <button
                     onClick={() => setShowAllCategories(!showAllCategories)}
-                    className="w-full mt-3 py-2 text-xs font-medium text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors flex items-center justify-center gap-1 border border-[var(--color-border)]/30 rounded-xl hover:bg-[var(--color-primary)]/5"
+                    className="w-full mt-2 sm:mt-3 py-1.5 sm:py-2 text-[10px] sm:text-xs font-medium text-[var(--color-primary)] hover:text-[var(--color-secondary)] transition-colors flex items-center justify-center gap-1 border border-[var(--color-border)]/30 rounded-xl hover:bg-[var(--color-primary)]/5"
                   >
                     {showAllCategories ? (
                       <>
-                        <ChevronUp className="w-3.5 h-3.5" />
+                        <ChevronUp className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         نمایش کمتر
                       </>
                     ) : (
                       <>
-                        <ChevronDown className="w-3.5 h-3.5" />
+                        <ChevronDown className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                         نمایش همه ({allCategories.length} دسته)
                       </>
                     )}
@@ -435,30 +510,29 @@ const Dis = () => {
 
               {/* ===== PRICE RANGE ===== */}
               <div className="mb-4">
-                <h3 className="font-semibold text-[var(--color-text)] mb-4 text-sm flex items-center gap-2">
-                  <span className="w-1 h-4 bg-[var(--color-primary)] rounded-full"></span>
+                <h3 className="font-semibold text-[var(--color-text)] mb-3 sm:mb-4 text-xs sm:text-sm flex items-center gap-2">
+                  <span className="w-1 h-3 sm:h-4 bg-[var(--color-primary)] rounded-full"></span>
                   محدوده قیمت (تومان)
                 </h3>
                 
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="flex-1 bg-[var(--color-background)] rounded-xl px-3 py-2 text-center border border-[var(--color-border)]/30">
-                    <span className="text-[10px] text-[var(--color-fiveth)] block">حداقل</span>
-                    <span className="text-sm font-bold text-[var(--color-text)]">
+                <div className="flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+                  <div className="flex-1 bg-[var(--color-background)] rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 text-center border border-[var(--color-border)]/30">
+                    <span className="text-[8px] sm:text-[10px] text-[var(--color-fiveth)] block">حداقل</span>
+                    <span className="text-[10px] sm:text-xs md:text-sm font-bold text-[var(--color-text)]">
                       {tempPrice.min.toLocaleString('fa-IR')}
                     </span>
                   </div>
-                  <span className="text-[var(--color-third)] text-xs">تا</span>
-                  <div className="flex-1 bg-[var(--color-background)] rounded-xl px-3 py-2 text-center border border-[var(--color-border)]/30">
-                    <span className="text-[10px] text-[var(--color-fiveth)] block">حداکثر</span>
-                    <span className="text-sm font-bold text-[var(--color-text)]">
+                  <span className="text-[var(--color-third)] text-[10px] sm:text-xs">تا</span>
+                  <div className="flex-1 bg-[var(--color-background)] rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 text-center border border-[var(--color-border)]/30">
+                    <span className="text-[8px] sm:text-[10px] text-[var(--color-fiveth)] block">حداکثر</span>
+                    <span className="text-[10px] sm:text-xs md:text-sm font-bold text-[var(--color-text)]">
                       {tempPrice.max.toLocaleString('fa-IR')}
                     </span>
                   </div>
                 </div>
 
-                <div className="relative pt-3 pb-8">
+                <div className="relative pt-2 sm:pt-3 pb-6 sm:pb-8">
                   <div className="relative h-1.5 bg-[var(--color-background)] rounded-full border border-[var(--color-border)]/30">
-                    {/* Min Handle */}
                     <input
                       type="range"
                       min={getProductPriceRange.min}
@@ -475,7 +549,6 @@ const Dis = () => {
                       style={{ zIndex: 10 }}
                     />
                     
-                    {/* Max Handle */}
                     <input
                       type="range"
                       min={getProductPriceRange.min}
@@ -496,23 +569,23 @@ const Dis = () => {
                       input[type="range"]::-webkit-slider-thumb {
                         -webkit-appearance: none;
                         appearance: none;
-                        width: 20px;
-                        height: 20px;
+                        width: 16px;
+                        height: 16px;
                         border-radius: 50%;
                         background: var(--color-primary);
                         border: 3px solid var(--color-background);
-                        box-shadow: 0 0 20px rgba(105, 116, 72, 0.4), 0 0 60px rgba(105, 116, 72, 0.2);
+                        box-shadow: 0 0 20px rgba(105, 116, 72, 0.4);
                         cursor: pointer;
                         pointer-events: auto;
                         transition: all 0.2s;
                       }
                       input[type="range"]::-webkit-slider-thumb:hover {
                         transform: scale(1.2);
-                        box-shadow: 0 0 30px rgba(105, 116, 72, 0.6), 0 0 80px rgba(105, 116, 72, 0.3);
+                        box-shadow: 0 0 30px rgba(105, 116, 72, 0.6);
                       }
                       input[type="range"]::-moz-range-thumb {
-                        width: 20px;
-                        height: 20px;
+                        width: 16px;
+                        height: 16px;
                         border-radius: 50%;
                         background: var(--color-primary);
                         border: 3px solid var(--color-background);
@@ -522,16 +595,16 @@ const Dis = () => {
                       }
                     `}</style>
 
-                    <div className="absolute -bottom-6 right-0 text-[10px] text-[var(--color-fiveth)]">
+                    <div className="absolute -bottom-5 sm:-bottom-6 right-0 text-[8px] sm:text-[10px] text-[var(--color-fiveth)]">
                       {getProductPriceRange.min.toLocaleString('fa-IR')}
                     </div>
-                    <div className="absolute -bottom-6 left-0 text-[10px] text-[var(--color-fiveth)]">
+                    <div className="absolute -bottom-5 sm:-bottom-6 left-0 text-[8px] sm:text-[10px] text-[var(--color-fiveth)]">
                       {getProductPriceRange.max.toLocaleString('fa-IR')}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-1.5 mt-2">
+                <div className="flex flex-wrap gap-1 sm:gap-1.5 mt-1 sm:mt-2">
                   {[
                     { label: 'زیر ۲م', min: getProductPriceRange.min, max: 2000000 },
                     { label: '۲-۵م', min: 2000000, max: 5000000 },
@@ -543,7 +616,7 @@ const Dis = () => {
                       <button
                         key={index}
                         onClick={() => setTempPrice({ min: preset.min, max: preset.max })}
-                        className={`flex-1 text-[10px] px-2 py-1.5 rounded-lg transition-all duration-300 font-medium ${
+                        className={`flex-1 text-[8px] sm:text-[9px] md:text-[10px] px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-lg transition-all duration-300 font-medium ${
                           isActive
                             ? 'bg-[var(--color-primary)] text-[var(--color-background)] shadow-lg shadow-[var(--color-primary)]/30'
                             : 'bg-[var(--color-background)] text-[var(--color-fiveth)] hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-text)] border border-[var(--color-border)]/30'
@@ -558,51 +631,21 @@ const Dis = () => {
                 <button 
                   onClick={applyPriceFilter}
                   disabled={isFilterApplying}
-                  className="w-full mt-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-[var(--color-background)] py-3 rounded-xl text-sm font-bold hover:shadow-2xl hover:shadow-[var(--color-primary)]/30 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full mt-3 sm:mt-4 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] text-[var(--color-background)] py-2 sm:py-3 rounded-xl text-[11px] sm:text-sm font-bold hover:shadow-2xl hover:shadow-[var(--color-primary)]/30 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isFilterApplying ? (
                     <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
                       در حال اعمال...
                     </>
                   ) : (
                     <>
-                      <TrendingDown className="w-4 h-4" />
+                      <TrendingDown className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       اعمال قیمت
                     </>
                   )}
                 </button>
               </div>
-
-              {(selectedCategories.length > 0 || priceRange.min !== getProductPriceRange.min || searchQuery) && (
-                <div className="pt-4 border-t border-[var(--color-border)]/30">
-                  <p className="text-xs text-[var(--color-fiveth)] mb-2">فیلترهای فعال:</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedCategories.map(cat => {
-                      const category = allCategories.find(c => c.id === cat);
-                      return (
-                        <span key={cat} className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[var(--color-primary)]/20">
-                          {category?.icon} {category?.name}
-                          <button onClick={() => handleCategoryChange(cat)} className="hover:text-red-400 transition-colors">
-                            <X className="w-3 h-3" />
-                          </button>
-                        </span>
-                      );
-                    })}
-                    {(priceRange.min !== getProductPriceRange.min || priceRange.max !== getProductPriceRange.max) && (
-                      <span className="bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[var(--color-primary)]/20">
-                        {priceRange.min.toLocaleString('fa-IR')} - {priceRange.max.toLocaleString('fa-IR')}
-                        <button onClick={() => {
-                          setPriceRange(getProductPriceRange);
-                          setTempPrice(getProductPriceRange);
-                        }} className="hover:text-red-400 transition-colors">
-                          <X className="w-3 h-3" />
-                        </button>
-                      </span>
-                    )}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </aside>
@@ -611,38 +654,38 @@ const Dis = () => {
         <main className="flex-1 min-w-0">
           
           {/* ===== TOOLBAR ===== */}
-          <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 p-4 mb-6 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
+          <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 p-2.5 sm:p-3 md:p-4 mb-3 sm:mb-4 md:mb-6 flex flex-wrap items-center justify-between gap-2 sm:gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <button 
                 onClick={() => setIsFilterOpen(true)}
-                className="lg:hidden p-2.5 bg-[var(--color-background)] rounded-xl hover:bg-[var(--color-primary)]/10 transition-colors border border-[var(--color-border)]/30"
+                className="lg:hidden p-1.5 sm:p-2 bg-[var(--color-background)] rounded-xl hover:bg-[var(--color-primary)]/10 transition-colors border border-[var(--color-border)]/30"
               >
-                <SlidersHorizontal className="w-5 h-5 text-[var(--color-fiveth)]" />
+                <SlidersHorizontal className="w-4 h-4 sm:w-5 sm:h-5 text-[var(--color-fiveth)]" />
               </button>
               
-              <div className="text-sm text-[var(--color-fiveth)]">
+              <div className="text-[10px] sm:text-xs md:text-sm text-[var(--color-fiveth)]">
                 <span className="font-medium">نمایش</span>
-                <span className="font-bold text-[var(--color-primary)] mx-1.5">
+                <span className="font-bold text-[var(--color-primary)] mx-1">
                   {filteredProducts.length === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1}
                 </span>
                 <span className="font-medium">تا</span>
-                <span className="font-bold text-[var(--color-primary)] mx-1.5">
+                <span className="font-bold text-[var(--color-primary)] mx-1">
                   {Math.min(currentPage * itemsPerPage, filteredProducts.length)}
                 </span>
                 <span className="font-medium">از</span>
-                <span className="font-bold text-[var(--color-text)] mx-1.5">{filteredProducts.length}</span>
-                <span className="font-medium">محصول تخفیف‌دار</span>
+                <span className="font-bold text-[var(--color-text)] mx-1">{filteredProducts.length}</span>
+                <span className="hidden xs:inline font-medium">محصول</span>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <select
                 value={sortBy}
                 onChange={(e) => {
                   setSortBy(e.target.value);
                   setCurrentPage(1);
                 }}
-                className="bg-[var(--color-background)] border border-[var(--color-border)]/40 rounded-xl px-3 py-2 text-sm text-[var(--color-text)] focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all appearance-none cursor-pointer"
+                className="bg-[var(--color-background)] border border-[var(--color-border)]/40 rounded-xl px-2 sm:px-3 py-1.5 sm:py-2 text-[10px] sm:text-xs md:text-sm text-[var(--color-text)] focus:ring-2 focus:ring-[var(--color-primary)] focus:border-transparent outline-none transition-all appearance-none cursor-pointer max-w-[100px] sm:max-w-none"
               >
                 <option value="default">مرتب‌سازی</option>
                 <option value="price-low">💰 ارزان‌ترین</option>
@@ -653,35 +696,38 @@ const Dis = () => {
             </div>
           </div>
 
-          {/* ===== PRODUCTS ===== */}
+          {/* ===== ACTIVE FILTERS ===== */}
+          <ActiveFilters />
+
+          {/* ===== PRODUCTS با Flex و 3 ستونه از sm به بالا ===== */}
           {isFilterApplying || isSearchLoading ? (
-            <div className="flex justify-center items-center h-96 bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40">
+            <div className="flex justify-center items-center h-64 sm:h-80 md:h-96 bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40">
               <div className="text-center">
                 <div className="relative">
-                  <div className="animate-spin rounded-full h-16 w-16 border-4 border-[var(--color-primary)]/20 border-t-[var(--color-primary)] mx-auto"></div>
+                  <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-4 border-[var(--color-primary)]/20 border-t-[var(--color-primary)] mx-auto"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <Loader2 className="w-8 h-8 text-[var(--color-primary)] animate-spin" />
+                    <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 text-[var(--color-primary)] animate-spin" />
                   </div>
                 </div>
-                <p className="mt-4 text-[var(--color-fiveth)] text-sm">
+                <p className="mt-3 sm:mt-4 text-[var(--color-fiveth)] text-xs sm:text-sm">
                   {isSearchLoading ? 'در حال جستجو...' : 'در حال اعمال فیلترها...'}
                 </p>
               </div>
             </div>
           ) : filteredProducts.length === 0 ? (
-            <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 py-20 text-center">
-              <div className="text-7xl mb-4">🔍</div>
-              <h3 className="text-2xl font-semibold text-[var(--color-text)] mb-2">محصول تخفیف‌داری یافت نشد!</h3>
-              <p className="text-[var(--color-fiveth)]">لطفاً فیلترهای خود را تغییر دهید.</p>
+            <div className="bg-[var(--color-sixeth)] rounded-2xl shadow-2xl shadow-black/30 border border-[var(--color-border)]/40 py-12 sm:py-16 md:py-20 text-center px-4">
+              <div className="text-5xl sm:text-6xl md:text-7xl mb-3 sm:mb-4">🔍</div>
+              <h3 className="text-xl sm:text-2xl font-semibold text-[var(--color-text)] mb-2">محصول تخفیف‌داری یافت نشد!</h3>
+              <p className="text-sm sm:text-base text-[var(--color-fiveth)]">لطفاً فیلترهای خود را تغییر دهید.</p>
               <button 
                 onClick={clearAllFilters}
-                className="mt-4 px-6 py-2.5 bg-[var(--color-primary)] text-[var(--color-background)] rounded-xl text-sm font-bold hover:bg-[var(--color-secondary)] transition-all shadow-lg shadow-[var(--color-primary)]/30 hover:shadow-xl"
+                className="mt-4 px-4 sm:px-6 py-2 sm:py-2.5 bg-[var(--color-primary)] text-[var(--color-background)] rounded-xl text-xs sm:text-sm font-bold hover:bg-[var(--color-secondary)] transition-all shadow-lg shadow-[var(--color-primary)]/30 hover:shadow-xl"
               >
                 حذف همه فیلترها
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
+            <div className="flex flex-wrap -mx-1.5 sm:-mx-2 md:-mx-2.5">
               {paginatedProducts.map((product) => {
                 const finalPrice = calculateDiscountPrice(product.price, product.discountPercentage);
                 const hasDiscount = product.discountPercentage && product.discountPercentage > 0;
@@ -690,78 +736,91 @@ const Dis = () => {
                 return (
                   <div 
                     key={product.id} 
-                    className="group bg-[var(--color-sixeth)] rounded-2xl border border-[var(--color-border)]/30 overflow-hidden hover:border-[var(--color-primary)]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 hover:-translate-y-2 hover:scale-[1.02] flex flex-col"
+                    className="w-1/2 sm:w-1/3 px-1.5 sm:px-2 md:px-2.5 mb-3 sm:mb-4 md:mb-5"
+                    onClick={() => navigate(`/product/${product.id}`)}
                   >
-                    <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-[var(--color-background)] to-[var(--color-background)] overflow-hidden flex-shrink-0">
-                      <img 
-                        src={product.image} 
-                        alt={product.title} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                      />
-                      
-                      <button
-                        onClick={() => toggleWishlist(product.id)}
-                        className="absolute top-2 left-2 sm:top-3 sm:left-3 p-1.5 sm:p-2 bg-[var(--color-background)]/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-[var(--color-background)] transition-all duration-300 hover:scale-110 border border-[var(--color-border)]/30"
-                      >
-                        <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors ${
-                          isWishlisted ? 'fill-red-500 text-red-500' : 'text-[var(--color-fiveth)]'
-                        }`} />
-                      </button>
-
-                      {hasDiscount && (
-                        <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-lg flex items-center gap-1 animate-pulse">
-                          <Gift className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                          <span>{product.discountPercentage}%</span>
-                        </div>
-                      )}
-
-                      <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2 sm:pb-4">
-                        <button 
-                          onClick={() => handleQuickView(product.id)}
-                          className="bg-[var(--color-primary)] text-[var(--color-background)] shadow-xl px-3 py-1.5 sm:px-6 sm:py-2.5 rounded-full text-[10px] sm:text-sm font-bold hover:bg-[var(--color-secondary)] transition-all duration-300 transform hover:scale-105 flex items-center gap-1 sm:gap-2"
+                    <div className="group bg-[var(--color-sixeth)] rounded-2xl border border-[var(--color-border)]/30 overflow-hidden hover:border-[var(--color-primary)]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--color-primary)]/10 hover:-translate-y-2 flex flex-col cursor-pointer h-full">
+                      <div className="relative aspect-square bg-gradient-to-br from-[var(--color-background)] to-[var(--color-background)] overflow-hidden flex-shrink-0">
+                        <img 
+                          src={product.image} 
+                          alt={product.title} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                        />
+                        
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleWishlist(product.id);
+                          }}
+                          className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2 p-1 sm:p-1.5 bg-[var(--color-background)]/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-[var(--color-background)] transition-all duration-300 hover:scale-110 border border-[var(--color-border)]/30 z-10"
                         >
-                          <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
-                          <span className="hidden sm:inline">مشاهده سریع</span>
+                          <Heart className={`w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 transition-colors ${
+                            isWishlisted ? 'fill-red-500 text-red-500' : 'text-[var(--color-fiveth)]'
+                          }`} />
                         </button>
-                      </div>
-                    </div>
-                    
-                    <div className="p-3 sm:p-5 flex-1 flex flex-col">
-                      <div className="flex items-center justify-between mb-1 sm:mb-2">
-                        <span className="text-[8px] sm:text-[10px] font-medium text-[var(--color-fiveth)] bg-[var(--color-background)] px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full truncate max-w-[60%] border border-[var(--color-border)]/20">
-                          {product.category}
-                        </span>
-                        <div className="flex items-center gap-0.5">
-                          {renderStars(product.rating)}
+
+                        {hasDiscount && (
+                          <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-[7px] sm:text-[8px] md:text-[10px] font-bold px-1.5 py-0.5 sm:px-2 sm:py-0.5 md:px-2.5 md:py-1 rounded-full shadow-lg flex items-center gap-0.5 sm:gap-1 animate-pulse z-10">
+                            <Gift className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3 md:h-3" />
+                            <span>{product.discountPercentage}%</span>
+                          </div>
+                        )}
+
+                        <div className="absolute inset-x-0 bottom-0 h-10 sm:h-12 md:h-16 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-1 sm:pb-1.5 md:pb-3">
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleQuickView(product.id);
+                            }}
+                            className="bg-[var(--color-primary)] text-[var(--color-background)] shadow-xl px-1.5 py-0.5 sm:px-2.5 sm:py-1 md:px-4 md:py-2 rounded-full text-[7px] sm:text-[8px] md:text-[11px] font-bold hover:bg-[var(--color-secondary)] transition-all duration-300 transform hover:scale-105 flex items-center gap-0.5 sm:gap-1"
+                          >
+                            <Eye className="w-2 h-2 sm:w-2.5 sm:h-2.5 md:w-3.5 md:h-3.5" />
+                            <span className="hidden sm:inline text-[8px] md:text-[11px]">مشاهده</span>
+                          </button>
                         </div>
                       </div>
                       
-                      <h3 className="font-bold text-[var(--color-text)] text-[11px] sm:text-sm mb-1 sm:mb-2 line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem] group-hover:text-[var(--color-primary)] transition-colors flex-1">
-                        {product.title}
-                      </h3>
-                      
-                      {/* ===== نمایش هر دو قیمت ===== */}
-                      <div className="flex items-center justify-between pt-2 sm:pt-3 border-t border-[var(--color-border)]/20 mt-auto">
-                        <div>
-                          {hasDiscount ? (
-                            <>
-                              <span className="text-[var(--color-third)] line-through text-[8px] sm:text-[10px] block mb-0.5">
-                                {product.price.toLocaleString('fa-IR')} تومان
-                              </span>
-                              <span className="text-[var(--color-primary)] font-extrabold text-xs sm:text-lg">
-                                {finalPrice.toLocaleString('fa-IR')} تومان
-                              </span>
-                            </>
-                          ) : (
-                            <span className="text-[var(--color-text)] font-extrabold text-xs sm:text-lg">
-                              {product.price.toLocaleString('fa-IR')} تومان
-                            </span>
-                          )}
+                      <div className="p-1.5 sm:p-2 md:p-3 flex-1 flex flex-col">
+                        <div className="flex items-center justify-between mb-0.5 sm:mb-1">
+                          <span className="text-[6px] sm:text-[7px] md:text-[9px] font-medium text-[var(--color-fiveth)] bg-[var(--color-background)] px-1 py-0.5 sm:px-1.5 rounded-full truncate max-w-[50%] sm:max-w-[55%] border border-[var(--color-border)]/20">
+                            {product.category}
+                          </span>
+                          <div className="flex items-center gap-0.5 flex-shrink-0">
+                            {renderStars(product.rating)}
+                          </div>
                         </div>
                         
-                        <button className="p-1.5 sm:p-2.5 bg-[var(--color-primary)]/10 rounded-lg sm:rounded-xl hover:bg-[var(--color-primary)] hover:text-[var(--color-background)] transition-all duration-300 group/btn border border-[var(--color-border)]/20 hover:border-transparent">
-                          <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--color-primary)] group-hover/btn:text-[var(--color-background)]" />
-                        </button>
+                        <h3 className="font-bold text-[var(--color-text)] text-[8px] sm:text-[9px] md:text-[12px] mb-0.5 sm:mb-1 line-clamp-2 min-h-[1.2rem] sm:min-h-[1.5rem] md:min-h-[2rem] group-hover:text-[var(--color-primary)] transition-colors flex-1">
+                          {product.title}
+                        </h3>
+                        
+                        <div className="flex items-center justify-between pt-1 sm:pt-1.5 md:pt-2 border-t border-[var(--color-border)]/20 mt-auto">
+                          <div>
+                            {hasDiscount ? (
+                              <>
+                                <span className="text-[var(--color-third)] line-through text-[5px] sm:text-[6px] md:text-[9px] block">
+                                  {product.price.toLocaleString('fa-IR')}
+                                </span>
+                                <span className="text-[var(--color-primary)] font-extrabold text-[7px] sm:text-[8px] md:text-[13px]">
+                                  {finalPrice.toLocaleString('fa-IR')}
+                                </span>
+                              </>
+                            ) : (
+                              <span className="text-[var(--color-text)] font-extrabold text-[7px] sm:text-[8px] md:text-[13px]">
+                                {product.price.toLocaleString('fa-IR')}
+                              </span>
+                            )}
+                          </div>
+                          
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                            }}
+                            className="p-0.5 sm:p-1 md:p-1.5 bg-[var(--color-primary)]/10 rounded-lg hover:bg-[var(--color-primary)] hover:text-[var(--color-background)] transition-all duration-300 group/btn border border-[var(--color-border)]/20 hover:border-transparent flex-shrink-0"
+                          >
+                            <ShoppingBag className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-3.5 md:h-3.5 text-[var(--color-primary)] group-hover/btn:text-[var(--color-background)]" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -786,7 +845,7 @@ const Dis = () => {
 };
 
 // ==========================================
-// Pagination Component با طراحی تیره
+// Pagination Component
 // ==========================================
 const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   const [isMobile, setIsMobile] = useState(false);
@@ -831,21 +890,21 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
   }, [currentPage, updateLinePosition]);
 
   return (
-    <div className="w-full mt-12" dir="ltr">
-      <div className="max-w-md mx-auto">
+    <div className="w-full mt-8 sm:mt-10 md:mt-12" dir="ltr">
+      <div className="max-w-md mx-auto px-2 sm:px-0">
         <div className="bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] rounded-2xl p-1 shadow-2xl shadow-[var(--color-primary)]/30">
-          <div className="relative flex items-center justify-between bg-[var(--color-background)]/95 backdrop-blur-sm rounded-xl p-1.5 border border-[var(--color-border)]/20">
+          <div className="relative flex items-center justify-between bg-[var(--color-background)]/95 backdrop-blur-sm rounded-xl p-1 border border-[var(--color-border)]/20">
             
             <button
               onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
               disabled={currentPage === 1}
-              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-primary)] transition-all hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-secondary)] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+              className="flex items-center gap-0.5 sm:gap-1 rounded-lg px-1.5 sm:px-3 py-1.5 sm:py-2 text-[10px] sm:text-sm font-medium text-[var(--color-primary)] transition-all hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-secondary)] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
             >
-              <ChevronLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">قبلی</span>
+              <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden xs:inline">قبلی</span>
             </button>
 
-            <div ref={containerRef} className="relative flex items-center gap-1 px-2">
+            <div ref={containerRef} className="relative flex items-center gap-0.5 sm:gap-1 px-1 sm:px-2">
               {getVisiblePages.map((page) => {
                 const isActive = page === currentPage;
                 return (
@@ -853,7 +912,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
                     key={page}
                     ref={isActive ? activeRef : null}
                     onClick={() => setCurrentPage(page)}
-                    className={`relative z-10 flex h-9 w-9 items-center justify-center rounded-lg text-sm font-semibold transition-all ${
+                    className={`relative z-10 flex h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 items-center justify-center rounded-lg text-[10px] sm:text-xs md:text-sm font-semibold transition-all ${
                       isActive 
                         ? 'text-[var(--color-background)] bg-[var(--color-primary)] shadow-lg shadow-[var(--color-primary)]/30' 
                         : 'text-[var(--color-fiveth)] hover:text-[var(--color-text)] hover:bg-[var(--color-primary)]/10'
@@ -865,7 +924,7 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
               })}
 
               <div
-                className="absolute bottom-1 z-0 h-0.5 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] shadow-[0_0_30px_rgba(105,116,72,0.5)] transition-all duration-300 ease-out"
+                className="absolute bottom-0.5 sm:bottom-1 z-0 h-0.5 rounded-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-secondary)] shadow-[0_0_30px_rgba(105,116,72,0.5)] transition-all duration-300 ease-out"
                 style={{ 
                   left: lineStyle.left, 
                   width: lineStyle.width, 
@@ -877,15 +936,15 @@ const Pagination = ({ currentPage, setCurrentPage, totalPages }) => {
             <button
               onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
               disabled={currentPage === totalPages}
-              className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[var(--color-primary)] transition-all hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-secondary)] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
+              className="flex items-center gap-0.5 sm:gap-1 rounded-lg px-1.5 sm:px-3 py-1.5 sm:py-2 text-[10px] sm:text-sm font-medium text-[var(--color-primary)] transition-all hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-secondary)] disabled:opacity-30 disabled:hover:bg-transparent disabled:cursor-not-allowed"
             >
-              <span className="hidden sm:inline">بعدی</span>
-              <ChevronRight className="w-4 h-4" />
+              <span className="hidden xs:inline">بعدی</span>
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
           </div>
         </div>
-        
-        <div className="text-center mt-3 text-xs text-[var(--color-fiveth)]">
+     
+        <div className="text-center mt-2 sm:mt-3 text-[10px] sm:text-xs text-[var(--color-fiveth)]">
           صفحه {currentPage} از {totalPages}
         </div>
       </div>

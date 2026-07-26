@@ -13,23 +13,25 @@
 @theme{
   
   --animate-morph: border-transform 6s linear infinite alternate forwards;
-  --color-background: #0f100d;
-
-  --color-primary: #697448; /* رنگ اصلی - سبز زیتونی دکمه ها */
-  --color-secondary: #7e8a57; /* رنگ ثانوی - هاور و تاکید */
-  --color-third: #4f5144; /* متن های کم رنگ و حاشیه های تیره */
-  --color-fourth: #e7e4d7; /* متن های مهم روشن */
-  --color-fiveth: #b8b39f; /* متن های میانی */
-  --color-sixeth: #1a1c17; /* سطح دوم مثل کارت و سایدبار */
-  --color-first: #141611; /* سطح اصلی کارت ها */
-
-  --color-text: #f3f0e4; /* متن اصلی روشن */
-  --color-text1: #ffffff; /* سفید خالص */
-  --color-text-muted: #d7d2bf; /* سفید تیره تر */
-  --color-p-text: #f8f6ee;
-  --color-text-import: #9daa6b; /* متن یا عدد مهم */
-
-  --color-border: #5c6441; /* بوردر زیتونی */
+  --color-background: #e8e4d8;   /* بک‌گراند اصلی، روشن و نرم */
+  
+  --color-primary: #7c8a58;      /* سبز اصلی */
+  --color-secondary: #95a473;    /* هاور و اکتیو */
+  
+  --color-third: #c3c7b6;        /* خطوط و متن خیلی کم‌رنگ */
+  --color-fourth: #363229;       /* تیترها */
+  --color-fiveth: #696356;       /* متن فرعی */
+  
+  --color-sixeth: #dbe1cf;       /* سطح دوم، فیلتر، سایدبار */
+  --color-first: #edf2e4;        /* کارت‌ها با ته‌رنگ سبز */
+  
+  --color-text: #2d2922;
+  --color-text1: #ffffff;
+  --color-text-muted: #f6f8f1;
+  --color-p-text: #fcfdf9;
+  --color-text-import: #7c8a58;
+  
+  --color-border: #afb79a;
 
   --font-main: "Vazir", sans-serif;
 
