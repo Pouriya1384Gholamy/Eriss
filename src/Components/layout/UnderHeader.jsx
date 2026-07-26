@@ -25,7 +25,7 @@ function UnderHeader() {
   };
 
   return (
-    <div className="font-light hidden lg:flex justify-between items-center w-full h-[50px] bg-[var(--color-sixeth)]/90 backdrop-blur-sm border-b border-[var(--color-border)]/30 shadow-xl shadow-black/20 rounded-b-[7px] relative z-30">
+    <div className="font-light hidden lg:flex justify-between items-center w-full h-[50px] bg-white/5 shadow-xl rounded-b-[7px]">
       <article className="flex justify-between items-center">
         {/* منوی دسته‌بندی */}
         <div 
@@ -37,10 +37,10 @@ function UnderHeader() {
             setHoveredProduct(null);
           }}
         >
-          <button className="flex justify-around items-center bg-[var(--color-primary)] w-[225px] h-[50px] rounded-[10px] mx-5 shadow-lg shadow-[var(--color-primary)]/30">
+          <button className="flex justify-around items-center bg-primary w-[225px] h-[50px] rounded-[10px] mx-5">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 text-[var(--color-background)]"
+              className="w-5 h-5 text-white"
               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"
             >
               <line x1="3" y1="6" x2="21" y2="6" />
@@ -48,11 +48,11 @@ function UnderHeader() {
               <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
 
-            <p className="text-[var(--color-background)] text-sm font-medium">دسته بندی محصولات</p>
+            <p className="text-white">دسته بندی محصولات</p>
 
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className={`w-5 h-5 text-[var(--color-background)] transition ${isOpen ? 'rotate-180' : ''}`}
+              className={`w-5 h-5 text-white transition ${isOpen ? 'rotate-180' : ''}`}
               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"
             >
               <polyline points="6 9 12 15 18 9"></polyline>
@@ -60,9 +60,9 @@ function UnderHeader() {
           </button>
 
           {isOpen && (
-            <div className="absolute right-0 top-[52px] z-[9999] flex animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="absolute right-0 top-[52px] z-[120] flex animate-in fade-in slide-in-from-top-2 duration-200">
               {/* لیست اصلی دسته‌ها */}
-              <div className="w-[250px] overflow-hidden rounded-2xl border border-[var(--color-border)]/30 bg-[var(--color-sixeth)] py-2 shadow-2xl shadow-black/50">
+              <div className="w-[250px] overflow-hidden rounded-2xl border border-gray-100 bg-white py-2 shadow-2xl">
                 {menuData.map((item, i) => (
                   <div 
                     key={i} 
@@ -70,15 +70,11 @@ function UnderHeader() {
                       setActiveCat(item);
                       setHoveredProduct(null);
                     }} 
-                    className={`flex cursor-pointer items-center justify-between px-4 py-3 text-[13px] transition ${
-                      activeCat?.name === item.name 
-                        ? 'bg-[var(--color-primary)]/10 text-[var(--color-primary)] font-bold border-r-2 border-[var(--color-primary)]' 
-                        : 'text-[var(--color-fiveth)] hover:bg-[var(--color-primary)]/5 hover:text-[var(--color-text)]'
-                    }`}
+                    className={`flex cursor-pointer items-center justify-between px-4 py-3 text-[13px] transition ${activeCat?.name === item.name ? 'bg-primary/5 text-primary font-bold' : 'text-gray-600 hover:bg-gray-50'}`}
                   >
                     <span>{item.name}</span>
                     {item.subs.length > 0 && (
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 rotate-90 text-[var(--color-third)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                         <polyline points="6 9 12 15 18 9" />
                       </svg>
                     )}
@@ -88,11 +84,11 @@ function UnderHeader() {
 
               {/* نمایش محصولات دسته‌بندی یا زیرمجموعه */}
               {activeCat && (
-                <div className="mr-2 w-[350px] overflow-hidden rounded-2xl border border-[var(--color-border)]/30 bg-[var(--color-sixeth)] p-4 shadow-2xl shadow-black/50 animate-in slide-in-from-right-1">
+                <div className="mr-2 w-[350px] overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-2xl animate-in slide-in-from-right-1">
                   {/* عنوان دسته‌بندی */}
-                  <div className="mb-3 flex items-center justify-between border-b border-[var(--color-border)]/30 pb-2">
-                    <span className="text-sm font-bold text-[var(--color-text)]">{activeCat.name}</span>
-                    <span className="text-[10px] text-[var(--color-fiveth)]">{activeCat.products.length} محصول</span>
+                  <div className="mb-3 flex items-center justify-between border-b border-gray-100 pb-2">
+                    <span className="text-sm font-bold text-gray-800">{activeCat.name}</span>
+                    <span className="text-[10px] text-gray-400">{activeCat.products.length} محصول</span>
                   </div>
 
                   {/* نمایش زیرمجموعه‌ها (تایپ‌ها) */}
@@ -104,7 +100,7 @@ function UnderHeader() {
                           <div 
                             key={idx}
                             onMouseEnter={() => setHoveredProduct({ type: sub, products: subProducts })}
-                            className="cursor-pointer rounded-lg bg-[var(--color-background)] px-3 py-1.5 text-[11px] font-medium text-[var(--color-fiveth)] transition hover:bg-[var(--color-primary)]/10 hover:text-[var(--color-primary)] border border-[var(--color-border)]/20 hover:border-[var(--color-primary)]/30"
+                            className="cursor-pointer rounded-lg bg-gray-50 px-3 py-1.5 text-[11px] font-medium text-gray-600 transition hover:bg-primary/10 hover:text-primary"
                           >
                             {sub} ({subProducts.length})
                           </div>
@@ -119,16 +115,16 @@ function UnderHeader() {
                       <div 
                         key={product.id}
                         onClick={() => navigate(`/product/${product.id}`)}
-                        className="flex cursor-pointer items-center gap-3 rounded-lg p-2 transition hover:bg-[var(--color-primary)]/5 border border-transparent hover:border-[var(--color-border)]/20"
+                        className="flex cursor-pointer items-center gap-3 rounded-lg p-2 transition hover:bg-gray-50"
                       >
                         <img 
                           src={product.image} 
                           alt={product.title} 
-                          className="h-12 w-12 rounded-lg object-cover border border-[var(--color-border)]/20"
+                          className="h-12 w-12 rounded-lg object-cover"
                         />
                         <div className="flex-1">
-                          <div className="text-[12px] font-medium text-[var(--color-text)] line-clamp-1">{product.title}</div>
-                          <div className="text-[11px] text-[var(--color-fiveth)]">{product.price.toLocaleString()} تومان</div>
+                          <div className="text-[12px] font-medium text-gray-800 line-clamp-1">{product.title}</div>
+                          <div className="text-[11px] text-gray-500">{product.price.toLocaleString()} تومان</div>
                         </div>
                         {product.rating && (
                           <div className="flex items-center gap-0.5 text-[10px] text-yellow-500">
@@ -139,7 +135,7 @@ function UnderHeader() {
                       </div>
                     ))}
                     {activeCat.products.length > 8 && (
-                      <div className="mt-2 text-center text-[11px] text-[var(--color-primary)] hover:text-[var(--color-secondary)] hover:underline cursor-pointer transition-colors">
+                      <div className="mt-2 text-center text-[11px] text-primary hover:underline cursor-pointer">
                         مشاهده همه {activeCat.products.length} محصول
                       </div>
                     )}
@@ -150,36 +146,30 @@ function UnderHeader() {
           )}
         </div>
 
-        <ul className="flex justify-between items-center text-[12px] xl:text-[15px] gap-5 text-[var(--color-fiveth)]">
-          <li 
-            onClick={() => navigate('/', { replace: true })}
-            className="cursor-pointer hover:text-[var(--color-primary)] transition"
-          >
-            فروشگاه
-          </li>
-          <li className="cursor-pointer hover:text-[var(--color-primary)] transition">خرید سازمانی</li>
-          <li className="cursor-pointer hover:text-[var(--color-primary)] transition">درباره ما</li>
+        <ul className="flex justify-between items-center text-[12px] xl:text-[15px] gap-5 text-[#363434]">
+          <li onClick={() => navigate('/', { replace: true })}
+            className="cursor-pointer hover:text-primary transition">فروشگاه</li>
+          <li>خرید سازمانی</li>
+          <li>درباره ما</li>
           <li 
             onClick={() => navigate('/faq', { replace: true })}
-            className="cursor-pointer hover:text-[var(--color-primary)] transition"
+            className="cursor-pointer hover:text-primary transition"
           >
             سوالات متداول
           </li>
-          <li className="cursor-pointer hover:text-[var(--color-primary)] transition">وبلاگ</li>
-          <li className="cursor-pointer hover:text-[var(--color-primary)] transition text-[var(--color-primary)] font-bold">تخفیفات</li>
+          <li>وبلاگ</li>
+          <li>تخفیفات</li>
         </ul>
       </article>
 
       <article className="flex justify-between items-center">
-        <button className="ml-5 text-[var(--color-background)] w-[183px] h-[26px] bg-[var(--color-secondary)] rounded-[7px] h-14 text-[12px] font-bold shadow-lg shadow-[var(--color-secondary)]/30 hover:shadow-[var(--color-secondary)]/50 transition-shadow">
-          سوالی دارید؟ با ما صحبت کنید
-        </button>
+        <button className="ml-5 text-white w-[183px] h-[26px] bg-secondary rounded-[7px] h-14 text-[12px]">سوالی دارید؟ با ما صحبت کنید</button>
         <div className="flex justify-between items-center">
-          <p className="text-[15px] font-bold text-[var(--color-text)]">09932762448</p>
-          <div className="w-7 h-7 bg-[var(--color-primary)] rounded-[7px] flex justify-center items-center mx-3 rounded-[50%] shadow-lg shadow-[var(--color-primary)]/30">
+          <p className="text-[15px]">09932762448</p>
+          <div className="w-7 h-7 bg-white rounded-[7px] flex justify-center items-center mx-3 rounded-[50%]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-4 h-4 text-[var(--color-background)]"
+              className="w-4 h-4"
               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"
             >
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91 a16 16 0 0 0 6 6l.99-1.27 a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>

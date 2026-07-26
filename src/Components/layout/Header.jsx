@@ -144,25 +144,25 @@ function Header() {
     setShowProducts(false);
   };
 
-  // کامپوننت اسکلتون لودینگ برای کارت محصولات (تیره)
+  // کامپوننت اسکلتون لودینگ برای کارت محصولات
   const SkeletonCard = () => (
-    <div className="flex items-center gap-3 rounded-xl border border-[var(--color-border)]/30 p-3 animate-pulse bg-[var(--color-sixeth)]">
-      <div className="h-16 w-16 rounded-lg bg-[var(--color-background)]"></div>
+    <div className="flex items-center gap-3 rounded-xl border border-gray-100 p-3 animate-pulse">
+      <div className="h-16 w-16 rounded-lg bg-gray-200"></div>
       <div className="flex-1">
-        <div className="h-4 w-3/4 bg-[var(--color-background)] rounded mb-2"></div>
-        <div className="h-3 w-1/2 bg-[var(--color-background)] rounded mb-1"></div>
-        <div className="h-3 w-1/4 bg-[var(--color-background)] rounded"></div>
+        <div className="h-4 w-3/4 bg-gray-200 rounded mb-2"></div>
+        <div className="h-3 w-1/2 bg-gray-200 rounded mb-1"></div>
+        <div className="h-3 w-1/4 bg-gray-200 rounded"></div>
       </div>
     </div>
   );
 
-  // کامپوننت اسکلتون لودینگ برای دسکتاپ (تیره)
+  // کامپوننت اسکلتون لودینگ برای دسکتاپ
   const SkeletonDesktopItem = () => (
-    <div className="flex items-center gap-3 p-3 border-b border-[var(--color-border)]/20 animate-pulse bg-[var(--color-background)]">
-      <div className="h-12 w-12 rounded-lg bg-[var(--color-sixeth)]"></div>
+    <div className="flex items-center gap-3 p-3 border-b border-gray-50 animate-pulse">
+      <div className="h-12 w-12 rounded-lg bg-gray-200"></div>
       <div className="flex-1">
-        <div className="h-4 w-3/4 bg-[var(--color-sixeth)] rounded mb-2"></div>
-        <div className="h-3 w-1/2 bg-[var(--color-sixeth)] rounded"></div>
+        <div className="h-4 w-3/4 bg-gray-200 rounded mb-2"></div>
+        <div className="h-3 w-1/2 bg-gray-200 rounded"></div>
       </div>
     </div>
   );
@@ -170,15 +170,14 @@ function Header() {
   return (
     <>
       {/* خط بالای هدر - با padding-top برای جبران فضای هدر fix شده */}
-      <div className="w-full h-2 bg-[var(--color-primary)]"></div>
+      <div className="w-full h-2 bg-primary"></div>
       
-      <header className="sticky top-0 z-40 flex justify-between items-center bg-[var(--color-background)]/95 backdrop-blur-sm border-b border-[var(--color-border)]/30 shadow-lg h-12 px-3 lg:h-[70px]">
-        
+        <header className="sticky top-0 z-40 flex justify-between items-center bg-white/85 shadow-md h-12 px-3 lg:h-[70px]">
         {/* LEFT */}
         <div className="flex items-center gap-3 mr-2 order-1 lg:order-2">
           {/* hamburger */}
           <button onClick={() => SetisMenueOpen(true)}
-            className="lg:hidden p-1 rounded hover:bg-[var(--color-primary)]/10 transition text-[var(--color-text)]"
+            className="lg:hidden p-1 rounded hover:bg-gray-100 transition"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" 
               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
@@ -192,7 +191,7 @@ function Header() {
           {/* search icon - با کلیک میرود به تب جستجو در منو */}
           <button 
             onClick={openSearchTab}
-            className="lg:hidden p-1 rounded hover:bg-[var(--color-primary)]/10 transition text-[var(--color-text)]"
+            className="lg:hidden p-1 rounded hover:bg-gray-100 transition"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" 
               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
@@ -204,7 +203,7 @@ function Header() {
 
           {/* desktop search */}
           <div className="hidden lg:block relative w-[500px]">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-7 rounded-[7px] bg-[var(--color-primary)] shadow-xl shadow-[var(--color-primary)]/30 text-[var(--color-background)]">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-7 rounded-[7px] bg-primary search shadow-xl text-white">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" 
                 fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" 
                 viewBox="0 0 24 24">
@@ -215,13 +214,13 @@ function Header() {
             <input
               type="text"
               placeholder="جستوجو محصول مورد نظر ..."
-              className="font-light w-full h-[42px] border border-[var(--color-border)]/40 rounded-lg pl-12 pr-4 text-sm bg-[var(--color-sixeth)] text-[var(--color-text)] placeholder:text-[var(--color-fiveth)] outline-none transition focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/30"
+              className="font-light w-full h-[42px] border border-secondary/40 rounded-lg pl-12 pr-4 text-sm bg-gray-50 outline-none transition focus:border-secondary focus:ring-2 focus:ring-secondary/30 placeholder:text-[#615353]"
               onChange={(e) => handleSearch(e.target.value)}
               value={searchQuery}
             />
             {/* نتایج جستجو در دسکتاپ با لودینگ */}
             {isSearching && searchQuery.trim() !== "" && (
-              <div className="absolute top-[48px] left-0 w-full bg-[var(--color-sixeth)] rounded-lg shadow-2xl shadow-black/50 border border-[var(--color-border)]/30 max-h-[400px] overflow-y-auto z-[200]">
+              <div className="absolute top-[48px] left-0 w-full bg-white rounded-lg shadow-2xl border border-gray-100 max-h-[400px] overflow-y-auto z-[200]">
                 {isLoading ? (
                   // اسکلتون لودینگ دسکتاپ
                   <>
@@ -242,7 +241,7 @@ function Header() {
                           setSearchResults([]);
                           setIsSearching(false);
                         }}
-                        className="flex items-center gap-3 p-3 hover:bg-[var(--color-primary)]/10 cursor-pointer border-b border-[var(--color-border)]/20 last:border-0 transition-colors"
+                        className="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-50 last:border-0"
                       >
                         <img 
                           src={product.image} 
@@ -250,8 +249,8 @@ function Header() {
                           className="h-12 w-12 rounded-lg object-cover"
                         />
                         <div className="flex-1">
-                          <div className="text-[13px] font-medium text-[var(--color-text)]">{product.title}</div>
-                          <div className="text-[11px] text-[var(--color-fiveth)]">{product.price.toLocaleString()} تومان</div>
+                          <div className="text-[13px] font-medium text-gray-800">{product.title}</div>
+                          <div className="text-[11px] text-gray-500">{product.price.toLocaleString()} تومان</div>
                         </div>
                         {product.rating && (
                           <div className="flex items-center gap-0.5 text-[9px] text-yellow-500">
@@ -262,13 +261,13 @@ function Header() {
                       </div>
                     ))}
                     {searchResults.length > 8 && (
-                      <div className="p-2 text-center text-[11px] text-[var(--color-primary)] hover:text-[var(--color-secondary)] hover:underline cursor-pointer transition-colors">
+                      <div className="p-2 text-center text-[11px] text-primary hover:underline cursor-pointer">
                         مشاهده همه {searchResults.length} نتیجه
                       </div>
                     )}
                   </>
                 ) : (
-                  <div className="p-4 text-center text-[var(--color-fiveth)] text-sm">
+                  <div className="p-4 text-center text-gray-400 text-sm">
                     محصولی یافت نشد
                   </div>
                 )}
@@ -278,14 +277,14 @@ function Header() {
         </div>
 
         {/* LOGO */}
-        <p className="order-2 lg:order-1 text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] font-semibold text-[var(--color-text)]">
-          Eriss<span className="text-[var(--color-primary)]">Wood</span>
+        <p className="order-2 lg:order-1 text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] font-semibold">
+          ErissWood
         </p>
 
         {/* RIGHT */}
         <div className="flex items-center sm:gap-4 ml-2 order-3">
           {/* user */}
-          <button className="p-1 hover:bg-[var(--color-primary)]/10 rounded transition text-[var(--color-text)]">
+          <button className="p-1 hover:bg-gray-100 rounded transition">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5"
               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
               viewBox="0 0 24 24">
@@ -295,7 +294,7 @@ function Header() {
           </button>
 
           {/* favorite */}
-          <button className="p-1 hover:bg-[var(--color-primary)]/10 rounded transition text-[var(--color-text)]">
+          <button className="p-1 hover:bg-gray-100 rounded transition">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 hidden sm:block"
               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
               viewBox="0 0 24 24">
@@ -304,10 +303,10 @@ function Header() {
           </button>
 
           {/* CART ICON WITH BADGE */}
-          <button className="relative p-1 hover:bg-[var(--color-primary)]/10 rounded transition text-[var(--color-text)]">
+          <button className="relative p-1 hover:bg-gray-100 rounded transition">
             <LuShoppingBag className="w-5 h-5" onClick={() => navigate("/cart")} />
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[var(--color-primary)] text-[var(--color-background)] text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-lg shadow-[var(--color-primary)]/30">
+              <span className="absolute -top-1 -right-1 bg-primary text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                 {cartCount}
               </span>
             )}
@@ -318,15 +317,15 @@ function Header() {
       {/* --- منوی موبایل (سایدبار) --- */}
       {isMenueOpen && (
         <div className="fixed inset-0 z-[150] lg:hidden" dir="rtl">
-          <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" onClick={closeMenu}></div>
-          <div className="fixed right-0 top-0 h-full w-[85%] max-w-[320px] bg-[var(--color-sixeth)] shadow-2xl shadow-black/50 flex flex-col animate-in slide-in-from-right duration-300 border-l border-[var(--color-border)]/30">
+          <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" onClick={closeMenu}></div>
+          <div className="fixed right-0 top-0 h-full w-[85%] max-w-[320px] bg-white shadow-2xl flex flex-col animate-in slide-in-from-right duration-300">
             
-            <div className="p-4 border-b border-[var(--color-border)]/30 flex justify-between items-center">
-              <span className="font-bold text-[var(--color-text)]">منوی اصلی</span>
-              <button onClick={closeMenu} className="text-[var(--color-fiveth)] hover:text-[var(--color-text)] text-xl transition-colors">✕</button>
+            <div className="p-4 border-b border-gray-100 flex justify-between items-center">
+              <span className="font-bold text-gray-800">منوی اصلی</span>
+              <button onClick={closeMenu} className="text-gray-400 text-xl">✕</button>
             </div>
 
-            <div className="flex border-b border-[var(--color-border)]/30 text-[13px] font-bold text-center">
+            <div className="flex border-b border-gray-100 text-[13px] font-bold text-center">
               <button onClick={() => {
                 setActiveTab('categories');
                 setShowProducts(false);
@@ -336,14 +335,14 @@ function Header() {
                 setSearchResults([]);
                 setSearchQuery("");
                 setIsLoading(false);
-              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'categories' ? 'border-[var(--color-primary)] text-[var(--color-primary)] bg-[var(--color-primary)]/10' : 'border-transparent text-[var(--color-fiveth)]'}`}>
+              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'categories' ? 'border-primary text-primary bg-text-muted' : 'border-transparent text-gray-400'}`}>
                 دسته‌بندی
               </button>
               <button onClick={() => {
                 setActiveTab('search');
                 setIsSearching(true);
                 setShowProducts(false);
-              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'search' ? 'border-[var(--color-primary)] text-[var(--color-primary)] bg-[var(--color-primary)]/10' : 'border-transparent text-[var(--color-fiveth)]'}`}>
+              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'search' ? 'border-primary text-primary bg-text-muted' : 'border-transparent text-gray-400'}`}>
                 جستجو
               </button>
               <button onClick={() => {
@@ -355,7 +354,7 @@ function Header() {
                 setSearchResults([]);
                 setSearchQuery("");
                 setIsLoading(false);
-              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'menu' ? 'border-[var(--color-primary)] text-[var(--color-primary)] bg-[var(--color-primary)]/10' : 'border-transparent text-[var(--color-fiveth)]'}`}>
+              }} className={`w-1/3 py-4 border-b-2 transition ${activeTab === 'menu' ? 'border-primary text-primary bg-text-muted' : 'border-transparent text-gray-400'}`}>
                 منو
               </button>
             </div>
@@ -373,7 +372,7 @@ function Header() {
                           setSelectedTypeProducts([]);
                           setIsLoading(false);
                         }}
-                        className="mb-3 flex items-center gap-2 text-[12px] text-[var(--color-primary)] font-bold hover:text-[var(--color-secondary)] transition-colors"
+                        className="mb-3 flex items-center gap-2 text-[12px] text-primary font-bold"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                           <polyline points="15 18 9 12 15 6" />
@@ -396,7 +395,7 @@ function Header() {
                                 navigate(`/product/${product.id}`);
                                 closeMenu();
                               }}
-                              className="flex items-center gap-3 rounded-xl bg-[var(--color-background)] p-2 cursor-pointer hover:bg-[var(--color-primary)]/10 transition border border-[var(--color-border)]/20"
+                              className="flex items-center gap-3 rounded-xl bg-text-muted p-2 cursor-pointer hover:bg-gray-100 transition"
                             >
                               <img 
                                 src={product.image} 
@@ -404,8 +403,8 @@ function Header() {
                                 className="h-14 w-14 rounded-lg object-cover"
                               />
                               <div className="flex-1">
-                                <div className="text-[13px] font-medium text-[var(--color-text)] line-clamp-1">{product.title}</div>
-                                <div className="text-[12px] text-[var(--color-fiveth)]">{product.price.toLocaleString()} تومان</div>
+                                <div className="text-[13px] font-medium text-gray-800 line-clamp-1">{product.title}</div>
+                                <div className="text-[12px] text-gray-500">{product.price.toLocaleString()} تومان</div>
                                 {product.rating && (
                                   <div className="flex items-center gap-0.5 text-[10px] text-yellow-500">
                                     {"★".repeat(product.rating)}
@@ -421,28 +420,28 @@ function Header() {
                   ) : (
                     // نمایش دسته‌بندی‌ها
                     dynamicMenu.map((cat, i) => (
-                      <div key={i} className="border-b border-[var(--color-border)]/20 last:border-0">
+                      <div key={i} className="border-b border-secondary/20 last:border-0">
                         <div 
                           onClick={() => handleCategoryClick(cat.name)}
-                          className={`flex justify-between items-center p-3 rounded-xl cursor-pointer transition ${openCategory === cat.name ? 'bg-[var(--color-primary)]/10 text-[var(--color-primary)]' : 'text-[var(--color-text)]'}`}
+                          className={`flex justify-between items-center p-3 rounded-xl cursor-pointer transition ${openCategory === cat.name ? 'bg-primary/5 text-primary' : 'text-gray-700'}`}
                         >
                           <span className="text-[13px] font-medium">
                             {cat.name}
-                            <span className="mr-2 text-[10px] text-[var(--color-fiveth)]">({cat.products.length})</span>
+                            <span className="mr-2 text-[10px] text-gray-400">({cat.products.length})</span>
                           </span>
                           <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 transition ${openCategory === cat.name ? 'rotate-180' : 'rotate-90'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                             <polyline points="6 9 12 15 18 9" />
                           </svg>
                         </div>
                         {openCategory === cat.name && cat.subCategories.length > 0 && (
-                          <div className="bg-[var(--color-background)]/50 mr-4 pr-3 py-1 space-y-1 rounded-b-xl border-r-2 border-[var(--color-primary)]/30">
+                          <div className="bg-gray-50/50 mr-4 pr-3 py-1 space-y-1 rounded-b-xl border-r-2 border-primary/20">
                             {cat.subCategories.map((sub, idx) => {
                               const subProducts = products.filter(p => p.category === cat.name && p.type === sub);
                               return (
                                 <button 
                                   key={idx} 
                                   onClick={() => handleTypeClick(cat.name, sub)}
-                                  className="block w-full text-right py-2 px-3 text-[12px] text-[var(--color-fiveth)] hover:text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 rounded-lg transition"
+                                  className="block w-full text-right py-2 px-3 text-[12px] text-gray-500 hover:text-primary hover:bg-white/50 rounded-lg transition"
                                 >
                                   {sub} ({subProducts.length})
                                 </button>
@@ -462,11 +461,11 @@ function Header() {
                       ref={searchInputRef}
                       type="text"
                       placeholder="جستجوی محصول..."
-                      className="w-full h-[42px] border border-[var(--color-border)]/40 rounded-xl pr-4 pl-10 text-sm bg-[var(--color-background)] text-[var(--color-text)] placeholder:text-[var(--color-fiveth)] outline-none transition focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20"
+                      className="w-full h-[42px] border border-gray-200 rounded-xl pr-4 pl-10 text-sm bg-gray-50 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                       value={searchQuery}
                       onChange={(e) => handleSearch(e.target.value)}
                     />
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-fiveth)]">
+                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
                       <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                         <circle cx="11" cy="11" r="8" />
                         <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -483,7 +482,7 @@ function Header() {
                             searchInputRef.current.focus();
                           }
                         }}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-fiveth)] hover:text-[var(--color-text)] transition-colors"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                       >
                         ✕
                       </button>
@@ -508,7 +507,7 @@ function Header() {
                               navigate(`/product/${product.id}`);
                               closeMenu();
                             }}
-                            className="flex items-center gap-3 rounded-xl border border-[var(--color-border)]/30 p-3 cursor-pointer hover:bg-[var(--color-primary)]/10 transition shadow-lg shadow-black/20 bg-[var(--color-background)]"
+                            className="flex items-center gap-3 rounded-xl border border-gray-100 p-3 cursor-pointer hover:bg-gray-50 transition shadow-sm"
                           >
                             <img 
                               src={product.image} 
@@ -516,10 +515,10 @@ function Header() {
                               className="h-16 w-16 rounded-lg object-cover"
                             />
                             <div className="flex-1">
-                              <div className="text-[13px] font-medium text-[var(--color-text)] line-clamp-1">{product.title}</div>
-                              <div className="text-[11px] text-[var(--color-fiveth)]">{product.price.toLocaleString()} تومان</div>
+                              <div className="text-[13px] font-medium text-gray-800 line-clamp-1">{product.title}</div>
+                              <div className="text-[11px] text-gray-500">{product.price.toLocaleString()} تومان</div>
                               {product.category && (
-                                <span className="text-[9px] text-[var(--color-fiveth)] bg-[var(--color-sixeth)] px-2 py-0.5 rounded-full inline-block mt-1">
+                                <span className="text-[9px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">
                                   {product.category}
                                 </span>
                               )}
@@ -530,14 +529,14 @@ function Header() {
                                 </div>
                               )}
                             </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[var(--color-third)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                               <polyline points="9 6 15 12 9 18" />
                             </svg>
                           </div>
                         ))
                       ) : (
-                        <div className="text-center text-[var(--color-fiveth)] py-8">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto mb-3 text-[var(--color-third)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                        <div className="text-center text-gray-400 py-8">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto mb-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                             <circle cx="11" cy="11" r="8" />
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
                           </svg>
@@ -547,8 +546,8 @@ function Header() {
                       )}
                     </div>
                   ) : (
-                    <div className="text-center text-[var(--color-fiveth)] py-8">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto mb-3 text-[var(--color-third)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                    <div className="text-center text-gray-400 py-8">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 mx-auto mb-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                         <circle cx="11" cy="11" r="8" />
                         <line x1="21" y1="21" x2="16.65" y2="16.65" />
                       </svg>
@@ -571,9 +570,9 @@ function Header() {
                       key={i} 
                       onClick={() => {
                         navigate(item.path);
-                        closeMenu();
+                        closeMenu(); // بستن منو بعد از کلیک
                       }}
-                      className="p-3 text-[13px] font-medium text-[var(--color-text)] hover:bg-[var(--color-primary)]/10 rounded-xl cursor-pointer transition-colors"
+                      className="p-3 text-[13px] font-medium text-gray-600 hover:bg-gray-50 rounded-xl cursor-pointer"
                     >
                       {item.name}
                     </li>

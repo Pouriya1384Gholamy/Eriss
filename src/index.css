@@ -13,19 +13,24 @@
 @theme{
   
   --animate-morph: border-transform 6s linear infinite alternate forwards;
-  --color-background: #ffffff;
-  --color-primary: #826a4f;
-  --color-secondary: #67543f;
-  --color-first: #fcfaf7;
-  --color-sixeth: #e4d8ca;
-  --color-third: #d4c5b4;
-  --color-fourth: #2d2621;
-  --color-fiveth: #62584e;
-  --color-border: #cdbca9;
 
-  --color-text: #2d2621;
-  --color-text1: #fffdf9;
-  --color-text-import: #826a4f;
+  --color-background: #FDFCFA;
+
+  --color-primary: #9EAD8C; /*رنگ اصلی*/
+  --color-secondary: #8A9A7B; /*رنگ ثانوی */
+  --color-third: #D9D9D9; /*سیاهه کم رنگ برای متن های کم رنگ و حاشیه ها*/
+  --color-fourth: #292524 ; /*رنگ سیاهه متوسط برای متن های بیشتر مهم */
+  --color-fiveth: #79716b ; /*ما بین دو تا رنگ بالا برای بعضی متن ها*/ 
+  --color-sixeth: #F4F1EA;
+  --color-first: #FDFCFA;
+
+  --color-text: #000000; /*برای متن اصلی مشکی*/
+  --color-text1: #ffffff; /*برای متن اصلی سفید*/
+  --color-text-muted: #f5f5f4 ; /*سفید تیره تر*/
+  --color-p-text: #FFFDFD;
+  --color-text-import: #9EAD8C;
+
+  --color-border: #9EAD8C;
 
   --font-main: "Vazir", sans-serif;
 
