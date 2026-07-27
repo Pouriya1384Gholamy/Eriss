@@ -158,7 +158,10 @@ function UnderHeader() {
             سوالات متداول
           </li>
           <li>وبلاگ</li>
-          <li>تخفیفات</li>
+          <li
+            onClick={() => navigate('/Discount', { replace: true })}
+            className="cursor-pointer hover:text-primary transition"
+            >تخفیفات</li>
         </ul>
       </article>
 

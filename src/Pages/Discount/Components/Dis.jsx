@@ -4,7 +4,7 @@ import { products, calculateDiscountPrice } from '../../../data/products';
 import { 
   ChevronLeft, ChevronRight, X, Filter, Search, Star, 
   TrendingDown, ShoppingBag, Heart, Eye, SlidersHorizontal,
-  ChevronDown, ChevronUp, Loader2
+  ChevronDown, ChevronUp, Loader2, Percent, Tag
 } from 'lucide-react';
 
 const Dis = () => {
@@ -195,7 +195,7 @@ const Dis = () => {
   }, []);
 
   // ===== تابع هدایت به صفحه محصول =====
-  const handleQuickView = useCallback((productId) => {
+  const handleProductClick = useCallback((productId) => {
     navigate(`/product/${productId}`);
   }, [navigate]);
 
@@ -246,43 +246,57 @@ const Dis = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 font-sans" dir="rtl">
       
-      {/* ===== HERO SECTION ===== */}
-      <div className="relative bg-gradient-to-br from-[#8b9b7e] via-[#7a8a6e] to-[#6b7d5e] text-white py-16 px-4 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-white/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+{/* ===== HERO SECTION - WITH GREEN GRADIENT & SCROLL ANIMATION ===== */}
+<div className="relative overflow-hidden bg-gradient-to-br from-[#8A9A7B] via-[#9EAD8C] to-[#6B7D5E]">
+  
+  {/* Decorative Background Elements */}
+  <div className="absolute inset-0">
+    <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse" />
+    <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl animate-pulse delay-700" />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000" />
+  </div>
+
+  <div className="relative z-10 container mx-auto px-4 py-6 md:py-10">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6">
+      
+      {/* Left Content */}
+      <div className="text-center md:text-right flex-1">
+        <div className="inline-flex items-center gap-2 px-3 py-1 mb-3 bg-white/10 backdrop-blur-sm rounded-full border border-white/20">
+          <Percent className="w-3.5 h-3.5 text-white/80" />
+          <span className="text-white/90 text-[10px] md:text-xs font-medium">تخفیف‌های ویژه</span>
         </div>
         
-        <div className="container mx-auto relative z-10 text-center">
-          <div className="inline-block bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 mb-6">
-            <span className="text-sm font-medium">🔥 تخفیف‌های ویژه</span>
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-snug">
+          محصولات تخفیف‌دار
+          <span className="block text-white/80">اریس وود</span>
+        </h2>
+        
+        <p className="text-white/70 text-xs md:text-sm max-w-sm mx-auto md:mx-0 mt-1.5 leading-relaxed">
+          از بهترین تخفیف‌ها دیدن کنید و محصولات باکیفیت را تهیه کنید.
+        </p>
+      </div>
+
+      {/* Right - Stats */}
+      <div className="flex flex-wrap justify-center gap-2 md:gap-3 flex-shrink-0">
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl px-3 py-2 text-center border border-white/20 min-w-[70px] md:min-w-[80px]">
+          <div className="text-base md:text-lg font-bold text-white">{discountedProducts.length}</div>
+          <div className="text-[8px] md:text-[10px] text-white/60">محصول</div>
+        </div>
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl px-3 py-2 text-center border border-white/20 min-w-[70px] md:min-w-[80px]">
+          <div className="text-base md:text-lg font-bold text-white">
+            {discountedProducts.length > 0 ? Math.max(...discountedProducts.map(p => p.discountPercentage || 0)) : 0}%
           </div>
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
-            تخفیفات شگفت‌انگیز
-          </h1>
-          <p className="text-lg text-white/80 max-w-2xl mx-auto">
-            بهترین محصولات با کیفیت بالا و قیمت‌های استثنایی
-          </p>
-          
-          <div className="flex justify-center gap-8 mt-8">
-            <div className="text-center">
-              <div className="text-2xl font-bold">{discountedProducts.length}</div>
-              <div className="text-xs text-white/60">محصول تخفیف‌دار</div>
-            </div>
-            <div className="w-px h-10 bg-white/20"></div>
-            <div className="text-center">
-              <div className="text-2xl font-bold">{allCategories.length}</div>
-              <div className="text-xs text-white/60">دسته‌بندی</div>
-            </div>
-            <div className="w-px h-10 bg-white/20"></div>
-            <div className="text-center">
-              <div className="text-2xl font-bold">۵⭐</div>
-              <div className="text-xs text-white/60">امتیاز کاربران</div>
-            </div>
-          </div>
+          <div className="text-[8px] md:text-[10px] text-white/60">بیشترین تخفیف</div>
+        </div>
+        <div className="bg-white/10 backdrop-blur-sm rounded-xl px-3 py-2 text-center border border-white/20 min-w-[70px] md:min-w-[80px]">
+          <div className="text-base md:text-lg font-bold text-white">⭐۵</div>
+          <div className="text-[8px] md:text-[10px] text-white/60">امتیاز</div>
         </div>
       </div>
+
+    </div>
+  </div>
+</div>
 
       <div className="container mx-auto px-4 lg:px-8 py-8 flex flex-col lg:flex-row gap-6">
         
@@ -684,6 +698,8 @@ const Dis = () => {
                   <div 
                     key={product.id} 
                     className="w-1/2 px-1.5 sm:px-2.5 mb-3 sm:mb-5 xl:w-1/3"
+                    onClick={() => handleProductClick(product.id)}
+                    style={{ cursor: 'pointer' }}
                   >
                     <div className="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:border-[#8b9b7e]/20 h-full flex flex-col">
                       <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden flex-shrink-0">
@@ -694,7 +710,10 @@ const Dis = () => {
                         />
                         
                         <button
-                          onClick={() => toggleWishlist(product.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleWishlist(product.id);
+                          }}
                           className="absolute top-2 left-2 sm:top-3 sm:left-3 p-1.5 sm:p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 hover:scale-110"
                         >
                           <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors ${
@@ -703,15 +722,17 @@ const Dis = () => {
                         </button>
 
                         {hasDiscount && (
-                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-gradient-to-r from-red-500 to-red-600 text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-lg flex items-center gap-1 animate-pulse">
-                            <span>{product.discountPercentage}%</span>
-                            <span className="text-white/80 hidden sm:inline">تخفیف</span>
+                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#8b9b7e] text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-lg">
+                            {product.discountPercentage}% تخفیف
                           </div>
                         )}
 
                         <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-2 sm:pb-4">
                           <button 
-                            onClick={() => handleQuickView(product.id)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleProductClick(product.id);
+                            }}
                             className="bg-white text-gray-800 shadow-xl px-3 py-1.5 sm:px-6 sm:py-2.5 rounded-full text-[10px] sm:text-sm font-bold hover:bg-[#8b9b7e] hover:text-white transition-all duration-300 transform hover:scale-105 flex items-center gap-1 sm:gap-2"
                           >
                             <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -753,7 +774,13 @@ const Dis = () => {
                             )}
                           </div>
                           
-                          <button className="p-1.5 sm:p-2.5 bg-[#8b9b7e]/10 rounded-lg sm:rounded-xl hover:bg-[#8b9b7e] hover:text-white transition-all duration-300 group/btn">
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              // Add to cart logic here
+                            }}
+                            className="p-1.5 sm:p-2.5 bg-[#8b9b7e]/10 rounded-lg sm:rounded-xl hover:bg-[#8b9b7e] hover:text-white transition-all duration-300 group/btn"
+                          >
                             <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#8b9b7e] group-hover/btn:text-white" />
                           </button>
                         </div>

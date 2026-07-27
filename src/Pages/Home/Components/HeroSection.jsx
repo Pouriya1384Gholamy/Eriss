@@ -9,7 +9,7 @@ function HeroSection() {
 
       {/* Hero Banner - Premium Style */}
       <article
-        className='relative flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat rounded-2xl w-full sm:w-[366px] sm:h-[353px] md:w-[778px] md:h-[395px] min-h-[280px] p-6 md:p-8 overflow-hidden shadow-2xl shadow-[#9EAD8C]/20 transition-all duration-500 hover:shadow-[#9EAD8C]/30'
+        className='relative flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat rounded-2xl w-full sm:w-[366px] sm:h-[353px] md:w-[778px] md:h-[435px] lg:h-[380px] min-h-[280px] p-6 md:p-8 overflow-hidden shadow-2xl shadow-[#9EAD8C]/20 transition-all duration-500 hover:shadow-[#9EAD8C]/30'
         style={{backgroundImage: `linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.85)), url(${img})`}}
       >
         {/* Decorative blur elements */}
