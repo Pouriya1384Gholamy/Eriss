@@ -3,7 +3,6 @@ import HeroSection from './Components/HeroSection'; // یا Orpgage اگر نا�
 import CategoryCards from './Components/CategoryCards';
 import FAQAccordion from './Components/FAQAccordion';
 import SupportCTA from './Components/SupportCTA';
-import FeaturesSection from './Components/FeaturesSection';
 import Header from '../../Components/layout/Header'
 import Footer from '../../Components/layout/Footer'
 import UnderHeader from '../../Components/layout/UnderHeader'
@@ -50,8 +49,6 @@ const FaqPage = () => {
       />
       
       <SupportCTA />
-      
-      <FeaturesSection features={featuresData} />
       <Footer />
     </div>
   );
