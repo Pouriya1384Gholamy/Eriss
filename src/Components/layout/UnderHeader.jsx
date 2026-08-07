@@ -161,6 +161,11 @@ function UnderHeader() {
             onClick={() => navigate('/Discount', { replace: true })}
             className="cursor-pointer hover:text-primary transition"
             >تخفیفات</li>
+
+            <li
+            onClick={() => navigate('/Admin-Pannel', { replace: true })}
+            className="cursor-pointer hover:text-primary transition"
+            >پنل ادمین</li>
         </ul>
       </article>
 
