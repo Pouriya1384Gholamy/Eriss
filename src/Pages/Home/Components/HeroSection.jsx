@@ -26,7 +26,7 @@ function HeroSection() {
 
           <p className='font-bold text-2xl md:text-[28px] text-center leading-tight text-gray-800'>
             زیبایی و اصالت چوب
-            <span className='text-[#8A9A7B] block sm:inline'> را به خانه بیاورید</span>
+            <span className='text-[#8A9A7B] text-center block sm:inline'> را به خانه بیاورید</span>
           </p>
 
           <p className='font-light text-[11px] md:text-[16px] w-[95%] mt-2 text-right leading-7 text-gray-600'>
