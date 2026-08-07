@@ -24,7 +24,7 @@ function HeroSection() {
             <span className='font-bold'>گالری اریس وود</span>
           </div>
 
-          <p className='font-bold text-2xl md:text-[28px] text-right leading-tight text-gray-800'>
+          <p className='font-bold text-2xl md:text-[28px] text-center leading-tight text-gray-800'>
             زیبایی و اصالت چوب
             <span className='text-[#8A9A7B] block sm:inline'> را به خانه بیاورید</span>
           </p>
