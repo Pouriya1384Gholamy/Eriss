@@ -564,7 +564,7 @@ function Header() {
                     { name: "درباره ما", path: "/about" },
                     { name: "تماس با ما", path: "/Contact" },
                     { name: "وبلاگ", path: "/blog" },
-                    { name: "سوالات متداول", path: "/faq" }
+                    { name: "سوالات متداول", path: "/faq" },
                     { name: "پنل ادمین", path: "/Admin-Pannel" },
                   ].map((item, i) => (
                     <li 
