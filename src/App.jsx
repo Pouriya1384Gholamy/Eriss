@@ -7,7 +7,7 @@ import FaqPage from './Pages/FAQ/FaqPage';
 import Contact from './Pages/Contact/Contact';
 import DiscountPage from "./Pages/Discount/DiscountPage";
 import Admin from './Pages/Admin/Admin';
-import CustomerAccount from './Pages/CustomerAccount/Sidebar';
+import CustomerAccount from './Pages/CustomerAccount/CustomerAccount';
 
 function App() {
   return (
