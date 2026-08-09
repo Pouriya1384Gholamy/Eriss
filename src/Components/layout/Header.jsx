@@ -283,8 +283,11 @@ function Header() {
 
         {/* RIGHT */}
         <div className="flex items-center sm:gap-4 ml-2 order-3">
-          {/* user */}
-          <button className="p-1 hover:bg-gray-100 rounded transition">
+          {/* user - رفتن به صفحه حساب کاربری */}
+          <button 
+            className="p-1 hover:bg-gray-100 rounded transition" 
+            onClick={() => navigate("/CustomerAccount")}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5"
               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
               viewBox="0 0 24 24">
@@ -565,7 +568,8 @@ function Header() {
                     { name: "تماس با ما", path: "/Contact" },
                     { name: "وبلاگ", path: "/blog" },
                     { name: "سوالات متداول", path: "/faq" },
-                    { name: "پنل ادمین", path: "/Admin-Pannel" },
+                    { name: "پنل ادمین", path: "/Admin" }
+
                   ].map((item, i) => (
                     <li 
                       key={i} 
