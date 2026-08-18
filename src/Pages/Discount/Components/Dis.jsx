@@ -4,7 +4,13 @@ import { products, calculateDiscountPrice } from '../../../data/products';
 import { 
   ChevronLeft, ChevronRight, X, Filter, Search, Star, 
   TrendingDown, ShoppingBag, Heart, Eye, SlidersHorizontal,
-  ChevronDown, ChevronUp, Loader2, Percent, Tag
+  ChevronDown, ChevronUp, Loader2, Percent, Tag, 
+  Sofa, Armchair, Table, Layout, BookOpen, PenTool,
+  Sparkles, Utensils, Tv, DoorClosed, Bed, Briefcase,
+  Wine, Bath, Coffee, Moon, Wifi, Home, Shirt,
+  Laptop, Minimize2, Trees, Grid3x3, ListFilter,
+  ArrowUpDown, CircleDollarSign, Flame, ThumbsUp,
+  ShoppingCart, GripVertical, Ruler, Clock, ShieldCheck
 } from 'lucide-react';
 
 const Dis = () => {
@@ -58,37 +64,37 @@ const Dis = () => {
     });
     
     const categoryIcons = {
-      'میز ناهارخوری': { icon: '🍽️', color: 'from-amber-400 to-orange-500' },
-      'صندلی': { icon: '🪑', color: 'from-blue-400 to-indigo-500' },
-      'کنسول': { icon: '🪞', color: 'from-purple-400 to-pink-500' },
-      'میز جلو مبلی': { icon: '🪵', color: 'from-emerald-400 to-teal-500' },
-      'کتابخانه': { icon: '📚', color: 'from-rose-400 to-red-500' },
-      'میز تحریر': { icon: '✏️', color: 'from-cyan-400 to-blue-500' },
-      'میز آرایش': { icon: '💄', color: 'from-pink-400 to-rose-500' },
-      'میز سرو': { icon: '🧁', color: 'from-yellow-400 to-amber-500' },
-      'میز تلویزیون': { icon: '📺', color: 'from-gray-400 to-gray-600' },
-      'کمد': { icon: '🚪', color: 'from-amber-500 to-yellow-600' },
-      'تخت': { icon: '🛏️', color: 'from-indigo-400 to-purple-500' },
-      'میز کار': { icon: '💼', color: 'from-slate-400 to-slate-600' },
-      'میز عسلی': { icon: '🍯', color: 'from-orange-400 to-amber-500' },
-      'میز پذیرایی': { icon: '🍷', color: 'from-red-400 to-rose-500' },
-      'ویترین': { icon: '🪟', color: 'from-cyan-400 to-sky-500' },
-      'میز بار': { icon: '🍸', color: 'from-violet-400 to-purple-500' },
-      'میز کنار تخت': { icon: '🌙', color: 'from-indigo-300 to-purple-400' },
-      'نیمکت': { icon: '🪑', color: 'from-amber-600 to-orange-600' },
-      'پارتیشن': { icon: '🧱', color: 'from-stone-400 to-stone-600' },
-      'وایت‌بورد': { icon: '📋', color: 'from-emerald-400 to-green-500' },
-      'جزیره آشپزخانه': { icon: '🏠', color: 'from-amber-400 to-orange-400' },
-      'میز اتو': { icon: '👕', color: 'from-blue-300 to-indigo-400' },
-      'میز لپتاپ': { icon: '💻', color: 'from-slate-500 to-gray-600' },
-      'میز مینیمال': { icon: '⬜', color: 'from-gray-300 to-gray-400' },
-      'میز چوبی': { icon: '🪵', color: 'from-amber-500 to-orange-600' },
+      'میز ناهارخوری': { icon: Utensils, color: 'from-amber-400 to-orange-500' },
+      'صندلی': { icon: Armchair, color: 'from-blue-400 to-indigo-500' },
+      'کنسول': { icon: Layout, color: 'from-purple-400 to-pink-500' },
+      'میز جلو مبلی': { icon: Table, color: 'from-emerald-400 to-teal-500' },
+      'کتابخانه': { icon: BookOpen, color: 'from-rose-400 to-red-500' },
+      'میز تحریر': { icon: PenTool, color: 'from-cyan-400 to-blue-500' },
+      'میز آرایش': { icon: Sparkles, color: 'from-pink-400 to-rose-500' },
+      'میز سرو': { icon: Coffee, color: 'from-yellow-400 to-amber-500' },
+      'میز تلویزیون': { icon: Tv, color: 'from-gray-400 to-gray-600' },
+      'کمد': { icon: DoorClosed, color: 'from-amber-500 to-yellow-600' },
+      'تخت': { icon: Bed, color: 'from-indigo-400 to-purple-500' },
+      'میز کار': { icon: Briefcase, color: 'from-slate-400 to-slate-600' },
+      'میز عسلی': { icon: Coffee, color: 'from-orange-400 to-amber-500' },
+      'میز پذیرایی': { icon: Wine, color: 'from-red-400 to-rose-500' },
+      'ویترین': { icon: Grid3x3, color: 'from-cyan-400 to-sky-500' },
+      'میز بار': { icon: Coffee, color: 'from-violet-400 to-purple-500' },
+      'میز کنار تخت': { icon: Moon, color: 'from-indigo-300 to-purple-400' },
+      'نیمکت': { icon: Sofa, color: 'from-amber-600 to-orange-600' },
+      'پارتیشن': { icon: Layout, color: 'from-stone-400 to-stone-600' },
+      'وایت‌بورد': { icon: PenTool, color: 'from-emerald-400 to-green-500' },
+      'جزیره آشپزخانه': { icon: Home, color: 'from-amber-400 to-orange-400' },
+      'میز اتو': { icon: Shirt, color: 'from-blue-300 to-indigo-400' },
+      'میز لپتاپ': { icon: Laptop, color: 'from-slate-500 to-gray-600' },
+      'میز مینیمال': { icon: Minimize2, color: 'from-gray-300 to-gray-400' },
+      'میز چوبی': { icon: Trees, color: 'from-amber-500 to-orange-600' },
     };
     
     return Array.from(categorySet).map(cat => ({
       id: cat,
       name: cat,
-      icon: categoryIcons[cat]?.icon || '📦',
+      icon: categoryIcons[cat]?.icon || Sofa,
       color: categoryIcons[cat]?.color || 'from-gray-400 to-gray-500'
     }));
   }, [discountedProducts]);
@@ -289,7 +295,10 @@ const Dis = () => {
           <div className="text-[8px] md:text-[10px] text-white/60">بیشترین تخفیف</div>
         </div>
         <div className="bg-white/10 backdrop-blur-sm rounded-xl px-3 py-2 text-center border border-white/20 min-w-[70px] md:min-w-[80px]">
-          <div className="text-base md:text-lg font-bold text-white">⭐۵</div>
+          <div className="text-base md:text-lg font-bold text-white flex items-center justify-center gap-1">
+            <Star className="w-4 h-4 fill-yellow-300 text-yellow-300" />
+            ۵
+          </div>
           <div className="text-[8px] md:text-[10px] text-white/60">امتیاز</div>
         </div>
       </div>
@@ -397,7 +406,7 @@ const Dis = () => {
                 </div>
                 
                 <div className="flex flex-wrap gap-2">
-                  {visibleCategories.map(({ id, name, icon, color }) => (
+                  {visibleCategories.map(({ id, name, icon: Icon, color }) => (
                     <label 
                       key={id} 
                       className={`flex items-center gap-2 p-2.5 rounded-xl cursor-pointer transition-all duration-300 border-2 flex-1 min-w-[calc(50%-0.5rem)] ${
@@ -412,8 +421,8 @@ const Dis = () => {
                         onChange={() => handleCategoryChange(id)}
                         className="hidden" 
                       />
-                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white text-xs shadow-md flex-shrink-0`}>
-                        {icon}
+                      <div className={`w-7 h-7 rounded-lg bg-gradient-to-br ${color} flex items-center justify-center text-white shadow-md flex-shrink-0`}>
+                        <Icon className="w-3.5 h-3.5" />
                       </div>
                       <span className="text-[11px] text-gray-700 font-medium truncate">{name}</span>
                     </label>
@@ -587,9 +596,10 @@ const Dis = () => {
                   <div className="flex flex-wrap gap-1.5">
                     {selectedCategories.map(cat => {
                       const category = allCategories.find(c => c.id === cat);
+                      const Icon = category?.icon || Sofa;
                       return (
                         <span key={cat} className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[#8b9b7e]/20">
-                          {category?.icon} {category?.name}
+                          <Icon className="w-3 h-3" /> {category?.name}
                           <button onClick={() => handleCategoryChange(cat)} className="hover:text-red-500">
                             <X className="w-3 h-3" />
                           </button>
@@ -598,6 +608,7 @@ const Dis = () => {
                     })}
                     {(priceRange.min !== getProductPriceRange.min || priceRange.max !== getProductPriceRange.max) && (
                       <span className="bg-[#8b9b7e]/10 text-[#8b9b7e] px-2.5 py-1 rounded-lg text-[10px] font-medium flex items-center gap-1 border border-[#8b9b7e]/20">
+                        <CircleDollarSign className="w-3 h-3" />
                         {priceRange.min.toLocaleString('fa-IR')} - {priceRange.max.toLocaleString('fa-IR')}
                         <button onClick={() => {
                           setPriceRange(getProductPriceRange);
@@ -677,7 +688,9 @@ const Dis = () => {
             </div>
           ) : filteredProducts.length === 0 ? (
             <div className="bg-white rounded-2xl shadow-lg border border-gray-100 py-20 text-center">
-              <div className="text-7xl mb-4">🔍</div>
+              <div className="text-7xl mb-4 flex justify-center">
+                <Search className="w-24 h-24 text-gray-300" strokeWidth={1.5} />
+              </div>
               <h3 className="text-2xl font-semibold text-gray-700 mb-2">محصول تخفیف‌داری یافت نشد!</h3>
               <p className="text-gray-500">لطفاً فیلترهای خود را تغییر دهید.</p>
               <button 
@@ -722,8 +735,9 @@ const Dis = () => {
                         </button>
 
                         {hasDiscount && (
-                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#8b9b7e] text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-lg">
-                            {product.discountPercentage}% تخفیف
+                          <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#8b9b7e] text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full shadow-lg flex items-center gap-1">
+                            <Percent className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                            {product.discountPercentage}%
                           </div>
                         )}
 

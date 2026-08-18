@@ -14,7 +14,7 @@ const FeaturedProducts = () => {
   );
 
   return (
-    <div className="max-w-[1280px] w-[95%] m-auto mt-10">
+    <div className="max-w-[1280px] w-[95%] m-auto my-10">
 
       {/* green section */}
       <section className="bg-primary h-[120px] sm:h-[180px] rounded-tl-[25px] rounded-tr-[25px] py-2">

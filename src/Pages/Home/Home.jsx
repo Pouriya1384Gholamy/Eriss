@@ -3,7 +3,6 @@ import Header from '../../Components/layout/Header'
 import UnderHeader from '../../Components/layout/UnderHeader'
 import HeroSection from './Components/HeroSection'
 import FeaturedProducts from './Components/FeaturedProducts'
-import Banner from './Components/Banner'
 import NewProduct from './Components/NewProduct'
 import Xbar from './Components/Xbar'
 import Discount from './Components/Discount'
@@ -20,7 +19,6 @@ function Home() {
         <UnderHeader />
         <HeroSection />
         <FeaturedProducts />
-        <Banner />
         <NewProduct />
         <Xbar />
         <Discount />
