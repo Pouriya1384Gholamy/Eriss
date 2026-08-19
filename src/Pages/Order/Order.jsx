@@ -5,11 +5,9 @@ import {
   CalendarDays,
   CheckCircle2,
   ChevronLeft,
-  Clock3,
   Copy,
   CreditCard,
   FileText,
-  Hash,
   Headphones,
   Mail,
   MapPin,
@@ -58,22 +56,19 @@ const CallModal = ({ isOpen, onClose, onCall }) => {
 
   return (
     <>
-      {/* Overlay */}
       <div
         className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200"
         onClick={onClose}
       />
 
-      {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div className="w-full max-w-md animate-in zoom-in-95 duration-200">
           <div className="relative overflow-hidden rounded-3xl bg-white shadow-2xl shadow-slate-900/30">
-            {/* Decorative */}
-            <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-sky-100/50 blur-2xl" />
+            <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-[#9EAD8C]/20 blur-2xl" />
 
             <div className="relative p-6">
               <div className="text-center">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-sky-100 text-sky-600">
+                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#9EAD8C]/10 text-[#8A9A7B]">
                   <Headphones className="h-8 w-8" />
                 </div>
 
@@ -102,7 +97,7 @@ const CallModal = ({ isOpen, onClose, onCall }) => {
 
                   <button
                     onClick={onCall}
-                    className="flex-1 rounded-2xl bg-sky-500 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-sky-200 transition hover:bg-sky-600 active:scale-95"
+                    className="flex-1 rounded-2xl bg-[#9EAD8C] px-4 py-3 text-sm font-bold text-white shadow-lg shadow-[#9EAD8C]/30 transition hover:bg-[#8A9A7B] active:scale-95"
                   >
                     <Phone className="ml-2 inline h-4 w-4" />
                     زنگ بزن
@@ -129,18 +124,18 @@ const SectionCard = ({
 }) => {
   return (
     <section
-      className={`relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-[0_14px_40px_-28px_rgba(15,23,42,.5)] ${className}`}
+      className={`relative overflow-hidden rounded-3xl border border-[#9EAD8C]/30 bg-white shadow-[0_14px_40px_-28px_rgba(158,173,140,.4)] ${className}`}
     >
-      <div className="pointer-events-none absolute -left-10 -top-12 h-28 w-28 rounded-full bg-sky-100/50 blur-2xl" />
+      <div className="pointer-events-none absolute -left-10 -top-12 h-28 w-28 rounded-full bg-[#9EAD8C]/20 blur-2xl" />
 
-      <div className="relative flex items-center gap-3 border-b border-slate-100 px-5 py-4 sm:px-6">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-slate-900/10">
+      <div className="relative flex items-center gap-3 border-b border-[#9EAD8C]/20 px-5 py-4 sm:px-6">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-[#9EAD8C] text-white shadow-lg shadow-[#9EAD8C]/30">
           <Icon className="h-5 w-5" aria-hidden="true" />
         </div>
 
         <div>
           {eyebrow && (
-            <p className="mb-0.5 text-[10px] font-bold tracking-widest text-slate-400">
+            <p className="mb-0.5 text-[10px] font-bold tracking-widest text-[#8A9A7B]">
               {eyebrow}
             </p>
           )}
@@ -161,13 +156,13 @@ const InfoItem = ({
   valueClassName = "",
 }) => {
   return (
-    <div className="group flex min-w-0 items-start gap-3 rounded-2xl border border-slate-100 bg-slate-50/70 p-3.5 transition hover:border-slate-200 hover:bg-white hover:shadow-sm">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-slate-500 shadow-sm ring-1 ring-slate-200/80 group-hover:text-slate-900">
+    <div className="group flex min-w-0 items-start gap-3 rounded-2xl border border-[#9EAD8C]/20 bg-slate-50/70 p-3.5 transition hover:border-[#9EAD8C] hover:bg-white hover:shadow-sm">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-[#8A9A7B] shadow-sm ring-1 ring-[#9EAD8C]/30 group-hover:text-[#9EAD8C]">
         <Icon className="h-4 w-4" aria-hidden="true" />
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="text-[11px] font-medium text-slate-400">{label}</p>
+        <p className="text-[11px] font-medium text-[#8A9A7B]">{label}</p>
 
         <p
           className={`mt-1 break-words text-xs font-bold leading-6 text-slate-800 ${valueClassName}`}
@@ -183,7 +178,7 @@ const SummaryRow = ({ label, value, strong = false }) => {
   return (
     <div
       className={`flex items-center justify-between gap-4 py-2.5 ${
-        strong ? "mt-2 border-t border-dashed border-slate-200 pt-4" : ""
+        strong ? "mt-2 border-t border-dashed border-[#9EAD8C]/30 pt-4" : ""
       }`}
     >
       <span
@@ -200,7 +195,7 @@ const SummaryRow = ({ label, value, strong = false }) => {
         dir="ltr"
         className={
           strong
-            ? "text-base font-black text-slate-900"
+            ? "text-base font-black text-[#8A9A7B]"
             : "text-sm font-bold text-slate-700"
         }
       >
@@ -212,8 +207,8 @@ const SummaryRow = ({ label, value, strong = false }) => {
 
 const StatusBadge = ({ children }) => {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1.5 text-[11px] font-extrabold text-emerald-700 ring-1 ring-inset ring-emerald-200">
-      <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#9EAD8C]/20 px-3 py-1.5 text-[11px] font-extrabold text-[#8A9A7B] ring-1 ring-inset ring-[#9EAD8C]/30">
+      <CheckCircle2 className="h-3.5 w-3.5 text-[#8A9A7B]" aria-hidden="true" />
       {children}
     </span>
   );
@@ -223,10 +218,10 @@ const ProductThumbnail = ({ src, alt }) => {
   const [hasError, setHasError] = useState(false);
 
   return (
-    <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-slate-200 bg-slate-100 shadow-inner sm:h-28 sm:w-28">
+    <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#9EAD8C]/30 bg-slate-100 shadow-inner sm:h-28 sm:w-28">
       {hasError ? (
         <Package
-          className="h-10 w-10 text-slate-400"
+          className="h-10 w-10 text-[#9EAD8C]"
           aria-label="تصویر محصول موجود نیست"
         />
       ) : (
@@ -254,10 +249,10 @@ const ActionButton = ({
       onClick={onClick}
       title={title}
       aria-label={title || children}
-      className={`inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-2xl px-3 text-xs font-extrabold transition focus:outline-none focus:ring-4 focus:ring-slate-300 active:scale-[.98] ${
+      className={`inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-2xl px-3 text-xs font-extrabold transition focus:outline-none focus:ring-4 focus:ring-[#9EAD8C]/50 active:scale-[.98] ${
         primary
-          ? "bg-slate-900 text-white shadow-lg shadow-slate-900/15 hover:bg-slate-800"
-          : "border border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-50"
+          ? "bg-[#9EAD8C] text-white shadow-lg shadow-[#9EAD8C]/30 hover:bg-[#8A9A7B]"
+          : "border border-[#9EAD8C] bg-white text-[#8A9A7B] hover:bg-[#9EAD8C]/10 hover:border-[#8A9A7B]"
       }`}
     >
       <Icon className="h-4 w-4" aria-hidden="true" />
@@ -330,7 +325,6 @@ const Order = () => {
         setShowToast(false);
       }, 3000);
     } catch {
-      // Fallback
       const textArea = document.createElement("textarea");
       textArea.value = orderData.trackingCode;
       document.body.appendChild(textArea);
@@ -355,14 +349,12 @@ const Order = () => {
   };
 
   const handleMakeCall = () => {
-    // باز کردن صفحه تماس گوشی
     window.location.href = `tel:${orderData.supportPhone}`;
     setShowCallModal(false);
   };
 
   // ========== Tracking Handlers ==========
   const handleTrackOrder = () => {
-    // باز کردن لینک پیگیری در تب جدید
     window.open(orderData.trackingUrl, "_blank");
   };
 
@@ -387,8 +379,8 @@ const Order = () => {
         className="min-h-screen bg-slate-100 px-4 py-5 text-slate-900 sm:px-6 lg:px-8 lg:py-8"
       >
         <div className="mx-auto max-w-7xl">
-          <header className="relative mb-6 overflow-hidden rounded-3xl bg-slate-900 px-5 py-6 text-white shadow-2xl shadow-slate-900/15 sm:px-8">
-            <div className="pointer-events-none absolute -left-16 -top-20 h-64 w-64 rounded-full bg-sky-400/20 blur-3xl" />
+          <header className="relative mb-6 overflow-hidden rounded-3xl bg-[#9EAD8C] px-5 py-6 text-white shadow-2xl shadow-[#9EAD8C]/30 sm:px-8">
+            <div className="pointer-events-none absolute -left-16 -top-20 h-64 w-64 rounded-full bg-white/20 blur-3xl" />
 
             <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -397,14 +389,14 @@ const Order = () => {
                   onClick={() => navigate(-1)}
                   title="بازگشت به صفحه قبل"
                   aria-label="بازگشت به صفحه قبل"
-                  className="mb-5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-xs font-bold text-slate-200 transition hover:bg-white/15 focus:outline-none focus:ring-4 focus:ring-white/20"
+                  className="mb-5 inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-3 py-2 text-xs font-bold text-white transition hover:bg-white/20 focus:outline-none focus:ring-4 focus:ring-white/30"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   بازگشت
                 </button>
 
                 <div className="mb-2 flex flex-wrap items-center gap-3">
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-white/70">
                     داشبورد
                     <ChevronLeft className="mx-1 inline h-3 w-3" />
                     سفارش‌ها
@@ -415,21 +407,21 @@ const Order = () => {
 
                 <h1 className="text-2xl font-black tracking-tight sm:text-3xl">
                   جزئیات سفارش{" "}
-                  <span dir="ltr" className="text-sky-300">
+                  <span dir="ltr" className="text-white/80">
                     #{orderData.id}
                   </span>
                 </h1>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm sm:min-w-52">
-                <div className="mb-2 flex items-center gap-2 text-xs text-slate-400">
+              <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur-sm sm:min-w-52">
+                <div className="mb-2 flex items-center gap-2 text-xs text-white/70">
                   <FileText className="h-4 w-4" />
                   زمان ثبت سفارش
                 </div>
 
                 <p className="text-sm font-bold">{orderData.date}</p>
 
-                <p dir="ltr" className="mt-1 text-xs text-slate-300">
+                <p dir="ltr" className="mt-1 text-xs text-white/60">
                   {orderData.time}
                 </p>
               </div>
@@ -538,12 +530,12 @@ const Order = () => {
                         </p>
                       </div>
 
-                      <span className="rounded-xl bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600">
+                      <span className="rounded-xl bg-[#9EAD8C]/10 px-3 py-1.5 text-xs font-bold text-[#8A9A7B]">
                         تعداد: {orderData.product.quantity}
                       </span>
                     </div>
 
-                    <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
+                    <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-[#9EAD8C]/20 pt-4">
                       <span
                         dir="ltr"
                         className="text-sm font-bold text-slate-500"
@@ -554,7 +546,7 @@ const Order = () => {
 
                       <span
                         dir="ltr"
-                        className="text-lg font-black text-emerald-600"
+                        className="text-lg font-black text-[#8A9A7B]"
                       >
                         {orderData.product.total}
                       </span>
@@ -589,13 +581,13 @@ const Order = () => {
                 />
 
                 {/* ========== کد رهگیری پست ========== */}
-                <div className="mt-5 flex items-center gap-3 rounded-2xl bg-sky-50 p-4 border border-sky-100">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-100 text-sky-700 shadow-sm">
+                <div className="mt-5 flex items-center gap-3 rounded-2xl bg-[#9EAD8C]/10 p-4 border border-[#9EAD8C]/30">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#9EAD8C] text-white shadow-sm">
                     <Truck className="h-4 w-4" />
                   </div>
 
                   <div className="flex-1">
-                    <p className="text-[11px] font-medium text-sky-600">
+                    <p className="text-[11px] font-medium text-[#8A9A7B]">
                       کد رهگیری پست
                     </p>
 
@@ -609,14 +601,13 @@ const Order = () => {
                     title="کپی کد رهگیری"
                     aria-label="کپی کد رهگیری"
                     onClick={copyTrackingCode}
-                    className="rounded-lg p-2 text-sky-500 hover:bg-white hover:text-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-300 transition"
+                    className="rounded-lg p-2 text-[#8A9A7B] hover:bg-white hover:text-[#9EAD8C] focus:outline-none focus:ring-2 focus:ring-[#9EAD8C]/50 transition"
                   >
                     <Copy className="h-4 w-4" />
                   </button>
                 </div>
 
                 <div className="mt-5 flex gap-3">
-                  {/* ========== دکمه پیگیری ========== */}
                   <ActionButton
                     icon={ExternalLink}
                     primary
@@ -626,7 +617,6 @@ const Order = () => {
                     پیگیری سفارش
                   </ActionButton>
 
-                  {/* ========== دکمه پشتیبانی ========== */}
                   <ActionButton
                     icon={Headphones}
                     title="تماس با پشتیبانی"
@@ -636,24 +626,23 @@ const Order = () => {
                   </ActionButton>
                 </div>
 
-                {/* ========== لینک کمکی پیگیری ========== */}
                 <button
                   onClick={handleTrackOrder}
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-sky-50 px-4 py-2.5 text-xs font-bold text-sky-600 transition hover:bg-sky-100"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-[#9EAD8C]/10 px-4 py-2.5 text-xs font-bold text-[#8A9A7B] transition hover:bg-[#9EAD8C]/20"
                 >
                   <ExternalLink className="h-4 w-4" />
                   وارد سایت پست شوید و سفارش خود را پیگیری کنید
                 </button>
               </SectionCard>
 
-              <div className="rounded-3xl border border-sky-100 bg-gradient-to-br from-sky-50 to-white p-5">
+              <div className="rounded-3xl border border-[#9EAD8C]/30 bg-gradient-to-br from-[#9EAD8C]/10 to-white p-5">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-sky-100 text-sky-600">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#9EAD8C]/20 text-[#8A9A7B]">
                     <Headphones className="h-5 w-5" />
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-extrabold">
+                    <h3 className="text-sm font-extrabold text-slate-900">
                       به کمک نیاز دارید؟
                     </h3>
 
@@ -663,7 +652,7 @@ const Order = () => {
 
                     <button
                       onClick={handleOpenCallModal}
-                      className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700"
+                      className="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-[#8A9A7B] hover:text-[#9EAD8C]"
                     >
                       <Phone className="h-3.5 w-3.5" />
                       {orderData.supportPhone}
