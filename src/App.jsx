@@ -9,6 +9,7 @@ import DiscountPage from "./Pages/Discount/DiscountPage";
 import Admin from './Pages/Admin/Admin';
 import CustomerAccount from './Pages/CustomerAccount/CustomerAccount';
 import About from "./Pages/About/About"
+import Order from './Pages/Order/Order';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/Admin-Pannel' element={<Admin />} />
         <Route path='/CustomerAccount' element={<CustomerAccount />} />
         <Route path='/about' element={<About />} />
+        <Route path='/order' element={<Order />} />
       </Routes>
     </>
   );
