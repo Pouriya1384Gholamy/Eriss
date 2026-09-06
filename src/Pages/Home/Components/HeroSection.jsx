@@ -103,7 +103,7 @@ function HeroSection() {
         <img 
           src={bannerImage1} 
           alt="بنر ویژه" 
-          className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
         />
         
         {/* Triple border effect */}
