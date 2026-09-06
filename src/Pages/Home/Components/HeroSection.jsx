@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Leaf, Sparkles } from 'lucide-react';
 import woodImage from "../../../assets/img/wood.jpg";
 import bannerImage from "../../../assets/img/banner.png"; 
-import bannerImage1 from "../../../assets/img/img.png"; 
+import bannerImage1 from "../../../assets/img/img.png";
+import bannerImage2 from "../../../assets/img/banner2.png";
 
 function HeroSection() {
   const navigate = useNavigate();
@@ -68,15 +69,15 @@ function HeroSection() {
         <div className='flex flex-col gap-2 sm:gap-3'>
           {/* Box 1 - Premium */}
           <div className='relative w-[170px] h-[180px] sm:w-[120px] sm:h-[145px] md:w-[195px] md:h-[168px] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1 group'
-               style={{ background: 'linear-gradient(145deg, #9EAD8C, #8A9A7B)' }}>
+              style={{ background: 'linear-gradient(145deg, #9EAD8C, #8A9A7B)' }}>
+            
+            {/* ✅ استفاده از woodImage به عنوان بک‌گراند اول */}
             <div className="absolute inset-0 bg-cover bg-center opacity-20 group-hover:opacity-30 transition-opacity duration-500"
-                 style={{ backgroundImage: `url(${woodImage})` }} /> {/* ✅ استفاده از woodImage */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-white font-medium text-xs mt-1">چوب طبیعی</span>
-            </div>
+                style={{ backgroundImage: `url(${woodImage})` }} />
+            
+            {/* ✅ اضافه کردن bannerImage2 به عنوان بک‌گراند دوم */}
+            <div className="absolute inset-0 bg-cover bg-center opacity-90 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ backgroundImage: `url(${bannerImage2})` }} />
             <div className="absolute inset-1.5 rounded-xl border-2 border-white/30 group-hover:border-white/50 transition-colors duration-300 pointer-events-none" />
           </div>
           
